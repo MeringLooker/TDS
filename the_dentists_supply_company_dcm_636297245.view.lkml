@@ -1,10 +1,17 @@
-view: the_dentists_supply_company_dcm_tdsc_fy1819_junedecember_636039538 {
-  sql_table_name: public.the dentists supply company_dcm_tdsc fy1819 june-december_636039538 ;;
+view: the_dentists_supply_company_dcm_636297245 {
+  view_label: "TDS DoubleClick"
+  sql_table_name: public.the dentists supply company_dcm_636297245 ;;
 
   dimension: id {
     primary_key: yes
+    hidden: yes
     type: string
     sql: ${TABLE}.id ;;
+  }
+
+  dimension: join_id {
+    type: string
+    sql: ${placement_id}||';'||${creative_id}||';'|| ${ad_id} ;;
   }
 
   dimension: __id {
@@ -18,6 +25,7 @@ view: the_dentists_supply_company_dcm_tdsc_fy1819_junedecember_636039538 {
   }
 
   dimension_group: __senttime {
+    label: "Sent Time"
     type: time
     timeframes: [
       raw,
@@ -159,6 +167,12 @@ view: the_dentists_supply_company_dcm_tdsc_fy1819_junedecember_636039538 {
     sql: ${TABLE}."media cost" ;;
   }
 
+  dimension_group: month {
+    type:  time
+    timeframes: [year, month]
+    sql:TO_DATE(${TABLE}.month, 'YYYY-MM' ;;
+  }
+
   dimension: placement {
     type: string
     sql: ${TABLE}.placement ;;
@@ -180,9 +194,21 @@ view: the_dentists_supply_company_dcm_tdsc_fy1819_junedecember_636039538 {
   }
 
   dimension: site_dcm {
+    hidden:  yes
     type: string
     sql: ${TABLE}."site (dcm)" ;;
   }
+
+  dimension: formatted_site_dcm {
+    label: "Publishers"
+    type: string
+    sql:
+      CASE
+       WHEN ${site_dcm} = 'digilant.com' THEN 'Digilant'
+       WHEN ${site_dcm} = 'dentaltown.com' THEN 'Dental Town'
+       ELSE ${site_dcm}
+}
+
 
   dimension: total_conversions {
     type: number
@@ -207,5 +233,75 @@ view: the_dentists_supply_company_dcm_tdsc_fy1819_junedecember_636039538 {
   measure: count {
     type: count
     drill_fields: [id]
+  }
+
+   measure: total_impressions {
+    type: sum
+    sql: ${impressions} ;;
+    value_format: "#,##0"
+    drill_fields: [detail*]
+  }
+
+  measure: total_clicks {
+    type: sum
+    sql: ${clicks} ;;
+    value_format: "#,##0"
+    drill_fields: [detail*]
+  }
+
+  measure: total_spend {
+    type: sum
+    sql: ${media_cost} ;;
+    value_format: "$#,##0.00"
+    drill_fields: [detail*]
+  }
+
+  measure: total_view_through_conversions {
+    type: number
+    sql: ${viewthrough_conversions} ;;
+    value_format: "#,##0"
+    drill_fields: [detail*]
+  }
+
+  measure: total_click_through_conversions {
+    type: sum
+    sql: ${clickthrough_conversions} ;;
+    value_format: "#,##0"
+    drill_fields: [detail*]
+  }
+
+  measure: click_through_conversion_rate {
+    type: number
+    sql: ${total_click_through_conversions}/nullif(${total_clicks},0) ;;
+    value_format: "0.00%"
+    drill_fields: [detail*]
+  }
+
+  measure: total_conversions {
+    type: sum
+    sql: ${viewthrough_conversions}+${clickthrough_conversions} ;;
+    drill_fields: [detail*]
+  }
+
+  measure: CTR {
+    label: "CTR"
+    description: "Click Through Rate"
+    type: number
+    sql: ${total_clicks}/nullif(${total_impressions},0) ;;
+    value_format: "0.00\%"
+    drill_fields: [detail*]
+  }
+
+  measure: CPC {
+    label: "CPC"
+    description: "Cost per Click"
+    type: number
+    sql: ${total_spend}/nullif(${total_clicks},0) ;;
+    value_format: "$#,##0.00"
+    drill_fields: [detail*]
+  }
+
+  set: detail {
+    fields: [campaign,formatted_site_dcm,total_revenue]
   }
 }

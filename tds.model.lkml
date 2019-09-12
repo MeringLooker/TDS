@@ -10,7 +10,12 @@ datagroup: tds_default_datagroup {
 
 persist_with: tds_default_datagroup
 
-explore: tdsc_ga_adwords {}
+explore: tdsc_ga_adwords {
+  label: "2019 TDS Digital"
+  group_label: "TDS"
+
+
+}
 
 # - explore: adwords_ad_performance_report
 
