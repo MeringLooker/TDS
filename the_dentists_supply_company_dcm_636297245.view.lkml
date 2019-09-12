@@ -118,6 +118,11 @@ view: the_dentists_supply_company_dcm_636297245 {
     sql: ${TABLE}.campaign ;;
   }
 
+  dimension: campaign_id{
+    type: string
+    sql:${TABLE}."campaign id" ;;
+  }
+
   dimension: clicks {
     type: number
     sql: ${TABLE}.clicks ;;
@@ -191,6 +196,12 @@ view: the_dentists_supply_company_dcm_636297245 {
   dimension: planned_media_cost {
     type: number
     sql: ${TABLE}."planned media cost" ;;
+  }
+
+  dimension: platform_type{
+    label: "Device"
+    type: string
+    sql:${TABLE}."platform type" ;;
   }
 
   dimension: site_dcm {
