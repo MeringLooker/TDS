@@ -11,10 +11,13 @@ datagroup: tds_default_datagroup {
 persist_with: tds_default_datagroup
 
 explore: tdsc_ga_adwords {
-  label: "2019 TDS Digital"
+  label: "AdWords"
   group_label: "TDS"
-
-
+}
+explore: the_dentists_supply_company_dcm_636297245 {
+  label: "DoubleClick"
+  view_label: "DoubleClick"
+  group_label: "TDS"
 }
 
 # - explore: adwords_ad_performance_report

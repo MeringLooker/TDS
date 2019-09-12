@@ -198,16 +198,22 @@ view: the_dentists_supply_company_dcm_636297245 {
     sql: ${TABLE}."planned media cost" ;;
   }
 
-  dimension: platform_type{
-    label: "Device"
+  dimension: platform_type {
+    hidden:  yes
+    type: string
+    sql: ${TABLE}."platform type";;
+  }
+
+  dimension: formatted_platform_type {
+    label: "Device Category"
     type: string
     sql:
       CASE
-        WHEN ${platform_type} LIKE Mobile% THEN 'Mobile'
+        WHEN ${platform_type} LIKE 'Mobile%' THEN 'Mobile'
         WHEN ${platform_type} = '(not set)' THEN 'Uncategorized'
-        WHEN ${platform_type} is null THEN 'Uncategorized'
         ELSE ${platform_type};;
   }
+
 
   dimension: site_dcm {
     hidden:  yes
@@ -222,11 +228,10 @@ view: the_dentists_supply_company_dcm_636297245 {
       CASE
        WHEN ${site_dcm} = 'digilant.com' THEN 'Digilant'
        WHEN ${site_dcm} = 'dentaltown.com' THEN 'Dental Town'
-       ELSE ${site_dcm}
-}
+       ELSE ${site_dcm};;
+  }
 
-
-  dimension: total_conversions {
+  measure: total_conversions {
     type: number
     sql: ${TABLE}."total conversions" ;;
   }
@@ -293,7 +298,8 @@ view: the_dentists_supply_company_dcm_636297245 {
     drill_fields: [detail*]
   }
 
-  measure: total_conversions {
+  measure: ttl_conversions {
+    label: "Total Conversions"
     type: sum
     sql: ${viewthrough_conversions}+${clickthrough_conversions} ;;
     drill_fields: [detail*]
