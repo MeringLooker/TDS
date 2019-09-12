@@ -201,7 +201,12 @@ view: the_dentists_supply_company_dcm_636297245 {
   dimension: platform_type{
     label: "Device"
     type: string
-    sql:${TABLE}."platform type" ;;
+    sql:
+      CASE
+        WHEN ${platform_type} LIKE Mobile% THEN 'Mobile'
+        WHEN ${platform_type} = '(not set)' THEN 'Uncategorized'
+        WHEN ${platform_type} is null THEN 'Uncategorized'
+        ELSE ${platform_type};;
   }
 
   dimension: site_dcm {
