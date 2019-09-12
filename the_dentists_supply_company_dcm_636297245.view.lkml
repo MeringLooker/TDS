@@ -324,6 +324,6 @@ view: the_dentists_supply_company_dcm_636297245 {
   }
 
   set: detail {
-    fields: [campaign,formatted_site_dcm,total_revenue]
+    fields: [campaign,formatted_site_dcm,formatted_platform_type]
   }
 }
