@@ -27,10 +27,22 @@ explore: the_dentists_supply_company_dcm_636297245 {
     sql_on: ${the_dentists_supply_company_dcm_636297245.join_id} = ${tdsc_ga_overall.keyword} ;;
   }
 }
-explore: tdsc_ga_adwords {
-  label: "AdWords"
-  group_label: "TDS"
 
+explore: tdsc_adwords_sem_adgroup_performance_report {
+  label: "SEM"
+  group_label: "TDS"
+  sql_always_where: ${month_month} is not null ;;
+  #   always_filter: {
+#     filters: {
+#       field: the_dentists_supply_company_dcm_636297245.month_month
+#       value: "-NULL"
+#   }
+  join: tdsc_ga_adwords {
+    view_label: "Google Analytics"
+    type: full_outer
+    relationship: one_to_one
+    sql_on: ${tdsc_adwords_sem_adgroup_performance_report.ad_group_id} = ${tdsc_ga_adwords.adwordsadgroupid} ;;
+  }
 }
 
 

@@ -8,6 +8,7 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   }
 
   dimension_group: __senttime {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -22,6 +23,7 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   }
 
   dimension_group: __updatetime {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -114,7 +116,14 @@ view: tdsc_adwords_sem_adgroup_performance_report {
     sql: ${TABLE}.impressions ;;
   }
 
+  dimension_group: month {
+    type:  time
+    timeframes: [year, month]
+    sql:TO_DATE(${TABLE}.month, 'YYYY-MM' ;;
+  }
+
   dimension: reportname {
+    hidden: yes
     type: string
     sql: ${TABLE}.reportname ;;
   }
@@ -137,5 +146,61 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   measure: count {
     type: count
     drill_fields: [id, reportname]
+  }
+
+  measure: total_impressions {
+    label: "Total Impressions"
+    type: sum
+    sql: ${impressions} ;;
+    value_format: "#,##0"
+    drill_fields: [detail*]
+  }
+
+  measure: total_clicks {
+    label: "Total Clicks"
+    type: sum
+    sql: ${clicks} ;;
+    value_format: "#,##0"
+    drill_fields: [detail*]
+    }
+
+  measure: clickthrough_rate {
+    label: "CTR"
+    type:  number
+    sql: ${total_clicks}/nullif(${total_impressions},0)  ;;
+    value_format: "#,##0.00"
+    drill_fields: [detail*]
+  }
+
+  measure: total_cost {
+    type: sum
+    sql: (${cost}/1000000) ;;
+    value_format: "$#,##0.00"
+    drill_fields: [detail*]
+  }
+
+  measure: cost_per_click {
+    type: number
+    sql:  ({${total_cost}/nullif(${total_clicks}, 0) ;;
+    value_format: "$#,##0.00"
+    drill_fields: [detail*]
+  }
+
+  measure: cost_per_session {
+    type: number
+    sql:  (${total_cost}/nullif(${tdsc_ga_adwords.sessions}, 0) ;;
+    value_format: "$#,##0.00"
+    drill_fields: [detail*]
+  }
+
+  measure: total_sessions {
+    type: sum
+    sql: ${tdsc_ga_adwords.sessions} ;;
+    value_format: "#,##0"
+    drill_fields: [detail*]
+  }
+
+  set: detail {
+    fields: [ad_group,campaign,device]
   }
 }
