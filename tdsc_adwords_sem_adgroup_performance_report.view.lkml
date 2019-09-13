@@ -120,6 +120,7 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   }
 
   dimension: formatted_device {
+    label: "Device Type"
     type: string
     sql:
       CASE
