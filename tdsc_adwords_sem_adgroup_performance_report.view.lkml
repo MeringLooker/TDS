@@ -40,14 +40,17 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   dimension: account {
     type: string
     sql: ${TABLE}.account ;;
+    drill_fields: [campaign, ad_group, device]
   }
 
   dimension: ad_group {
     type: string
     sql: ${TABLE}."ad group" ;;
+    drill_fields: [detail*]
   }
 
   dimension: ad_group_id {
+    hidden:  yes
     type: number
     sql: ${TABLE}."ad group id" ;;
   }
@@ -60,14 +63,17 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   dimension: avg__position {
     type: number
     sql: ${TABLE}."avg. position" ;;
+    drill_fields: [campaign,ad_group]
   }
 
   dimension: campaign {
     type: string
     sql: ${TABLE}.campaign ;;
+    drill_fields: [ad_group,device]
   }
 
   dimension: campaign_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."campaign id" ;;
   }
@@ -130,11 +136,13 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   }
 
   dimension: search_impr__share {
+    hidden: yes
     type: string
     sql: ${TABLE}."search impr. share" ;;
   }
 
   dimension: search_lost_is_rank {
+    hidden: yes
     type: string
     sql: ${TABLE}."search lost is (rank)" ;;
   }
@@ -201,7 +209,14 @@ view: tdsc_adwords_sem_adgroup_performance_report {
     drill_fields: [detail*]
   }
 
+  measure: total_conversions {
+    type: sum
+    sql: ${conversions} ;;
+    value_format: "#,##0"
+    drill_fields: [detail*]
+  }
+
   set: detail {
-    fields: [,ad_group,campaign,device]
+    fields: [ad_group,campaign,device]
   }
 }
