@@ -114,9 +114,20 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   }
 
   dimension: device {
+    hidden: yes
     type: string
-    sql: ${TABLE}.device ;;
+    sql: ${TABLE}.device;;
   }
+
+  dimension: formatted_device {
+    type: string
+    sql:
+      CASE
+        WHEN ${device} LIKE 'Mobile%' THEN 'Mobile'
+        WHEN ${device} = 'Tablet%' THEN 'Tablet'
+        WHEN ${device} LIKE 'TV Screens' THEN 'TV'
+        ELSE ${device};;
+      }
 
   dimension: impressions {
     type: number
@@ -154,7 +165,7 @@ view: tdsc_adwords_sem_adgroup_performance_report {
 
   measure: count {
     type: count
-    drill_fields: [id, reportname]
+    drill_fields: [detail*,id, reportname]
   }
 
   measure: total_impressions {
@@ -216,7 +227,37 @@ view: tdsc_adwords_sem_adgroup_performance_report {
     drill_fields: [detail*]
   }
 
+  measure: cost_per_conversion {
+    type: number
+    sql:  ${total_cost}/${total_conversions};;
+    value_format: "$#,##0.00"
+    drill_fields: [detail*]
+  }
+
+  measure: total_conversion_value {
+    type: sum
+    sql: ${total_conv__value} ;;
+    value_format: "$#,##0.00"
+    drill_fields: [detail*]
+  }
+
+  measure: avg_order_value {
+    label: "Avg. Order Value"
+    type: number
+    sql: ${total_conversions}/${total ${conversions};;
+    value_format: "$#,##0.00"
+    drill_fields: [detail*]
+  }
+
+  measure: return_on_ad_spend {
+    label: "ROAS"
+    type: number
+    sql: ${total_cost}/${total_conversion_value} ;;
+    value_format: "##0.00"
+    drill_fields: [detail*]
+  }
+
   set: detail {
-    fields: [ad_group,campaign,device]
+    fields: [ad_group,campaign,formatted_device]
   }
 }
