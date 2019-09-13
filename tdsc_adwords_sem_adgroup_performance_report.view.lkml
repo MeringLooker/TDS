@@ -128,7 +128,7 @@ view: tdsc_adwords_sem_adgroup_performance_report {
         WHEN ${device} = 'Tablet%' THEN 'Tablet'
         WHEN ${device} LIKE 'TV Screens' THEN 'TV'
         ELSE ${device};;
-      }
+  }
 
   dimension: impressions {
     type: number
