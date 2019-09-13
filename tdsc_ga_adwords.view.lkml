@@ -125,4 +125,5 @@ view: tdsc_ga_adwords {
     type: count
     drill_fields: [id]
   }
+
 }

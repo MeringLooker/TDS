@@ -1,6 +1,6 @@
 view: the_dentists_supply_company_dcm_636297245 {
   view_label: "TDS DoubleClick"
-  sql_table_name: public.the dentists supply company_dcm_636297245 ;;
+  sql_table_name: public."the dentists supply company_dcm_636297245" ;;
 
   dimension: id {
     primary_key: yes

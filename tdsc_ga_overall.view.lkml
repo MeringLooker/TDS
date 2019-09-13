@@ -123,4 +123,11 @@ view: tdsc_ga_overall {
     type: count
     drill_fields: [id]
   }
+
+  measure: total_sessions {
+    label: "Total Sessions"
+    type: sum
+    sql:  ${sessions} ;;
+    value_format: "#,##0"
+  }
 }
