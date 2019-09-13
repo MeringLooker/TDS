@@ -168,7 +168,7 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   measure: clickthrough_rate {
     label: "CTR"
     type:  number
-    sql: (${total_clicks}/nullif(${total_impressions},0)  ;;
+    sql: (${total_clicks}/${total_impressions})  ;;
     value_format: "0.00%"
     drill_fields: [detail*]
   }
