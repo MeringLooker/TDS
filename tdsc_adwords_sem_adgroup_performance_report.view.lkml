@@ -73,6 +73,7 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   }
 
   dimension: campaign_state {
+    hidden:  yes
     type: string
     sql: ${TABLE}."campaign state" ;;
   }

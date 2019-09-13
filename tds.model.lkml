@@ -14,12 +14,7 @@ explore: the_dentists_supply_company_dcm_636297245 {
   label: "TDS DoubleClick"
   view_label: "DoubleClick"
   group_label: "TDS"
-  sql_always_where: ${month_month} is not null ;;
-  #   always_filter: {
-#     filters: {
-#       field: the_dentists_supply_company_dcm_636297245.month_month
-#       value: "-NULL"
-#   }
+
   join: tdsc_ga_overall {
     view_label: "Google Analytics"
     type: full_outer
@@ -30,13 +25,9 @@ explore: the_dentists_supply_company_dcm_636297245 {
 
 explore: tdsc_adwords_sem_adgroup_performance_report {
   label: "SEM"
+  view_label: "AdWords SEM"
   group_label: "TDS"
-  sql_always_where: ${month_month} is not null ;;
-  #   always_filter: {
-#     filters: {
-#       field: the_dentists_supply_company_dcm_636297245.month_month
-#       value: "-NULL"
-#   }
+
   join: tdsc_ga_adwords {
     view_label: "Google Analytics"
     type: full_outer
