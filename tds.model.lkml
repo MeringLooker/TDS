@@ -10,15 +10,28 @@ datagroup: tds_default_datagroup {
 
 persist_with: tds_default_datagroup
 
+explore: the_dentists_supply_company_dcm_636297245 {
+  label: "TDS DoubleClick"
+  view_label: "DoubleClick"
+  group_label: "TDS"
+  sql_always_where: ${month_month} is not null ;;
+  #   always_filter: {
+#     filters: {
+#       field: the_dentists_supply_company_dcm_636297245.month_month
+#       value: "-NULL"
+#   }
+  join: tdsc_ga_overall {
+    view_label: "Google Analytics"
+    type: full_outer
+    relationship: one_to_one
+    sql_on: ${the_dentists_supply_company_dcm_636297245.join_id} = ${tdsc_ga_overall.keyword} ;;
+  }
+}
 explore: tdsc_ga_adwords {
   label: "AdWords"
   group_label: "TDS"
 }
-explore: the_dentists_supply_company_dcm_636297245 {
-  label: "DoubleClick"
-  view_label: "DoubleClick"
-  group_label: "TDS"
-}
+
 
 # - explore: adwords_ad_performance_report
 
