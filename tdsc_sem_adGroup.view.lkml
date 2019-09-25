@@ -38,6 +38,7 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   }
 
   dimension: account {
+    hidden: yes
     type: string
     sql: ${TABLE}.account ;;
     drill_fields: [campaign, ad_group, device]
@@ -46,7 +47,7 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   dimension: ad_group {
     type: string
     sql: ${TABLE}."ad group" ;;
-    drill_fields: [detail*]
+    drill_fields: [detail*,return_on_ad_spend]
   }
 
   dimension: ad_group_id {
@@ -56,11 +57,13 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   }
 
   dimension: ad_group_state {
+    hidden: yes
     type: string
     sql: ${TABLE}."ad group state" ;;
   }
 
   dimension: avg__position {
+    hidden: yes
     type: number
     sql: ${TABLE}."avg. position" ;;
     drill_fields: [campaign,ad_group]
@@ -69,7 +72,7 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   dimension: campaign {
     type: string
     sql: ${TABLE}.campaign ;;
-    drill_fields: [ad_group,device]
+    drill_fields: [ad_group,device,return_on_ad_spend]
   }
 
   dimension: campaign_id {
@@ -111,10 +114,10 @@ view: tdsc_adwords_sem_adgroup_performance_report {
       year
     ]
     sql: ${TABLE}.day ;;
+    drill_fields: [detail*]
   }
 
   dimension: device {
-    hidden: yes
     type: string
     sql: ${TABLE}.device;;
   }
@@ -125,7 +128,7 @@ view: tdsc_adwords_sem_adgroup_performance_report {
     sql:
       CASE
         WHEN ${device} LIKE 'Mobile%' THEN 'Mobile'
-        WHEN ${device} = 'Tablet%' THEN 'Tablet'
+        WHEN ${device} LIKE 'Tablet%' THEN 'Tablet'
         WHEN ${device} LIKE 'TV Screens' THEN 'TV'
         ELSE ${device};;
   }
@@ -188,28 +191,29 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   measure: clickthrough_rate {
     label: "CTR"
     type:  number
-    sql: (${total_clicks}/${total_impressions})  ;;
+    sql: 1.000 * ${total_clicks}/${total_impressions}  ;;
     value_format: "0.00%"
     drill_fields: [detail*]
   }
 
   measure: total_cost {
     type: sum
-    sql: (${cost}/1000000) ;;
+    sql: ${cost}/1000000.00 ;;
     value_format: "$#,##0.00"
     drill_fields: [detail*]
   }
 
   measure: cost_per_click {
+    label: "CPC"
     type: number
-    sql:  ({${total_cost}/nullif(${total_clicks}, 0) ;;
+    sql:  1.000 * ${total_cost}/${total_clicks} ;;
     value_format: "$#,##0.00"
     drill_fields: [detail*]
   }
 
   measure: cost_per_session {
     type: number
-    sql:  (${total_cost}/nullif(${tdsc_ga_adwords.sessions}, 0) ;;
+    sql:  1.000 * ${total_cost}/nullif(${tdsc_ga_adwords.sessions}, 0) ;;
     value_format: "$#,##0.00"
     drill_fields: [detail*]
   }
@@ -218,7 +222,7 @@ view: tdsc_adwords_sem_adgroup_performance_report {
     type: sum
     sql: ${tdsc_ga_adwords.sessions} ;;
     value_format: "#,##0"
-    drill_fields: [detail*]
+    drill_fields: [campaign,ad_group]
   }
 
   measure: total_conversions {
@@ -230,7 +234,7 @@ view: tdsc_adwords_sem_adgroup_performance_report {
 
   measure: cost_per_conversion {
     type: number
-    sql:  ${total_cost}/${total_conversions};;
+    sql:  1.000 * ${total_cost}/${total_conversions};;
     value_format: "$#,##0.00"
     drill_fields: [detail*]
   }
@@ -245,20 +249,28 @@ view: tdsc_adwords_sem_adgroup_performance_report {
   measure: avg_order_value {
     label: "Avg. Order Value"
     type: number
-    sql: ${total_conversions}/${total ${conversions};;
+    sql: ${total_conversion_value}/${total_conversions};;
     value_format: "$#,##0.00"
     drill_fields: [detail*]
   }
 
+  measure: conversion_rate {
+    type: number
+    sql: 1.000 * ${total_conversions}/${total_clicks} ;;
+    value_format: "0.00%"
+    drill_fields: [detail*]
+      }
+
   measure: return_on_ad_spend {
     label: "ROAS"
+    description: "Return on Ad Spend"
     type: number
-    sql: ${total_cost}/${total_conversion_value} ;;
+    sql: ${total_conversion_value}/${total_cost} ;;
     value_format: "##0.00"
     drill_fields: [detail*]
   }
 
   set: detail {
-    fields: [ad_group,campaign,formatted_device]
+    fields: [ad_group,campaign,formatted_device,total_impressions]
   }
 }

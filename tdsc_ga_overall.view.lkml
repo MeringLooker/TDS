@@ -69,6 +69,11 @@ view: tdsc_ga_overall {
     sql: ${TABLE}.goal4completions ;;
   }
 
+  dimension: join_id {
+    type: string
+    sql: ${keyword}||';'||${date_date} ;;
+  }
+
   dimension: keyword {
     type: string
     sql: ${TABLE}.keyword ;;
@@ -86,7 +91,9 @@ view: tdsc_ga_overall {
 
   dimension: region {
     type: string
+    map_layer_name: us_states
     sql: ${TABLE}.region ;;
+    drill_fields: [detail*]
   }
 
   dimension: sessionduration {
@@ -129,5 +136,34 @@ view: tdsc_ga_overall {
     type: sum
     sql:  ${sessions} ;;
     value_format: "#,##0"
+    drill_fields: [detail*]
   }
+
+  measure: total_transactions {
+    label: "Total Transactions"
+    type: sum
+    sql: ${transactions} ;;
+    value_format: "#,##0"
+    drill_fields: [detail*]
+  }
+
+  measure: transaction_revenue {
+    label: "Transaction Revenue"
+    type: sum
+    sql: ${transactionrevenue} ;;
+    value_format: "$#,##0.00"
+    drill_fields: [detail*]
+  }
+
+  measure: total_users {
+    label: "Total Users"
+    type: sum
+    sql: ${users} ;;
+    value_format: "#,##0"
+    drill_fields: [detail*]
+  }
+
+  set: detail {
+    fields: [region,total_sessions,total_transactions,transaction_revenue,total_users]
+}
 }

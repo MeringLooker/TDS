@@ -1,6 +1,6 @@
 view: the_dentists_supply_company_dcm_636297245 {
   view_label: "TDS DoubleClick"
-  sql_table_name: "public.the dentists supply company_dcm_636297245" ;;
+  sql_table_name: public."the dentists supply company_dcm_636297245" ;;
 
   dimension: id {
     primary_key: yes
@@ -11,7 +11,7 @@ view: the_dentists_supply_company_dcm_636297245 {
 
   dimension: join_id {
     type: string
-    sql: ${placement_id}||';'||${creative_id}||';'|| ${ad_id} ;;
+    sql: ${placement_id}||';'||${creative_id}||';'|| ${ad_id}||';'||${date_date} ;;
   }
 
   dimension: __id {
@@ -226,8 +226,8 @@ view: the_dentists_supply_company_dcm_636297245 {
     type: string
     sql:
       CASE
-       WHEN ${site_dcm} = 'digilant.com' THEN 'Digilant'
-       WHEN ${site_dcm} = 'dentaltown.com' THEN 'Dental Town'
+       WHEN ${site_dcm} = 'digilant.com' THEN 'Digilant',
+       WHEN ${site_dcm} = 'dentaltown.com' THEN 'Dental Town',
        ELSE ${site_dcm};;
   }
 
