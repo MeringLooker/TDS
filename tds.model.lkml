@@ -5,40 +5,14 @@ include: "*.view"
 
 datagroup: tds_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+  max_cache_age: "24 hour"
 }
 
 persist_with: tds_default_datagroup
 
-explore: the_dentists_supply_company_dcm_636297245 {
-  label: "DoubleClick Reporting"
+explore: the_dentists_supply_company_dcm_640625951 {
+  label: "TDSC FY1819"
   view_label: "DoubleClick"
-  group_label: "TDS"
-
-  join: tdsc_ga_overall {
-    view_label: "Google Analytics"
-    type: full_outer
-    relationship: one_to_one
-    sql_on: ${the_dentists_supply_company_dcm_636297245.join_id} = ${tdsc_ga_overall.join_id} ;;
-  }
-}
-
-explore: tdsc_adwords_sem_adgroup_performance_report {
-  label: "SEM Reporting"
-  view_label: "AdWords SEM"
-  group_label: "TDS"
-
-  join: tdsc_ga_adwords {
-    view_label: "Google Analytics"
-    type: left_outer
-    relationship: one_to_many
-    sql_on: ${tdsc_adwords_sem_adgroup_performance_report.ad_group_id} = ${tdsc_ga_adwords.adwordsadgroupid} ;;
-  }
-}
-
-explore: tdsc_ga_overall {
-  label: "Google Analytics"
-  view_label: "Google Analytics"
   group_label: "TDS"
 }
 
