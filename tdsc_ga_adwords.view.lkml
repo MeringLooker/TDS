@@ -1,65 +1,30 @@
 view: tdsc_ga_adwords {
   sql_table_name: public.tdsc_ga_adwords ;;
 
+
+#### Primary Key ####
+
   dimension: id {
     primary_key: yes
+    hidden: yes
     type: string
     sql: ${TABLE}.id ;;
   }
 
+#### Join Id ####
+
+  dimension: adwords_join_id {
+    hidden: yes
+    type: string
+    sql: ${date_date}||'|'||${adwordsadgroupid} ;;
+}
+
+#### Dimensions ####
+
   dimension: __sampled {
+    hidden: yes
     type: yesno
     sql: ${TABLE}.__sampled ;;
-  }
-
-  dimension_group: __senttime {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.__senttime ;;
-  }
-
-  dimension_group: __updatetime {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.__updatetime ;;
-  }
-
-  dimension: adgroup {
-    type: string
-    sql: ${TABLE}.adgroup ;;
-  }
-
-  dimension: adwordsadgroupid {
-    type: number
-    value_format_name: id
-    sql: ${TABLE}.adwordsadgroupid ;;
-  }
-
-  dimension: adwordscampaignid {
-    type: number
-    value_format_name: id
-    sql: ${TABLE}.adwordscampaignid ;;
-  }
-
-  dimension: campaign {
-    type: string
-    sql: ${TABLE}.campaign ;;
   }
 
   dimension_group: date {
@@ -76,9 +41,58 @@ view: tdsc_ga_adwords {
     sql: ${TABLE}.date ;;
   }
 
-  dimension: goal4completions {
+  dimension_group: __senttime {
+    hidden: yes
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.__senttime ;;
+  }
+
+  dimension_group: __updatetime {
+    hidden: yes
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.__updatetime ;;
+  }
+
+  dimension: campaign {
+    type: string
+    sql: ${TABLE}.campaign ;;
+  }
+
+  dimension: adwordscampaignid {
+    hidden: yes
     type: number
-    sql: ${TABLE}.goal4completions ;;
+    value_format_name: id
+    sql: ${TABLE}.adwordscampaignid ;;
+  }
+
+  dimension: adgroup {
+    type: string
+    sql: ${TABLE}.adgroup ;;
+  }
+
+  dimension: adwordsadgroupid {
+    hidden: yes
+    type: number
+    value_format_name: id
+    sql: ${TABLE}.adwordsadgroupid ;;
   }
 
   dimension: keyword {
@@ -86,37 +100,47 @@ view: tdsc_ga_adwords {
     sql: ${TABLE}.keyword ;;
   }
 
-  dimension: newusers {
-    type: number
-    sql: ${TABLE}.newusers ;;
-  }
-
-  dimension: pageviews {
-    type: number
-    sql: ${TABLE}.pageviews ;;
-  }
 
   dimension: region {
     type: string
     sql: ${TABLE}.region ;;
   }
 
-  dimension: sessions {
+
+#### Measures ####
+
+ measure: goal4completions {
+    label: "Account Creations"
+    type: number
+    sql: ${TABLE}.goal4completions ;;
+  }
+
+  measure: newusers {
+    type: number
+    sql: ${TABLE}.newusers ;;
+  }
+
+  measure: pageviews {
+    type: number
+    sql: ${TABLE}.pageviews ;;
+  }
+
+  measure: sessions {
     type: number
     sql: ${TABLE}.sessions ;;
   }
 
-  dimension: transactionrevenue {
+  measure: transactionrevenue {
     type: number
     sql: ${TABLE}.transactionrevenue ;;
   }
 
-  dimension: transactions {
+  measure: transactions {
     type: number
     sql: ${TABLE}.transactions ;;
   }
 
-  dimension: users {
+  measure: users {
     type: number
     sql: ${TABLE}.users ;;
   }

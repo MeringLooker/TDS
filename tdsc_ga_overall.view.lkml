@@ -1,56 +1,50 @@
 view: tdsc_ga_overall {
   sql_table_name: public.tdsc_ga_overall ;;
 
+  #### Primary Key ####
   dimension: id {
+    hidden: yes
     primary_key: yes
     type: string
     sql: ${TABLE}.id ;;
   }
 
-  dimension: __sampled {
-    type: yesno
-    sql: ${TABLE}.__sampled ;;
+
+  #### Join Id ####
+  dimension: join_id {
+    hidden: yes
+    type: string
+    sql: ${date_date}||'|'||${keyword} ;;
   }
 
-  dimension_group: __senttime {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.__senttime ;;
-  }
+  dimension: adwords_join_id {
+    hidden: yes
+    type: string
+    sql: ${date_date}||'|'||${adwordsadgroupid} ;;
+}
 
-  dimension_group: __updatetime {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.__updatetime ;;
-  }
+#### Dimensions
 
-  dimension: bounces {
-    type: number
-    sql: ${TABLE}.bounces ;;
+  dimension: sourcemedium {
+    label: "Source/Medium"
+    type: string
+    sql: ${TABLE}.sourcemedium ;;
   }
 
   dimension: channelgrouping {
+    label: "Default Channel Grouping"
     type: string
     sql: ${TABLE}.channelgrouping ;;
   }
 
+  dimension: campaign {
+    label: "Campaign"
+    type: string
+    sql: ${TABLE}.campaign ;;
+  }
+
   dimension_group: date {
+    label: ""
     type: time
     timeframes: [
       raw,
@@ -64,65 +58,123 @@ view: tdsc_ga_overall {
     sql: ${TABLE}.date ;;
   }
 
-  dimension: goal4completions {
-    type: number
-    sql: ${TABLE}.goal4completions ;;
-  }
-
-  dimension: join_id {
-    type: string
-    sql: ${keyword}||';'||${date_date} ;;
-  }
-
-  dimension: keyword {
-    type: string
-    sql: ${TABLE}.keyword ;;
-  }
-
-  dimension: newusers {
-    type: number
-    sql: ${TABLE}.newusers ;;
-  }
-
-  dimension: pageviews {
-    type: number
-    sql: ${TABLE}.pageviews ;;
+  dimension_group: __updatetime {
+    hidden: yes
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.__updatetime ;;
   }
 
   dimension: region {
+    label: "Region"
     type: string
     map_layer_name: us_states
     sql: ${TABLE}.region ;;
     drill_fields: [detail*]
   }
 
-  dimension: sessionduration {
-    type: number
+  dimension: __sampled {
+    hidden: yes
+    type: yesno
+    sql: ${TABLE}.__sampled ;;
+  }
+
+  dimension_group: __senttime {
+    hidden: yes
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.__senttime ;;
+  }
+
+  dimension: keyword {
+    hidden: yes
+    type: string
+    sql: ${TABLE}.keyword ;;
+  }
+
+  dimension: adwordsadgroupid {
+    hidden: yes
+    type: string
+    sql: ${TABLE}.adwordsadgroupid ;;
+  }
+
+#### Measures ####
+
+  measure: bounces {
+    label: "Bounces"
+    type: sum
+    drill_fields: [detail*]
+    sql: ${TABLE}.bounces ;;
+  }
+
+  measure: goal4completions {
+    label: "Account Creations"
+    type: sum
+    drill_fields: [detail*]
+    sql: ${TABLE}.goal4completions ;;
+  }
+
+  measure: newusers {
+    label: "New Users"
+    type: sum
+    drill_fields: [detail*]
+    sql: ${TABLE}.newusers ;;
+  }
+
+  measure: pageviews {
+    label: "Pageviews"
+    type: sum
+    drill_fields: [detail*]
+    sql: ${TABLE}.pageviews ;;
+  }
+
+  measure: sessionduration {
+    type: sum
+    drill_fields: [detail*]
     sql: ${TABLE}.sessionduration ;;
   }
 
-  dimension: sessions {
-    type: number
+  measure: sessions {
+    label: "Sessions"
+    type: sum
+    drill_fields: [detail*]
     sql: ${TABLE}.sessions ;;
   }
 
-  dimension: sourcemedium {
-    type: string
-    sql: ${TABLE}.sourcemedium ;;
-  }
-
-  dimension: transactionrevenue {
-    type: number
+  measure: transactionrevenue {
+    label: "Revenue"
+    type: sum
+    value_format_name: usd_0
+    drill_fields: [detail*]
     sql: ${TABLE}.transactionrevenue ;;
   }
 
-  dimension: transactions {
-    type: number
+  measure: transactions {    label: "Transactions"
+    type: sum
+    drill_fields: [detail*]
     sql: ${TABLE}.transactions ;;
   }
 
-  dimension: users {
-    type: number
+  measure: users {
+    label: "Total Users"
+    type: sum
+    drill_fields: [detail*]
     sql: ${TABLE}.users ;;
   }
 
@@ -131,39 +183,14 @@ view: tdsc_ga_overall {
     drill_fields: [id]
   }
 
-  measure: total_sessions {
-    label: "Total Sessions"
-    type: sum
-    sql:  ${sessions} ;;
-    value_format: "#,##0"
-    drill_fields: [detail*]
-  }
-
-  measure: total_transactions {
-    label: "Total Transactions"
-    type: sum
-    sql: ${transactions} ;;
-    value_format: "#,##0"
-    drill_fields: [detail*]
-  }
-
-  measure: transaction_revenue {
-    label: "Transaction Revenue"
-    type: sum
-    sql: ${transactionrevenue} ;;
-    value_format: "$#,##0.00"
-    drill_fields: [detail*]
-  }
-
-  measure: total_users {
-    label: "Total Users"
-    type: sum
-    sql: ${users} ;;
-    value_format: "#,##0"
-    drill_fields: [detail*]
-  }
+ ## measure: total_sessions {
+    #label: "Total Sessions"
+    #type: sum
+    #sql:  ${sessions} ;;
+    #value_format: "#,##0"
+    #drill_fields: [detail*]
 
   set: detail {
-    fields: [region,total_sessions,total_transactions,transaction_revenue,total_users]
+    fields: [region,sessions,transactions,transactionrevenue,users,newusers, pageviews, channelgrouping]
 }
 }

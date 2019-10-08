@@ -10,10 +10,23 @@ datagroup: tds_default_datagroup {
 
 persist_with: tds_default_datagroup
 
-explore: the_dentists_supply_company_dcm_640625951 {
+explore: tdsc_ga_overall {
   label: "TDSC FY1819"
-  view_label: "DoubleClick"
+  view_label: "Google Analytics"
   group_label: "TDS"
+
+  join: the_dentists_supply_company_dcm_640625951 {
+    view_label: "Doubleclick"
+    type: inner
+    relationship: many_to_one
+    sql_on: ${tdsc_ga_overall.join_id} = ${the_dentists_supply_company_dcm_640625951.join_id} ;;
+  }
+  join: tds_adwords_adgroup_performance_report {
+    view_label: "Adwords"
+    type: inner
+    relationship: one_to_many
+    sql_on: ${tdsc_ga_overall.adwords_join_id} = ${tds_adwords_adgroup_performance_report.adwords_join_id} ;;
+  }
 }
 
 # - explore: adwords_ad_performance_report

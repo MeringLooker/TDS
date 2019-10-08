@@ -11,8 +11,14 @@ view: the_dentists_supply_company_dcm_640625951 {
   }
 
 
-#### measures ####
+#### Join Ids ####
 
+  dimension: join_id {
+    type: string
+    sql: ${date_date}||'|'||${placement_id}||';'||${creative_id}||';'|| ${ad_id} ;;
+  }
+
+#### Measures ####
 
   dimension_group: date {
     label: "Period"
@@ -66,9 +72,22 @@ view: the_dentists_supply_company_dcm_640625951 {
   }
 
   dimension: site {
+    hidden: yes
     type: string
     sql: ${TABLE}."site (DCM)" ;;
   }
+
+  dimension: formatted_site_dcm {
+    label: "Publishers"
+    type: string
+    sql:
+      CASE WHEN
+        ${site} = 'digilant.com' then 'Digilant'
+        ${site} = 'dentaltown.com' then 'Dental Town'
+        ELSE
+        ${site}
+        END;;
+    }
 
   dimension: ad {
     type: string
@@ -88,6 +107,8 @@ view: the_dentists_supply_company_dcm_640625951 {
   }
 
   dimension: campaign {
+    hidden: yes
+    label: "DCM Campaign"
     type: string
     sql: ${TABLE}.campaign ;;
   }
@@ -188,6 +209,7 @@ view: the_dentists_supply_company_dcm_640625951 {
   }
 
   measure: impressions {
+    label: "DCM Impressions"
     type: sum
     sql: ${TABLE}.impressions ;;
   }
