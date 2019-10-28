@@ -1,7 +1,11 @@
 connection: "mc_panoply"
 
 # include all the views
-include: "*.view"
+include: "/Adwords/*.view"
+include: "/DCM/*.view"
+include: "/Facebook/*.view"
+include: "/GA/*.view"
+include: "/LinkedIn/*.view"
 
 datagroup: tds_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -10,22 +14,17 @@ datagroup: tds_default_datagroup {
 
 persist_with: tds_default_datagroup
 
-explore: tdsc_ga_overall {
+explore: tds_ga_onsite {
   label: "TDSC FY1819"
   view_label: "Google Analytics"
   group_label: "TDS"
 
   join: the_dentists_supply_company_dcm_640625951 {
     view_label: "Doubleclick"
-    type: inner
-    relationship: many_to_one
-    sql_on: ${tdsc_ga_overall.join_id} = ${the_dentists_supply_company_dcm_640625951.join_id} ;;
+
   }
   join: tds_adwords_adgroup_performance_report {
     view_label: "Adwords"
-    type: inner
-    relationship: one_to_many
-    sql_on: ${tdsc_ga_overall.adwords_join_id} = ${tds_adwords_adgroup_performance_report.adwords_join_id} ;;
   }
 }
 

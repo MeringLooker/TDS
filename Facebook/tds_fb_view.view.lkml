@@ -1,5 +1,5 @@
-view: facebookads__mc_tdsc {
-  sql_table_name: public.facebookads__mc tdsc ;;
+view: tds_fb_view {
+  sql_table_name: public.tds_fb_view ;;
   drill_fields: [id]
 
   dimension: id {
@@ -84,6 +84,16 @@ view: facebookads__mc_tdsc {
   dimension: clicks {
     type: number
     sql: ${TABLE}.clicks ;;
+  }
+
+  dimension: comp_key {
+    type: string
+    sql: ${TABLE}.comp_key ;;
+  }
+
+  dimension: comp_key_backup {
+    type: string
+    sql: ${TABLE}.comp_key_backup ;;
   }
 
   dimension: cost_per_inline_post_engagement {
@@ -192,6 +202,6 @@ view: facebookads__mc_tdsc {
 
   measure: count {
     type: count
-    drill_fields: [id, campaign_name, ad_name, adset_name, account_name]
+    drill_fields: [id, ad_name, campaign_name, adset_name, account_name]
   }
 }
