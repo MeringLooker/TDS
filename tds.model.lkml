@@ -14,9 +14,15 @@ datagroup: tds_default_datagroup {
 
 persist_with: tds_default_datagroup
 
-explore: tds_adwords_adgroup_performance_report {
+explore: tds_sem_adgroup_performance_report {
   label: "SEM"
   view_label: "SEM"
+  group_label: "TDS"
+}
+
+explore: tds_gdn_adgroup_performance_report {
+  label: "GDN"
+  view_label: "GDN"
   group_label: "TDS"
 }
 
