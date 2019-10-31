@@ -14,19 +14,30 @@ datagroup: tds_default_datagroup {
 
 persist_with: tds_default_datagroup
 
-explore: tds_ga_onsite {
-  label: "TDSC FY1819"
-  view_label: "Google Analytics"
+explore: tds_adwords_adgroup_performance_report {
+  label: "SEM"
+  view_label: "SEM"
   group_label: "TDS"
-
-  join: the_dentists_supply_company_dcm_640625951 {
-    view_label: "Doubleclick"
-
-  }
-  join: tds_adwords_adgroup_performance_report {
-    view_label: "Adwords"
-  }
 }
+
+explore: the_dentists_supply_company_dcm_640625951 {
+  label: "Display"
+  view_label: "Display"
+  group_label: "TDS"
+}
+
+explore: tds_fb_view {
+  label: "Facebook"
+  view_label: "Facebook"
+  group_label: "TDS"
+}
+
+explore: tds_linkedin_ {
+  label: "LinkedIn"
+  view_label: "LinkedIn"
+  group_label: "TDS"
+}
+
 
 # - explore: adwords_ad_performance_report
 
