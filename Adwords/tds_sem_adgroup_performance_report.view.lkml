@@ -5,6 +5,7 @@ view: tds_sem_adgroup_performance_report {
  #### Primary Key ####
 
   dimension: id {
+hidden: yes
     primary_key: yes
     type: string
     sql: ${TABLE}.id ;;
@@ -12,7 +13,8 @@ view: tds_sem_adgroup_performance_report {
 
 #### Join Id ####
 
-  dimension: adwords_join_id {
+  dimension: sem_join_id {
+    hidden: yes
     type: string
     sql: ${day_date}||'|'||${ad_group_id}  ;;
   }
@@ -20,6 +22,7 @@ view: tds_sem_adgroup_performance_report {
   #### Dimensions ####
 
   dimension_group: day {
+    label: "1. Period"
     type: time
     timeframes: [
       raw,
@@ -64,11 +67,13 @@ view: tds_sem_adgroup_performance_report {
   }
 
   dimension: account {
+    label: "2. Account"
     type: string
     sql: ${TABLE}.account ;;
   }
 
   dimension: campaign {
+    label: "3. Campaign"
     type: string
     sql: ${TABLE}.campaign ;;
   }
@@ -80,6 +85,7 @@ view: tds_sem_adgroup_performance_report {
   }
 
   dimension: ad_group {
+    label: "4. Ad Group"
     type: string
     sql: ${TABLE}."ad group" ;;
   }
@@ -103,6 +109,7 @@ view: tds_sem_adgroup_performance_report {
   }
 
   dimension: device {
+    label: "  Device"
     type: string
     sql: ${TABLE}.device ;;
   }
@@ -117,51 +124,80 @@ view: tds_sem_adgroup_performance_report {
 #### Measures ####
 
   measure: avg__position {
-    type: number
+    group_label: "Delivery"
+    drill_fields: [adwords*, avg__position]
+    type: average
     sql: ${TABLE}."avg. position" ;;
   }
 
 
   measure: clicks {
+    drill_fields: [adwords*, clicks]
+    group_label: "Delivery"
     type: sum
     sql: ${TABLE}.clicks ;;
   }
 
   measure: conversions {
+    hidden: yes
     type: sum
     sql: ${TABLE}.conversions ;;
   }
 
   measure: cost {
+    group_label: "Delivery"
+    drill_fields: [adwords*, cost]
     type: sum
     value_format_name: usd
     sql: ${TABLE}.cost/1000000.00 ;;
   }
 
   measure: impressions {
+    drill_fields: [adwords*, impressions]
+    group_label: "Delivery"
     type: sum
     sql: ${TABLE}.impressions ;;
   }
 
+  measure: click_through_rate {
+    label: "CTR"
+    drill_fields: [adwords*, click_through_rate]
+    group_label: "Delivery"
+    type: number
+    value_format_name: percent_0
+    sql: ${clicks}/nullif(${impressions},0) ;;
+  }
+
+
   measure: search_impr__share {
+    drill_fields: [adwords*, search_impr__share]
+    group_label: "Delivery"
     type: string
     sql: ${TABLE}."search impr. share" ;;
   }
 
   measure: search_lost_is_rank {
+    drill_fields: [adwords*, search_lost_is_rank]
+    group_label: "Delivery"
     type: string
     sql: ${TABLE}."search lost is (rank)" ;;
   }
 
   measure: total_conv__value {
+    hidden: yes
+    group_label: "Delivery"
     type: sum
     sql: ${TABLE}."total conv. value" ;;
   }
 
-
-
   measure: count {
+    hidden: yes
     type: count
     drill_fields: [id, reportname]
   }
+
+set: adwords  {
+ fields: [campaign, ad_group, device]
+
+}
 }

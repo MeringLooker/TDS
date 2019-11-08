@@ -12,7 +12,7 @@ view: tds_gdn_adgroup_performance_report {
 
 #### Join Id ####
 
-  dimension: adwords_join_id {
+  dimension: gdn_join_id {
     type: string
     sql: ${day_date}||'|'||${ad_group_id}  ;;
   }
@@ -123,23 +123,27 @@ view: tds_gdn_adgroup_performance_report {
 
 
   measure: clicks {
-    type: sum
+  type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}.clicks ;;
   }
 
   measure: conversions {
-    type: sum
+   type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}.conversions ;;
   }
 
   measure: cost {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
     value_format_name: usd
     sql: ${TABLE}.cost/1000000.00 ;;
   }
 
   measure: impressions {
-    type: sum
+  type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}.impressions ;;
   }
 
@@ -154,7 +158,8 @@ view: tds_gdn_adgroup_performance_report {
   }
 
   measure: total_conv__value {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}."total conv. value" ;;
   }
 
