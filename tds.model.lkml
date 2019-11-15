@@ -6,13 +6,18 @@ include: "/DCM/*.view"
 include: "/Facebook/*.view"
 include: "/GA/*.view"
 include: "/LinkedIn/*.view"
+include: "/child_extends.view"
 
 datagroup: tds_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "24 hour"
 }
 
+
+
 persist_with: tds_default_datagroup
+
+explore: child_extends {}
 
 explore: tds_sem_adgroup_performance_report {
   label: "SEM"

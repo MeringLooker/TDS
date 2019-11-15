@@ -1,6 +1,7 @@
-view: tds_adwords_adgroup_performance_report {
+view: tds_adwords_adgroup_performance_report_parent {
   sql_table_name: public.tds_adwords_adgroup_performance_report ;;
   drill_fields: [id]
+
 
 #### Primary Key ####
 
