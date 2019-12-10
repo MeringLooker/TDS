@@ -6,7 +6,6 @@ include: "/DCM/*.view"
 include: "/Facebook/*.view"
 include: "/GA/*.view"
 include: "/LinkedIn/*.view"
-include: "/child_extends.view"
 
 datagroup: tds_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -17,15 +16,15 @@ datagroup: tds_default_datagroup {
 
 persist_with: tds_default_datagroup
 
-explore: child_extends {}
 
+#### SEM ####
 explore: tds_sem_adgroup_performance_report {
   label: "SEM"
-  view_label: "SEM"
+  view_label: "Delivery"
   group_label: "TDS"
 
   join: tds_ga_onsite {
-    view_label: "SEM"
+    view_label: "Onsite"
     fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.region, tds_ga_onsite.avg_time_on_site]
     type: left_outer
     sql_on: ${tds_sem_adgroup_performance_report.sem_join_id} = ${tds_ga_onsite.ga_onsite_join_id}  ;;
@@ -34,7 +33,7 @@ explore: tds_sem_adgroup_performance_report {
 
   join: tds_ga_goals {
     fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue]
-    view_label: "SEM"
+    view_label: "Onsite"
     type: left_outer
     sql_on: ${tds_sem_adgroup_performance_report.sem_join_id} = ${tds_ga_goals.ga_goals_join_id}  ;;
     relationship: one_to_many
@@ -42,16 +41,29 @@ explore: tds_sem_adgroup_performance_report {
 }
 
 
-
-
-
-
-
-
+#### GDN ####
 explore: tds_gdn_adgroup_performance_report {
   label: "GDN"
   view_label: "GDN"
   group_label: "TDS"
+
+  join: tds_ga_onsite {
+    view_label: "Onsite"
+    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.region, tds_ga_onsite.avg_time_on_site]
+    type: left_outer
+    sql_on: ${tds_gdn_adgroup_performance_report.gdn_join_id} = ${tds_ga_onsite.ga_onsite_join_id}  ;;
+    relationship: one_to_many
+  }
+
+  join: tds_ga_goals {
+    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue]
+    view_label: "Onsite"
+    type: left_outer
+    sql_on: ${tds_gdn_adgroup_performance_report.gdn_join_id} = ${tds_ga_goals.ga_goals_join_id}  ;;
+    relationship: one_to_many
+  }
+
+
 }
 
 explore: the_dentists_supply_company_dcm_640625951 {

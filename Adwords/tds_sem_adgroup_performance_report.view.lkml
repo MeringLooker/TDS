@@ -22,7 +22,7 @@ hidden: yes
   #### Dimensions ####
 
   dimension_group: day {
-    label: "1. Period"
+    label: "Period"
     type: time
     timeframes: [
       raw,
@@ -67,13 +67,13 @@ hidden: yes
   }
 
   dimension: account {
-    label: "2. Account"
+    label: "Account"
     type: string
     sql: ${TABLE}.account ;;
   }
 
   dimension: campaign {
-    label: "3. Campaign"
+    label: "Campaign"
     type: string
     sql: ${TABLE}.campaign ;;
   }
@@ -85,7 +85,7 @@ hidden: yes
   }
 
   dimension: ad_group {
-    label: "4. Ad Group"
+    label: "Ad Group"
     type: string
     sql: ${TABLE}."ad group" ;;
   }
@@ -164,10 +164,9 @@ hidden: yes
     drill_fields: [adwords*, click_through_rate]
     group_label: "Delivery"
     type: number
-    value_format_name: percent_0
-    sql: ${clicks}/nullif(${impressions},0) ;;
+    value_format_name: percent_1
+    sql: 1.0*${clicks}/nullif(${impressions},0) ;;
   }
-
 
   measure: search_impr__share {
     drill_fields: [adwords*, search_impr__share]

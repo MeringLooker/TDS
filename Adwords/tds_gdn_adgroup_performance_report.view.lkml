@@ -5,6 +5,7 @@ view: tds_gdn_adgroup_performance_report {
  #### Primary Key ####
 
   dimension: id {
+    hidden: yes
     primary_key: yes
     type: string
     sql: ${TABLE}.id ;;
@@ -13,6 +14,7 @@ view: tds_gdn_adgroup_performance_report {
 #### Join Id ####
 
   dimension: gdn_join_id {
+    hidden: yes
     type: string
     sql: ${day_date}||'|'||${ad_group_id}  ;;
   }
@@ -20,6 +22,7 @@ view: tds_gdn_adgroup_performance_report {
   #### Dimensions ####
 
   dimension_group: day {
+    label: "Period"
     type: time
     timeframes: [
       raw,
@@ -121,12 +124,18 @@ view: tds_gdn_adgroup_performance_report {
     sql: ${TABLE}."avg. position" ;;
   }
 
-
   measure: clicks {
   type: sum_distinct
     sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}.clicks ;;
   }
+
+  measure: click_through_rate {
+    label: "CTR"
+    type: number
+    value_format_name: percent_2
+    sql: 1.0*${clicks}/nullif(${impressions},0) ;;
+}
 
   measure: conversions {
    type: sum_distinct
