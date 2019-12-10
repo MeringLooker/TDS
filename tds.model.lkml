@@ -11,9 +11,6 @@ datagroup: tds_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "24 hour"
 }
-
-
-
 persist_with: tds_default_datagroup
 
 
@@ -62,22 +59,25 @@ explore: tds_gdn_adgroup_performance_report {
     sql_on: ${tds_gdn_adgroup_performance_report.gdn_join_id} = ${tds_ga_goals.ga_goals_join_id}  ;;
     relationship: one_to_many
   }
-
-
 }
 
+#### DCM ####
 explore: the_dentists_supply_company_dcm_640625951 {
-  label: "Display"
-  view_label: "Display"
+  label: "DCM"
+  view_label: "DCM"
   group_label: "TDS"
 }
 
+
+#### Facebook ####
 explore: tds_fb_view {
   label: "Facebook"
   view_label: "Facebook"
   group_label: "TDS"
 }
 
+
+#### LinkedIn ####
 explore: tds_linkedin_ {
   label: "LinkedIn"
   view_label: "LinkedIn"
