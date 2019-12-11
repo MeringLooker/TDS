@@ -8,7 +8,7 @@ view: tds_ga_goals {
     sql: ${TABLE}.id ;;
   }
 
-#### PRIMARY KEY ####
+#### Join IDs ####
   dimension: ga_goals_join_id {
     type: string
     sql: ${date_date}||'|'||${adwordsadgroupid}  ;;
