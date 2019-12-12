@@ -8,6 +8,12 @@ view: the_dentists_supply_company_dcm_640625951 {
     sql: ${TABLE}.id ;;
   }
 
+#### Join Ids ####
+  dimension: dcm_join_id {
+    type: string
+    sql: ${date_date}||'|'|| ${placement_id}||';'||${creative_id}||';'|| ${ad_id} ;;
+  }
+
   dimension: __id {
     type: string
     sql: ${TABLE}.__id ;;
@@ -16,6 +22,20 @@ view: the_dentists_supply_company_dcm_640625951 {
   dimension: __report {
     type: number
     sql: ${TABLE}.__report ;;
+  }
+
+  dimension_group: date {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.date ;;
   }
 
   dimension_group: __senttime {
@@ -144,20 +164,6 @@ view: the_dentists_supply_company_dcm_640625951 {
   dimension: creative_id {
     type: string
     sql: ${TABLE}."creative id" ;;
-  }
-
-  dimension_group: date {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.date ;;
   }
 
   dimension: impressions {

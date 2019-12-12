@@ -66,6 +66,23 @@ explore: the_dentists_supply_company_dcm_640625951 {
   label: "DCM"
   view_label: "DCM"
   group_label: "TDS"
+
+  join: tds_ga_onsite {
+    view_label: "Onsite"
+    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.region, tds_ga_onsite.avg_time_on_site]
+    type: left_outer
+    sql_on: ${the_dentists_supply_company_dcm_640625951.dcm_join_id} = ${tds_ga_onsite.ga_dcm_goals_join_id}}  ;;
+    relationship: one_to_many
+  }
+
+  join: tds_ga_goals {
+    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue]
+    view_label: "Onsite"
+    type: left_outer
+    sql_on: ${the_dentists_supply_company_dcm_640625951.dcm_join_id} = ${tds_ga_goals.ga_dcm_goals_join_id}}  ;;
+    relationship: one_to_many
+  }
+
 }
 
 

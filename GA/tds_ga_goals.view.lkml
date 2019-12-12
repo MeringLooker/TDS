@@ -14,6 +14,10 @@ view: tds_ga_goals {
     sql: ${date_date}||'|'||${adwordsadgroupid}  ;;
   }
 
+  dimension: ga_dcm_goals_join_id {
+    type: string
+    sql: ${date_date}||'|'||${keyword}  ;;
+  }
 
 #### Dimensions #####
 
