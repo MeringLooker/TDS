@@ -67,6 +67,7 @@ view: tds_gdn_adgroup_performance_report {
   }
 
   dimension: account {
+    hidden: yes
     type: string
     sql: ${TABLE}.account ;;
   }
