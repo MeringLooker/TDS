@@ -16,8 +16,8 @@ persist_with: tds_default_datagroup
 
 #### SEM ####
 explore: tds_sem_adgroup_performance_report {
-  label: "SEM"
-  view_label: "Delivery"
+  label: "AdWords Search"
+  view_label: "AdWords Search"
   group_label: "TDS"
 
   join: tds_ga_onsite {
@@ -40,8 +40,8 @@ explore: tds_sem_adgroup_performance_report {
 
 #### GDN ####
 explore: tds_gdn_adgroup_performance_report {
-  label: "GDN"
-  view_label: "GDN"
+  label: "AdWords Display"
+  view_label: "AdWords Display"
   group_label: "TDS"
 
   join: tds_ga_onsite {
@@ -63,8 +63,8 @@ explore: tds_gdn_adgroup_performance_report {
 
 #### DCM ####
 explore: the_dentists_supply_company_dcm_640625951 {
-  label: "DCM"
-  view_label: "DCM"
+  label: "DoubleClick"
+  view_label: "DoubleClick"
   group_label: "TDS"
 
   join: tds_ga_onsite {

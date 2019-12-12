@@ -109,7 +109,7 @@ hidden: yes
   }
 
   dimension: device {
-    label: "  Device"
+    label: "Device"
     type: string
     sql: ${TABLE}.device ;;
   }
