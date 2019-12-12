@@ -67,7 +67,6 @@ view: tds_gdn_adgroup_performance_report {
   }
 
   dimension: account {
-    hidden: yes
     type: string
     sql: ${TABLE}.account ;;
   }
@@ -176,6 +175,7 @@ view: tds_gdn_adgroup_performance_report {
 
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: [id, reportname]
   }
