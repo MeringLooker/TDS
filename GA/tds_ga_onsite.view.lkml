@@ -115,6 +115,7 @@ view: tds_ga_onsite {
   dimension: region {
     group_label: "Onsite"
     type: string
+    map_layer_name: us_states
     sql: ${TABLE}.region ;;
   }
 
@@ -136,6 +137,7 @@ view: tds_ga_onsite {
 
   measure: sessionduration {
     group_label: "Onsite"
+    hidden: yes
     type: sum_distinct
     sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}.sessionduration ;;
@@ -156,7 +158,6 @@ view: tds_ga_onsite {
     sql: ${TABLE}.sessionduration/nullif(${TABLE}.sessions,0) ;;
     value_format: "0.##"
   }
-
 
   measure: users {
     group_label: "Onsite"

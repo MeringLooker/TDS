@@ -173,7 +173,6 @@ view: tds_gdn_adgroup_performance_report {
   }
 
 
-
   measure: count {
     hidden: yes
     type: count

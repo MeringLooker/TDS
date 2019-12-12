@@ -92,6 +92,7 @@ view: tds_ga_goals {
 
   dimension: region {
     type: string
+    map_layer_name:  us_states
     sql: ${TABLE}.region ;;
   }
 
