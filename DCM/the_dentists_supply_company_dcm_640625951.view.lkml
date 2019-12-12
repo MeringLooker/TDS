@@ -4,6 +4,7 @@ view: the_dentists_supply_company_dcm_640625951 {
 
   dimension: id {
     primary_key: yes
+    hidden: yes
     type: string
     sql: ${TABLE}.id ;;
   }
@@ -352,6 +353,7 @@ view: the_dentists_supply_company_dcm_640625951 {
   dimension: total_revenue {
     type: number
     sql: ${TABLE}."total revenue" ;;
+    value_format_name: usd
   }
 
   dimension: viewthrough_conversions {
