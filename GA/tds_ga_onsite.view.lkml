@@ -122,11 +122,21 @@ view: tds_ga_onsite {
 #### MEASURES ####
 
   measure: newusers {
+    label: "New Users"
     group_label: "Onsite"
    type: sum_distinct
     sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}.newusers ;;
   }
+
+  measure: newuserrate {
+    label: "New User Rate"
+    group_label: "Onsite"
+    type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
+    sql: 1.0*${TABLE}.newusers/nullif(${TABLE}.users, 0;;
+  }
+
 
   measure: pageviews {
     group_label: "Onsite"
