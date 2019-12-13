@@ -72,7 +72,7 @@ view: tds_ga_onsite {
 
   dimension: sourcemedium {
     group_label: "Onsite"
-    hidden: yes
+    label: "Source/Medium"
     type: string
     sql: ${TABLE}.sourcemedium ;;
   }
