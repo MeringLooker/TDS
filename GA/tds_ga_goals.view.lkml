@@ -153,10 +153,34 @@ view: tds_ga_goals {
   measure: transactionsrevenue {
     group_label: "Transactional"
     label: "Revenue"
-    value_format_name: usd
+    value_format_name: usd_0
     type: sum_distinct
     sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}.transactionrevenue ;;
+  }
+
+  measure: dcm_roas {
+    group_label: "Transactional"
+    label: "ROAS"
+    type: number
+    sql: ${transactionsrevenue}/nullif(${the_dentists_supply_company_dcm_640625951.total_media_cost}, 0) ;;
+    value_format_name: usd
+  }
+
+  measure: sem_roas {
+    group_label: "Transactional"
+    label: "ROAS"
+    type: number
+    sql: ${transactionsrevenue}/nullif(${tds_sem_adgroup_performance_report.cost}, 0) ;;
+    value_format_name: usd
+  }
+
+  measure: gdn_roas {
+    group_label: "Transactional"
+    label: "ROAS"
+    type: number
+    sql: ${transactionsrevenue}/nullif(${tds_gdn_adgroup_performance_report.cost}, 0) ;;
+    value_format_name: usd
   }
 
   measure: count {

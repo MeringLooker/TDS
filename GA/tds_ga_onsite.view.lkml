@@ -132,9 +132,9 @@ view: tds_ga_onsite {
   measure: newuserrate {
     label: "New User Rate"
     group_label: "Onsite"
-    type: sum_distinct
-    sql_distinct_key: ${TABLE}.id ;;
-    sql: 1.0*${TABLE}.newusers/nullif(${TABLE}.users, 0;;
+    type: number
+    sql: 1.0*${newusers}/nullif(${users}, 0);;
+     value_format_name: percent_0
   }
 
 

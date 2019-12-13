@@ -119,10 +119,11 @@ view: tds_gdn_adgroup_performance_report {
 
 #### Measures ####
 
-  measure: avg__position {
-    type: number
-    sql: ${TABLE}."avg. position" ;;
-  }
+#   measure: avg__position {
+#     type: number
+#     value_format_name: decimal_0
+#     sql: ${TABLE}."avg. position" ;;
+#   }
 
   measure: clicks {
   type: sum_distinct

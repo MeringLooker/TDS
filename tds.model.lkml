@@ -22,14 +22,14 @@ explore: tds_sem_adgroup_performance_report {
 
   join: tds_ga_onsite {
     view_label: "Onsite"
-    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.region, tds_ga_onsite.avg_time_on_site]
+    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.region, tds_ga_onsite.avg_time_on_site]
     type: left_outer
     sql_on: ${tds_sem_adgroup_performance_report.sem_join_id} = ${tds_ga_onsite.ga_onsite_join_id}  ;;
     relationship: one_to_many
   }
 
   join: tds_ga_goals {
-    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue]
+    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue, tds_ga_goals.sem_roas]
     view_label: "Onsite"
     type: left_outer
     sql_on: ${tds_sem_adgroup_performance_report.sem_join_id} = ${tds_ga_goals.ga_goals_join_id}  ;;
@@ -46,14 +46,14 @@ explore: tds_gdn_adgroup_performance_report {
 
   join: tds_ga_onsite {
     view_label: "Onsite"
-    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.region, tds_ga_onsite.avg_time_on_site]
+    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.region, tds_ga_onsite.avg_time_on_site]
     type: left_outer
     sql_on: ${tds_gdn_adgroup_performance_report.gdn_join_id} = ${tds_ga_onsite.ga_onsite_join_id}  ;;
     relationship: one_to_many
   }
 
   join: tds_ga_goals {
-    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue]
+    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue, tds_ga_goals.gdn_roas]
     view_label: "Onsite"
     type: left_outer
     sql_on: ${tds_gdn_adgroup_performance_report.gdn_join_id} = ${tds_ga_goals.ga_goals_join_id}  ;;
@@ -69,14 +69,14 @@ explore: the_dentists_supply_company_dcm_640625951 {
 
   join: tds_ga_onsite {
     view_label: "Onsite"
-    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.region, tds_ga_onsite.avg_time_on_site]
+    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.region, tds_ga_onsite.avg_time_on_site]
     type: left_outer
     sql_on: ${the_dentists_supply_company_dcm_640625951.dcm_join_id} = ${tds_ga_onsite.ga_dcm_onsite_join_id}  ;;
     relationship: one_to_many
   }
 
   join: tds_ga_goals {
-    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue]
+    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue, tds_ga_goals.dcm_roas]
     view_label: "Onsite"
     type: left_outer
     sql_on: ${the_dentists_supply_company_dcm_640625951.dcm_join_id} = ${tds_ga_goals.ga_dcm_goals_join_id}  ;;
