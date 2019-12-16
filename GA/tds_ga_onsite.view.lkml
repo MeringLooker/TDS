@@ -71,7 +71,6 @@ view: tds_ga_onsite {
   }
 
   dimension: sourcemedium {
-    group_label: "Onsite"
     label: "Source/Medium"
     type: string
     sql: ${TABLE}.sourcemedium ;;
@@ -113,7 +112,6 @@ view: tds_ga_onsite {
   }
 
   dimension: region {
-    group_label: "Onsite"
     type: string
     map_layer_name: us_states
     sql: ${TABLE}.region ;;
