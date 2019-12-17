@@ -85,6 +85,22 @@ explore: the_dentists_supply_company_dcm_640625951 {
 
 }
 
+#### GA Goals ####
+explore:  tds_ga_onsite{
+  label: "Googal Analytics"
+  view_label: "Onsite"
+  fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.region, tds_ga_onsite.avg_time_on_site, tds_ga_onsite.sourcemedium]
+  group_label: "TDS"
+
+
+  join: tds_ga_goals {
+    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue, tds_ga_goals.dcm_roas]
+    view_label: "Goals"
+    type: left_outer
+    sql_on: ${tds_ga_onsite.date_date} = ${tds_ga_goals.date_date} ;;
+    relationship: one_to_many
+  }
+}
 
 #### Facebook ####
 # explore: tds_fb_view {
