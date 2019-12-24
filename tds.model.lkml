@@ -96,9 +96,9 @@ explore:  tds_ga_onsite{
   join: tds_ga_goals {
     fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue, tds_ga_goals.dcm_roas]
     view_label: "Goals"
-    type: left_outer
+    type: inner
     sql_on: ${tds_ga_onsite.date_date} = ${tds_ga_goals.date_date} ;;
-    relationship: one_to_many
+    relationship: one_to_one
   }
 }
 
