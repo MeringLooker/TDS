@@ -253,7 +253,6 @@ view: the_dentists_supply_company_dcm_640625951 {
         ;;
   }
 
-
 ######### MEASURES ########
 
   measure: total_impressions {
@@ -345,24 +344,39 @@ view: the_dentists_supply_company_dcm_640625951 {
     value_format_name: usd
   }
 
-  dimension: total_conversions {
-    type: number
+  measure: total_conversions {
+    hidden: yes
+    label: "Total Conversions"
+    group_label: "3rd Party Measures"
+    type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}."total conversions" ;;
   }
 
-  dimension: total_revenue {
-    type: number
+  measure: total_revenue {
+    hidden: yes
+    label: "Total Revenue"
+    group_label: "3rd Party Measures"
+    type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}."total revenue" ;;
     value_format_name: usd
   }
 
-  dimension: viewthrough_conversions {
-    type: number
+  measure: viewthrough_conversions {
+    label: "View Through Conversions"
+    group_label: "3rd Party Measures"
+    type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}."view-through conversions" ;;
   }
 
-  dimension: viewthrough_revenue {
-    type: number
+  measure: viewthrough_revenue {
+    hidden: yes
+    label: "View Through Revenue"
+    group_label: "3rd Party Measures"
+    type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}."view-through revenue" ;;
   }
 }
