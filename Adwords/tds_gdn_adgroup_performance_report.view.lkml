@@ -36,6 +36,18 @@ view: tds_gdn_adgroup_performance_report {
     sql: ${TABLE}.day ;;
   }
 
+  dimension: fiscal_year {
+    label: "Fiscal"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${day_date} BETWEEN '2019-11-01' AND '2020-06-30' THEN 'FY 19/20'
+        ELSE 'Uncategorized'
+        END
+        ;;
+  }
+
   dimension_group: __senttime {
     type: time
     hidden: yes
