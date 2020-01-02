@@ -1,21 +1,6 @@
-view: tds_ga_onsite {
-  sql_table_name: public.tds_ga_onsite ;;
+view: tds_ga_overall {
+  sql_table_name: public.tds_ga_overall ;;
   drill_fields: [id]
-
-#### JOIN ID ####
-
-  dimension: ga_onsite_join_id {
-    hidden: yes
-    type: string
-    sql: ${date_date}||'|'||${adwordsadgroupid}  ;;
-  }
-
-  dimension: ga_dcm_onsite_join_id {
-    type: string
-    sql: ${date_date}||'|'||${keyword}  ;;
-  }
-
-#### PRIMARY KEY ####
 
   dimension: id {
     hidden: yes
@@ -24,12 +9,21 @@ view: tds_ga_onsite {
     sql: ${TABLE}.id ;;
   }
 
-#### DIMENSIONS ####
+#### Dimensions ####
 
-  dimension: __sampled {
-    hidden: yes
-    type: yesno
-    sql: ${TABLE}.__sampled ;;
+  dimension_group: date {
+    label: ""
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.date ;;
   }
 
   dimension_group: __senttime {
@@ -61,19 +55,10 @@ view: tds_ga_onsite {
     ]
     sql: ${TABLE}.__updatetime ;;
   }
-
-  dimension: adwordsadgroupid {
-    group_label: "Onsite"
+  dimension: __sampled {
     hidden: yes
-    type: number
-    value_format_name: id
-    sql: ${TABLE}.adwordsadgroupid ;;
-  }
-
-  dimension: sourcemedium {
-    label: "Source/Medium"
-    type: string
-    sql: ${TABLE}.sourcemedium ;;
+    type: yesno
+    sql: ${TABLE}.__sampled ;;
   }
 
   dimension: campaign {
@@ -82,38 +67,42 @@ view: tds_ga_onsite {
     sql: ${TABLE}.campaign ;;
   }
 
-  dimension_group: date {
-    label: ""
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.date ;;
+  dimension: campaigns {
+    type: string
+    sql: CASE
+      WHEN ${campaign} ilike '%MC%'
+        THEN 'Mering'
+      WHEN ${campaign} ilike '%TDSC%'
+        Then 'Mering'
+      ELSE ${campaign}
+    END;;
+  }
+
+  dimension: channelgrouping {
+    label: "Default Channel Grouping"
+    type: string
+    sql: ${TABLE}.channelgrouping ;;
   }
 
   dimension: devicecategory {
-    group_label: "Onsite"
-    label: "Device Type"
+    label: "Device Category"
     type: string
     sql: ${TABLE}.devicecategory ;;
   }
 
   dimension: keyword {
-    group_label: "Onsite"
-    hidden: yes
     type: string
     sql: ${TABLE}.keyword ;;
   }
 
+  dimension: sourcemedium {
+    label: "Source/Medium"
+    type: string
+    sql: ${TABLE}.sourcemedium ;;
+  }
+
   dimension: region {
     type: string
-    map_layer_name: us_states
     sql: ${TABLE}.region ;;
   }
 
@@ -175,30 +164,22 @@ view: tds_ga_onsite {
   ;;
   }
 
-#### MEASURES ####
+#### Measures ####
+
+  measure: goal4completions {
+    group_label: "Transactional"
+    label: "Account Creations"
+    type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
+    sql: ${TABLE}.goal4completions ;;
+  }
 
   measure: newusers {
     label: "New Users"
     group_label: "Onsite"
-   type: sum_distinct
+    type: sum_distinct
     sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}.newusers ;;
-  }
-
-  measure: newuserrate {
-    label: "New User Rate"
-    group_label: "Onsite"
-    type: number
-    sql: 1.0*${newusers}/nullif(${users}, 0);;
-     value_format_name: percent_0
-  }
-
-
-  measure: pageviews {
-    group_label: "Onsite"
-   type: sum_distinct
-    sql_distinct_key: ${TABLE}.id ;;
-    sql: ${TABLE}.pageviews ;;
   }
 
   measure: sessionduration {
@@ -211,9 +192,33 @@ view: tds_ga_onsite {
 
   measure: sessions {
     group_label: "Onsite"
-   type: sum_distinct
+    type: sum_distinct
     sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}.sessions ;;
+  }
+
+  measure: transactionsrevenue {
+    group_label: "Transactional"
+    label: "Revenue"
+    value_format_name: usd_0
+    type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
+    sql: ${TABLE}.transactionrevenue ;;
+  }
+
+  measure: transactions {
+    group_label: "Transactional"
+    label: "Orders"
+    type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
+    sql: ${TABLE}.transactions ;;
+  }
+
+  measure: users {
+    group_label: "Onsite"
+    type: sum_distinct
+    sql_distinct_key: ${TABLE}.id ;;
+    sql: ${TABLE}.users ;;
   }
 
   measure: avg_time_on_site {
@@ -225,15 +230,16 @@ view: tds_ga_onsite {
     value_format: "0.##"
   }
 
-  measure: users {
+  measure: newuserrate {
+    label: "New User Rate"
     group_label: "Onsite"
-   type: sum_distinct
-    sql_distinct_key: ${TABLE}.id ;;
-    sql: ${TABLE}.users ;;
+    type: number
+    sql: 1.0*${newusers}/nullif(${users}, 0);;
+    value_format_name: percent_0
   }
 
   measure: count {
-    group_label: "Onsite"
+    hidden: yes
     type: count
     drill_fields: [id]
   }

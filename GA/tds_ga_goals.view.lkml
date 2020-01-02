@@ -101,6 +101,63 @@ view: tds_ga_goals {
     sql: ${TABLE}.sourcemedium ;;
   }
 
+  dimension: Phase {
+    type: string
+    sql: CASE
+      WHEN  ${region} ilike '%Alabama%' THEN  '3'
+      WHEN  ${region} ilike '%Alaska%'  THEN  '5'
+      WHEN  ${region} ilike '%Arizona%' THEN  '1'
+      WHEN  ${region} ilike '%Arkansas%'  THEN  '4'
+      WHEN  ${region} ilike '%California%'  THEN  '1'
+      WHEN  ${region} ilike '%Colorado%'  THEN  '1'
+      WHEN  ${region} ilike '%Connecticut%' THEN  '4'
+      WHEN  ${region} ilike '%Delaware%'  THEN  '4'
+      WHEN  ${region} ilike '%Florida%' THEN  '5'
+      WHEN  ${region} ilike '%Georgia%' THEN  '4'
+      WHEN  ${region} ilike '%Idaho%' THEN  '1'
+      WHEN  ${region} ilike '%Hawaii%'  THEN  '5'
+      WHEN  ${region} ilike '%Illinois%'  THEN  '2'
+      WHEN  ${region} ilike '%Indiana%' THEN  '4'
+      WHEN  ${region} ilike '%Iowa%'  THEN  '4'
+      WHEN  ${region} ilike '%Kansas%'  THEN  '4'
+      WHEN  ${region} ilike '%Kentucky%'  THEN  '3'
+      WHEN  ${region} ilike '%Louisiana%' THEN  '4'
+      WHEN  ${region} ilike '%Maine%' THEN  '4'
+      WHEN  ${region} ilike '%Maryland%'  THEN  '4'
+      WHEN  ${region} ilike '%Massachusetts%' THEN  '4'
+      WHEN  ${region} ilike '%Michigan%'  THEN  '3'
+      WHEN  ${region} ilike '%Minnesota%' THEN  '4'
+      WHEN  ${region} ilike '%Mississippi%' THEN  '4'
+      WHEN  ${region} ilike '%Missouri%'  THEN  '3'
+      WHEN  ${region} ilike '%Montana%' THEN  '1'
+      WHEN  ${region} ilike '%Nebraska%'  THEN  '4'
+      WHEN  ${region} ilike '%Nevada%'  THEN  '1'
+      WHEN  ${region} ilike '%New Hampshire%' THEN  '4'
+      WHEN  ${region} ilike '%New Jersey%'  THEN  '4'
+      WHEN  ${region} ilike '%New Mexico%'  THEN  '1'
+      WHEN  ${region} ilike '%New York%'  THEN  '2'
+      WHEN  ${region} ilike '%North Carolina%'  THEN  '3'
+      WHEN  ${region} ilike '%North Dakota%'  THEN  '4'
+      WHEN  ${region} ilike '%Ohio%'  THEN  '4'
+      WHEN  ${region} ilike '%Oklahoma%'  THEN  '4'
+      WHEN  ${region} ilike '%Oregon%'  THEN  '1'
+      WHEN  ${region} ilike '%Pennsylvania%'  THEN  '4'
+      WHEN  ${region} ilike '%Rhode Island%'  THEN  '4'
+      WHEN  ${region} ilike '%South Carolina%'  THEN  '3'
+      WHEN  ${region} ilike '%South Dakota%'  THEN  '4'
+      WHEN  ${region} ilike '%Tennessee%' THEN  '3'
+      WHEN  ${region} ilike '%Texas%' THEN  '2'
+      WHEN  ${region} ilike '%Utah%'  THEN  '1'
+      WHEN  ${region} ilike '%Vermont%' THEN  '4'
+      WHEN  ${region} ilike '%Virginia%'  THEN  '3'
+      WHEN  ${region} ilike '%Washington%'  THEN  '1'
+      WHEN  ${region} ilike '%West Virginia%' THEN  '3'
+      WHEN  ${region} ilike '%Wisconsin%' THEN  '4'
+      WHEN  ${region} ilike '%Wyoming%' THEN  '4'
+      ELSE 'Unattributed Region'
+      END
+  ;;
+  }
 
 #### MEASURES ####
 
