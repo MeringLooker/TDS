@@ -124,7 +124,6 @@ hidden: yes
 #### Measures ####
 
   measure: avg__position {
-    group_label: "Delivery"
     drill_fields: [adwords*, avg__position]
     type: average
     sql: ${TABLE}."avg. position" ;;
@@ -133,7 +132,6 @@ hidden: yes
 
   measure: clicks {
     drill_fields: [adwords*, clicks]
-    group_label: "Delivery"
     type: sum
     sql: ${TABLE}.clicks ;;
   }
@@ -145,7 +143,6 @@ hidden: yes
   }
 
   measure: cost {
-    group_label: "Delivery"
     drill_fields: [adwords*, cost]
     type: sum
     value_format_name: usd
@@ -154,7 +151,6 @@ hidden: yes
 
   measure: impressions {
     drill_fields: [adwords*, impressions]
-    group_label: "Delivery"
     type: sum
     sql: ${TABLE}.impressions ;;
   }
@@ -162,7 +158,6 @@ hidden: yes
   measure: click_through_rate {
     label: "CTR"
     drill_fields: [adwords*, click_through_rate]
-    group_label: "Delivery"
     type: number
     value_format_name: percent_1
     sql: 1.0*${clicks}/nullif(${impressions},0) ;;
@@ -170,21 +165,18 @@ hidden: yes
 
   measure: search_impr__share {
     drill_fields: [adwords*, search_impr__share]
-    group_label: "Delivery"
     type: string
     sql: ${TABLE}."search impr. share" ;;
   }
 
   measure: search_lost_is_rank {
     drill_fields: [adwords*, search_lost_is_rank]
-    group_label: "Delivery"
     type: string
     sql: ${TABLE}."search lost is (rank)" ;;
   }
 
   measure: total_conv__value {
     hidden: yes
-    group_label: "Delivery"
     type: sum
     sql: ${TABLE}."total conv. value" ;;
   }
