@@ -91,7 +91,7 @@ dimension: ga_fb_goals_join_id {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${date_date} BETWEEN '2018-11-01' AND '2020-12-31' THEN 'FY 19/20'
+        WHEN ${date_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 19/20'
         ELSE 'Uncategorized'
         END
         ;;

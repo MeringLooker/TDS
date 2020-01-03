@@ -42,7 +42,7 @@ view: tds_gdn_adgroup_performance_report {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${day_date} BETWEEN '2018-11-01' AND '2020-12-31' THEN 'FY 19/20'
+        WHEN ${day_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 19/20'
         ELSE 'Uncategorized'
         END
         ;;
