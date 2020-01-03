@@ -15,6 +15,11 @@ view: tds_ga_onsite {
     sql: ${date_date}||'|'||${keyword}  ;;
   }
 
+  dimension:ga_fb_onsite_join_id {
+    type: string
+    sql: ${date_date}||'|'||${keyword}  ;;
+  }
+
 #### PRIMARY KEY ####
 
   dimension: id {

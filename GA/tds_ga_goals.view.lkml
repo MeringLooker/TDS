@@ -19,6 +19,11 @@ view: tds_ga_goals {
     sql: ${date_date}||'|'||${keyword}  ;;
   }
 
+dimension: ga_fb_goals_join_id {
+  type: string
+  sql: ${date_date}||'|'||${keyword}  ;;
+}
+
 #### Dimensions #####
 
 
@@ -238,6 +243,14 @@ view: tds_ga_goals {
     label: "ROAS"
     type: number
     sql: ${transactionsrevenue}/nullif(${tds_gdn_adgroup_performance_report.cost}, 0) ;;
+    value_format_name: usd
+  }
+
+  measure: fb_roas {
+    group_label: "Transactional"
+    label: "ROAS"
+    type: number
+    sql: ${transactionsrevenue}/nullif(${tds_fb_view.total_spend}, 0) ;;
     value_format_name: usd
   }
 

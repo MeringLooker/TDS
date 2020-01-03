@@ -18,7 +18,7 @@ persist_with: tds_default_datagroup
 explore: tds_sem_adgroup_performance_report {
   label: "AdWords Search"
   view_label: "AdWords Search"
-  group_label: "The Dental Supply Company"
+  group_label: "The Dentists Supply Company"
 
   join: tds_ga_onsite {
     view_label: "Google Analytics"
@@ -42,7 +42,7 @@ explore: tds_sem_adgroup_performance_report {
 explore: tds_gdn_adgroup_performance_report {
   label: "AdWords Display"
   view_label: "AdWords Display"
-  group_label: "The Dental Supply Company"
+  group_label: "The Dentists Supply Company"
 
   join: tds_ga_onsite {
     view_label: "Google Analytics"
@@ -65,11 +65,11 @@ explore: tds_gdn_adgroup_performance_report {
 explore: the_dentists_supply_company_dcm_640625951 {
   label: "DoubleClick"
   view_label: "DoubleClick"
-  group_label: "The Dental Supply Company"
+  group_label: "The Dentists Supply Company"
 
   join: tds_ga_onsite {
     view_label: "Google Analytics"
-    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site, tds_ga_onsite.sourcemedium]
+    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
     type: left_outer
     sql_on: ${the_dentists_supply_company_dcm_640625951.dcm_join_id} = ${tds_ga_onsite.ga_dcm_onsite_join_id}  ;;
     relationship: one_to_many
@@ -84,11 +84,35 @@ explore: the_dentists_supply_company_dcm_640625951 {
   }
 }
 
+#### Facebook ####
+explore: tds_fb_view {
+  label: "Facebook"
+  view_label: "Facebook"
+  group_label: "The Dentists Supply Company"
+
+  join: tds_ga_onsite {
+    view_label: "Google Analytics"
+    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
+    type: left_outer
+    sql_on: ${tds_ga_onsite.ga_fb_onsite_join_id} = ${tds_fb_view.fb_join_id}  ;;
+    relationship: one_to_many
+  }
+
+  join: tds_ga_goals {
+    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue, tds_ga_goals.fb_roas]
+    view_label: "Google Analytics"
+    type: left_outer
+    sql_on: ${tds_ga_goals.ga_fb_goals_join_id} = ${tds_fb_view.fb_join_id}  ;;
+    relationship: one_to_many
+  }
+}
+
+
 #### GA Overall ####
 explore: tds_ga_overall {
   label: "Google Analytics"
   view_label: "Google Analytics Overall"
-  group_label: "The Dental Supply Company"
+  group_label: "The Dentists Supply Company"
 }
 
 #### Facebook ####
