@@ -32,7 +32,7 @@ view: tds_ga_overall {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${date_date} BETWEEN '2019-11-01' AND '2020-06-30' THEN 'FY 19/20'
+        WHEN ${date_date} BETWEEN '2018-11-01' AND '2020-12-31' THEN 'FY 19/20'
         ELSE 'Uncategorized'
         END
         ;;
