@@ -18,7 +18,7 @@ persist_with: tds_default_datagroup
 explore: tds_sem_adgroup_performance_report {
   label: "AdWords Search"
   view_label: "AdWords Search"
-  group_label: "TDS"
+  group_label: "The Dental Supply Company"
 
   join: tds_ga_onsite {
     view_label: "Google Analytics"
@@ -42,7 +42,7 @@ explore: tds_sem_adgroup_performance_report {
 explore: tds_gdn_adgroup_performance_report {
   label: "AdWords Display"
   view_label: "AdWords Display"
-  group_label: "TDS"
+  group_label: "The Dental Supply Company"
 
   join: tds_ga_onsite {
     view_label: "Google Analytics"
@@ -65,7 +65,7 @@ explore: tds_gdn_adgroup_performance_report {
 explore: the_dentists_supply_company_dcm_640625951 {
   label: "DoubleClick"
   view_label: "DoubleClick"
-  group_label: "TDS"
+  group_label: "The Dental Supply Company"
 
   join: tds_ga_onsite {
     view_label: "Google Analytics"
@@ -88,7 +88,7 @@ explore: the_dentists_supply_company_dcm_640625951 {
 explore: tds_ga_overall {
   label: "Google Analytics"
   view_label: "Google Analytics Overall"
-  group_label: "TDS"
+  group_label: "The Dental Supply Company"
 }
 
 #### Facebook ####
