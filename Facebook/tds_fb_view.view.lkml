@@ -128,6 +128,18 @@ dimension: fb_join_id {
     sql: ${TABLE}.date_start ;;
   }
 
+  dimension: fiscal_year {
+    label: "Fiscal"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${date_start_date} BETWEEN '2019-11-01' AND '2020-06-30' THEN 'FY 19/20'
+        ELSE 'Uncategorized'
+        END
+        ;;
+  }
+
   dimension_group: date_stop {
     hidden: yes
     type: time

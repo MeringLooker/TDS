@@ -85,6 +85,18 @@ dimension: ga_fb_goals_join_id {
     sql: ${TABLE}.date ;;
   }
 
+  dimension: fiscal_year {
+    label: "Fiscal"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${date_date} BETWEEN '2019-11-01' AND '2020-06-30' THEN 'FY 19/20'
+        ELSE 'Uncategorized'
+        END
+        ;;
+  }
+
   dimension: devicecategory {
     type: string
     sql: ${TABLE}.devicecategory ;;

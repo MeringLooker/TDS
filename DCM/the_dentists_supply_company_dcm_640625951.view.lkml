@@ -170,6 +170,19 @@ view: the_dentists_supply_company_dcm_640625951 {
     sql: ${TABLE}.date ;;
   }
 
+  dimension: fiscal_year {
+    label: "Fiscal"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${date_date} BETWEEN '2019-11-01' AND '2020-06-30' THEN 'FY 19/20'
+        ELSE 'Uncategorized'
+        END
+        ;;
+  }
+
+
   dimension: placement {
     type: string
     group_label: "DCM Dimensions"

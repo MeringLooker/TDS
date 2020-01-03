@@ -102,6 +102,18 @@ view: tds_ga_onsite {
     sql: ${TABLE}.date ;;
   }
 
+  dimension: fiscal_year {
+    label: "Fiscal"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${date_date} BETWEEN '2019-11-01' AND '2020-06-30' THEN 'FY 19/20'
+        ELSE 'Uncategorized'
+        END
+        ;;
+  }
+
   dimension: devicecategory {
     group_label: "Onsite"
     label: "Device Type"
