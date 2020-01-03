@@ -22,7 +22,7 @@ explore: tds_sem_adgroup_performance_report {
 
   join: tds_ga_onsite {
     view_label: "Onsite"
-    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.region, tds_ga_onsite.avg_time_on_site]
+    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
     type: left_outer
     sql_on: ${tds_sem_adgroup_performance_report.sem_join_id} = ${tds_ga_onsite.ga_onsite_join_id}  ;;
     relationship: one_to_many
@@ -46,7 +46,7 @@ explore: tds_gdn_adgroup_performance_report {
 
   join: tds_ga_onsite {
     view_label: "Onsite"
-    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.region, tds_ga_onsite.avg_time_on_site]
+    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
     type: left_outer
     sql_on: ${tds_gdn_adgroup_performance_report.gdn_join_id} = ${tds_ga_onsite.ga_onsite_join_id}  ;;
     relationship: one_to_many
@@ -69,7 +69,7 @@ explore: the_dentists_supply_company_dcm_640625951 {
 
   join: tds_ga_onsite {
     view_label: "Onsite"
-    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.region, tds_ga_onsite.avg_time_on_site, tds_ga_onsite.sourcemedium]
+    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site, tds_ga_onsite.sourcemedium]
     type: left_outer
     sql_on: ${the_dentists_supply_company_dcm_640625951.dcm_join_id} = ${tds_ga_onsite.ga_dcm_onsite_join_id}  ;;
     relationship: one_to_many

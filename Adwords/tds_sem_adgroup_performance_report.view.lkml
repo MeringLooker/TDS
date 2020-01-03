@@ -22,7 +22,7 @@ hidden: yes
   #### Dimensions ####
 
   dimension_group: day {
-    label: "Period"
+    label: ""
     type: time
     timeframes: [
       raw,

@@ -22,7 +22,7 @@ view: tds_gdn_adgroup_performance_report {
   #### Dimensions ####
 
   dimension_group: day {
-    label: "Period"
+    label: ""
     type: time
     timeframes: [
       raw,

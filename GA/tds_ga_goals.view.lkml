@@ -91,6 +91,7 @@ view: tds_ga_goals {
   }
 
   dimension: region {
+    group_label: "Transactional"
     type: string
     map_layer_name:  us_states
     sql: ${TABLE}.region ;;
@@ -164,7 +165,7 @@ view: tds_ga_goals {
   measure: goal1completions {
     group_label: "Transactional"
     label: "Checkout Complete"
-  type: sum_distinct
+    type: sum_distinct
     sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}.goal1completions ;;
   }
