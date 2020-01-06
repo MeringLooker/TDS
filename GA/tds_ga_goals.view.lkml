@@ -24,6 +24,11 @@ dimension: ga_fb_goals_join_id {
   sql: ${date_date}||'|'||${keyword}  ;;
 }
 
+  dimension: ga_linkedin_goals_join_id {
+    type: string
+    sql: ${date_date}||'|'||${linkedin_keyword}  ;;
+  }
+
 #### Dimensions #####
 
 
@@ -106,6 +111,28 @@ dimension: ga_fb_goals_join_id {
     type: string
     sql: ${TABLE}.keyword ;;
   }
+
+dimension: linkedin_keyword {
+  type: string
+  sql:
+    CASE
+      WHEN ${keyword} = 'LI_Sales_Skills_WorkTogether_Smiles' Then 'LI_Sales_Skills'
+      WHEN ${keyword} = 'LI_Sales_JobTitles_StartSaving_Smiles' Then 'LI_Sales_JobTitles'
+      WHEN ${keyword} = 'LI_Sales_Skills_WorkTogether_Smiles' Then 'LI_Sales_Skills'
+      WHEN ${keyword} = 'LI_Sales_Groups_StartSaving_Smiles' Then 'LI_Sales_Groups'
+      WHEN ${keyword} = 'LI_Sales_Skills_StartSaving_Smiles' Then 'LI_Sales_Skills'
+      WHEN ${keyword} = 'LI_Sales_Skills_WorkTogether_BigSavings' Then 'LI_Sales_Skills'
+      WHEN ${keyword} = 'LI_Sales_Skills_StartSaving_BigSavings' Then 'LI_Sales_Skills'
+      WHEN ${keyword} = 'LI_Sales_JobTitles_WorkTogether_Smiles' Then 'LI_Sales_JobTitles'
+      WHEN ${keyword} = 'LI_Sales_JobTitles_WorkTogether_BigSavings' Then 'LI_Sales_JobTitles'
+      WHEN ${keyword} = 'LI_Sales_Groups_WorkTogether_BigSavings' Then 'LI_Sales_Groups'
+      WHEN ${keyword} = 'LI_Sales_Groups_StartSaving_BigSavings' Then 'LI_Sales_Groups'
+      WHEN ${keyword} = 'LI_Sales_JobTitles_StartSaving_BigSavings' Then 'LI_Sales_JobTitles'
+      WHEN ${keyword} = 'LI_Sales_Groups_WorkTogether' Then 'LI_Sales_Groups'
+      WHEN ${keyword} = 'LI_Sales_Skills_WorkTogether' Then 'LI_Sales_Skills'
+      END
+  ;;
+}
 
   dimension: region {
     group_label: "Transactional"

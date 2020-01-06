@@ -94,7 +94,7 @@ explore: tds_fb_view {
     view_label: "Google Analytics"
     fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
     type: left_outer
-    sql_on: ${tds_ga_onsite.ga_fb_onsite_join_id} = ${tds_fb_view.fb_join_id}  ;;
+    sql_on: ${tds_fb_view.fb_join_id} = ${tds_ga_onsite.ga_fb_onsite_join_id}  ;;
     relationship: one_to_many
   }
 
@@ -102,11 +102,33 @@ explore: tds_fb_view {
     fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue, tds_ga_goals.fb_roas]
     view_label: "Google Analytics"
     type: left_outer
-    sql_on: ${tds_ga_goals.ga_fb_goals_join_id} = ${tds_fb_view.fb_join_id}  ;;
+    sql_on: ${tds_fb_view.fb_join_id} = ${tds_ga_goals.ga_fb_goals_join_id}  ;;
     relationship: one_to_many
   }
 }
 
+#### LinkedIn ####
+explore:  tds_linkedin {
+  label: "LinkedIn"
+  view_label: " LinkedIn"
+  group_label: "The Dentists Supply Company"
+
+  join: tds_ga_onsite {
+    view_label: "Google Analytics"
+    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
+    type: left_outer
+    sql_on: ${tds_linkedin.linkedin_join_id} = ${tds_ga_onsite.ga_linkedin_onsite_join_id}  ;;
+    relationship: one_to_many
+  }
+
+  join: tds_ga_goals {
+    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue]
+    view_label: "Google Analytics"
+    type: left_outer
+    sql_on: ${tds_linkedin.linkedin_join_id} = ${tds_ga_goals.ga_linkedin_goals_join_id}  ;;
+    relationship: one_to_many
+  }
+}
 
 #### GA Overall ####
 explore: tds_ga_overall {
