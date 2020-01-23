@@ -151,7 +151,8 @@ view: tds_gdn_adgroup_performance_report {
 }
 
   measure: conversions {
-   type: sum_distinct
+  hidden: yes
+  type: sum_distinct
     sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}.conversions ;;
   }
@@ -180,6 +181,7 @@ view: tds_gdn_adgroup_performance_report {
   }
 
   measure: total_conv__value {
+    hidden: yes
     type: sum_distinct
     sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}."total conv. value" ;;

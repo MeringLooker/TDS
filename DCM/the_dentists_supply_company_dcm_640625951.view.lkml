@@ -156,7 +156,6 @@ view: the_dentists_supply_company_dcm_640625951 {
 
   dimension_group: date {
     type: time
-    group_label: "Date Periods"
     label: ""
     timeframes: [
       raw,
@@ -319,7 +318,7 @@ view: the_dentists_supply_company_dcm_640625951 {
   measure: total_media_cost {
     group_label: "3rd Party Measures"
     type: sum_distinct
-    label: "Media Spend"
+    label: "Total Cost"
     sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}."media cost" ;;
     value_format_name: usd

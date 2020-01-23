@@ -2,11 +2,42 @@ view: tdsc_email {
   sql_table_name: public.tdsc_email ;;
   drill_fields: [id]
 
+#### Primary Key ####
   dimension: id {
     hidden: yes
     primary_key: yes
     type: string
     sql: ${TABLE}.id ;;
+  }
+
+  #### Join Id ####
+  dimension: email_join_id {
+    hidden: yes
+    type: string
+    sql: ${date_date}||'|'||${campaign} ;;
+  }
+
+
+  #### Dimensions ####
+  dimension_group: date {
+    label: ""
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.date ;;
+  }
+
+  dimension: campaign {
+    hidden: yes
+    type: string
+    sql: ${TABLE}.campaign ;;
   }
 
   dimension_group: __senttime {
@@ -22,6 +53,18 @@ view: tdsc_email {
       year
     ]
     sql: ${TABLE}.__senttime ;;
+  }
+
+  dimension: subject {
+    label: "Subject Line"
+    type: string
+    sql: ${TABLE}.subject ;;
+  }
+
+  dimension: subject_t {
+    hidden: yes
+    type: string
+    sql: ${TABLE}."subject (t)" ;;
   }
 
   dimension: __sheet {
@@ -51,14 +94,16 @@ view: tdsc_email {
     sql: ${TABLE}.__updatetime ;;
   }
 
+  dimension: email_id {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.email_id ;;
+  }
+
+#### Measures ####
   dimension: bounces {
     type: number
     sql: ${TABLE}.bounces ;;
-  }
-
-  dimension: campaign {
-    type: string
-    sql: ${TABLE}.campaign ;;
   }
 
   dimension: clicks {
@@ -69,26 +114,6 @@ view: tdsc_email {
   dimension: ctr {
     type: string
     sql: ${TABLE}.ctr ;;
-  }
-
-  dimension_group: date {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.date ;;
-  }
-
-  dimension: email_id {
-    hidden: yes
-    type: number
-    sql: ${TABLE}.email_id ;;
   }
 
   dimension: impressions {
@@ -109,16 +134,6 @@ view: tdsc_email {
   dimension: spam {
     type: number
     sql: ${TABLE}.spam ;;
-  }
-
-  dimension: subject {
-    type: string
-    sql: ${TABLE}.subject ;;
-  }
-
-  dimension: subject_t {
-    type: string
-    sql: ${TABLE}."subject (t)" ;;
   }
 
   dimension: unsubs {

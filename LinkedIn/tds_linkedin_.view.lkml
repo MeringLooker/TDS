@@ -575,7 +575,7 @@ dimension: linkedin_join_id {
   }
 
   measure: total_spend {
-    label: "Media Spend"
+    label: "Total Cost"
     type: sum
     sql: ${TABLE}.costinusd ;;
     value_format_name: usd

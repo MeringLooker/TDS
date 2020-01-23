@@ -137,6 +137,7 @@ hidden: yes
 #### Measures ####
 
   measure: avg__position {
+    hidden: yes
     drill_fields: [adwords*, avg__position]
     type: average
     sql: ${TABLE}."avg. position" ;;

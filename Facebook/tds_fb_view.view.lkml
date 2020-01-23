@@ -16,7 +16,7 @@ view: tds_fb_view {
 dimension: fb_join_id {
   hidden: yes
   type:  string
-  sql: ${date_start_date}|| '|'||${ad_id} ;;
+  sql: ${date_start_date}||'|'||${ad_id} ;;
 }
 
 #### Dimensions ####
@@ -237,7 +237,7 @@ dimension: fb_join_id {
 
   measure: total_spend {
     type: sum_distinct
-    label: "Media Spend"
+    label: "Total Cost"
     sql_distinct_key: ${id};;
     sql: ${spend};;
     value_format_name: usd

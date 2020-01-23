@@ -25,6 +25,11 @@ view: tds_ga_onsite {
     sql: ${date_date}||'|'||${linkedin_keyword}  ;;
   }
 
+  dimension: ga_email_onsite_join_id {
+    type: string
+    sql: ${date_date}||'|'||${campaign}  ;;
+  }
+
 #### PRIMARY KEY ####
 
   dimension: id {

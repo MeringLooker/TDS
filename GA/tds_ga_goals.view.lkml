@@ -29,6 +29,12 @@ dimension: ga_fb_goals_join_id {
     sql: ${date_date}||'|'||${linkedin_keyword}  ;;
   }
 
+  dimension: ga_email_goals_join_id {
+    type: string
+    sql: ${date_date}||'|'||${campaign}  ;;
+  }
+
+
 #### Dimensions #####
 
 
