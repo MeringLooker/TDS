@@ -112,6 +112,7 @@ view: tdsc_email {
   }
 
   dimension: ctr {
+    label: "CTR"
     type: string
     sql: ${TABLE}.ctr ;;
   }

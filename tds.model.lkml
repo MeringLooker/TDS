@@ -132,27 +132,27 @@ explore:  tds_linkedin {
 }
 
 #### Email ####
-explore: tdsc_email {
-  label: "Email"
-  view_label: "Email"
-  group_label: "The Dentists Supply Company"
-
-  join: tds_ga_onsite {
-    view_label: "Google Analytics Email"
-    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
-    type: left_outer
-    sql_on: ${tdsc_email.email_join_id} = ${tds_ga_onsite.ga_email_onsite_join_id}  ;;
-    relationship: one_to_many
-  }
-
-  join: tds_ga_goals {
-    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue]
-    view_label: "Google Analytics Email"
-    type: left_outer
-    sql_on: ${tdsc_email.email_join_id} = ${tds_ga_goals.ga_email_goals_join_id}  ;;
-    relationship: one_to_many
-}
-}
+# explore: tdsc_email {
+#   label: "Email"
+#   view_label: "Email"
+#   group_label: "The Dentists Supply Company"
+#
+#   join: tds_ga_onsite {
+#     view_label: "Google Analytics Email"
+#     fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
+#     type: left_outer
+#     sql_on: ${tdsc_email.email_join_id} = ${tds_ga_onsite.ga_email_onsite_join_id}  ;;
+#     relationship: one_to_many
+#   }
+#
+#   join: tds_ga_goals {
+#     fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue]
+#     view_label: "Google Analytics Email"
+#     type: left_outer
+#     sql_on: ${tdsc_email.email_join_id} = ${tds_ga_goals.ga_email_goals_join_id}  ;;
+#     relationship: one_to_many
+# }
+# }
 
 
 #### GA Overall ####
