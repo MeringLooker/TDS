@@ -146,7 +146,8 @@ hidden: yes
 
   measure: clicks {
     drill_fields: [adwords*, clicks]
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${id} ;;
     sql: ${TABLE}.clicks ;;
   }
 
@@ -158,14 +159,16 @@ hidden: yes
 
   measure: cost {
     drill_fields: [adwords*, cost]
-    type: sum
+  type: sum_distinct
+    sql_distinct_key: ${id} ;;
     value_format_name: usd
     sql: ${TABLE}.cost/1000000.00 ;;
   }
 
   measure: impressions {
     drill_fields: [adwords*, impressions]
-    type: sum
+   type: sum_distinct
+    sql_distinct_key: ${id} ;;
     sql: ${TABLE}.impressions ;;
   }
 
