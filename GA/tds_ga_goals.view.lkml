@@ -271,7 +271,7 @@ dimension: linkedin_keyword {
     group_label: "Transactional"
     label: "ROAS"
     type: number
-    sql: ${transactionsrevenue}/nullif(${the_dentists_supply_company_dcm_640625951.total_media_cost}, 0) ;;
+    sql: ${transactionsrevenue}/nullif(${tds_dcm_640625951.total_media_cost}, 0) ;;
     value_format_name: usd
   }
 

@@ -1,5 +1,5 @@
-view: the_dentists_supply_company_dcm_640625951 {
-  sql_table_name: public."the dentists supply company_dcm_640625951" ;;
+view: tds_dcm_640625951 {
+  sql_table_name: public."tds_dcm_640625951" ;;
   drill_fields: [id]
 
   dimension: id {
