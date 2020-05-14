@@ -253,17 +253,17 @@ view: tds_dcm_640625951 {
 #         ;;
 #   }
 
-  dimension: formatted_device {
-    type: string
-    label: "Device Type"
-    group_label: "DCM Dimensions"
-    sql:
-      CASE
-        WHEN ${platform_type} ILIKE '%mobile%' THEN 'Mobile'
-        ELSE ${platform_type}
-        END
-        ;;
-  }
+#   dimension: formatted_device {
+#     type: string
+#     label: "Device Type"
+#     group_label: "DCM Dimensions"
+#     sql:
+#       CASE
+#         WHEN ${platform_type} ILIKE '%mobile%' THEN 'Mobile'
+#         ELSE ${platform_type}
+#         END
+#         ;;
+#   }
 
 ######### MEASURES ########
 

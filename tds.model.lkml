@@ -16,102 +16,125 @@ persist_with: tds_default_datagroup
 
 
 #### SEM ####
-explore: tds_sem_adgroup_performance_report {
-  label: "AdWords Search"
-  view_label: "AdWords Search"
-  group_label: "The Dentists Supply Company"
 
-  join: tds_ga_onsite {
-    view_label: "Google Analytics Adwords Search"
-    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
-    type: left_outer
-    sql_on: ${tds_sem_adgroup_performance_report.sem_join_id} = ${tds_ga_onsite.ga_onsite_join_id}  ;;
-    relationship: one_to_many
+  explore:tds_sem_ga_view  {
+    label: "Adwords Search Test"
+    view_label: "AdWords Search"
+    group_label: "The Dentists Supply Company"
   }
 
-  join: tds_ga_goals {
-    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue, tds_ga_goals.sem_roas]
-    view_label: "Google Analytics Adwords Search"
-    type: left_outer
-    sql_on: ${tds_sem_adgroup_performance_report.sem_join_id} = ${tds_ga_goals.ga_goals_join_id}  ;;
-    relationship: one_to_many
-  }
-}
-
-# explore:tds_sem_ga_view  {
-#   label: "Adwords Search Test"
+# explore: tds_sem_adgroup_performance_report {
+#   label: "AdWords Search"
 #   view_label: "AdWords Search"
 #   group_label: "The Dentists Supply Company"
+#
+#   join: tds_ga_onsite {
+#     view_label: "Google Analytics Adwords Search"
+#     fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
+#     type: left_outer
+#     sql_on: ${tds_sem_adgroup_performance_report.sem_join_id} = ${tds_ga_onsite.ga_onsite_join_id}  ;;
+#     relationship: one_to_many
+#   }
+#
+#   join: tds_ga_goals {
+#     fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue, tds_ga_goals.sem_roas]
+#     view_label: "Google Analytics Adwords Search"
+#     type: left_outer
+#     sql_on: ${tds_sem_adgroup_performance_report.sem_join_id} = ${tds_ga_goals.ga_goals_join_id}  ;;
+#     relationship: one_to_many
+#   }
 # }
 
+
+
 #### GDN ####
-explore: tds_gdn_adgroup_performance_report {
-  label: "AdWords Display"
-  view_label: "AdWords Display"
-  group_label: "The Dentists Supply Company"
+  explore: tds_gdn_ga_view{
+    label: "AdWords Display"
+    view_label: "AdWords Display"
+    group_label: "The Dentists Supply Company"
+    }
 
-  join: tds_ga_onsite {
-    view_label: "Google Analytics Adwords Display"
-    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
-    type: left_outer
-    sql_on: ${tds_gdn_adgroup_performance_report.gdn_join_id} = ${tds_ga_onsite.ga_onsite_join_id}  ;;
-    relationship: one_to_many
-  }
 
-  join: tds_ga_goals {
-    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue, tds_ga_goals.gdn_roas]
-    view_label: "Google Analytics Adwords Display"
-    type: left_outer
-    sql_on: ${tds_gdn_adgroup_performance_report.gdn_join_id} = ${tds_ga_goals.ga_goals_join_id}  ;;
-    relationship: one_to_many
-  }
-}
+# explore: tds_gdn_adgroup_performance_report {
+#   label: "AdWords Display"
+#   view_label: "AdWords Display"
+#   group_label: "The Dentists Supply Company"
+#
+#   join: tds_ga_onsite {
+#     view_label: "Google Analytics Adwords Display"
+#     fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
+#     type: left_outer
+#     sql_on: ${tds_gdn_adgroup_performance_report.gdn_join_id} = ${tds_ga_onsite.ga_onsite_join_id}  ;;
+#     relationship: one_to_many
+#   }
+#
+#   join: tds_ga_goals {
+#     fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue, tds_ga_goals.gdn_roas]
+#     view_label: "Google Analytics Adwords Display"
+#     type: left_outer
+#     sql_on: ${tds_gdn_adgroup_performance_report.gdn_join_id} = ${tds_ga_goals.ga_goals_join_id}  ;;
+#     relationship: one_to_many
+#   }
+# }
 
 #### DCM ####
-explore: tds_dcm_640625951 {
-  label: "DoubleClick"
-  view_label: "DoubleClick"
-  group_label: "The Dentists Supply Company"
-
-  join: tds_ga_onsite {
-    view_label: "Google Analytics DCM"
-    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
-    type: left_outer
-    sql_on: ${tds_dcm_640625951.dcm_join_id} = ${tds_ga_onsite.ga_dcm_onsite_join_id}  ;;
-    relationship: one_to_many
+  explore: tds_dcm_ga_view {
+    label: "DoubleClick"
+    view_label: "DoubleClick"
+    group_label: "The Dentists Supply Company"
   }
 
-  join: tds_ga_goals {
-    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue, tds_ga_goals.dcm_roas]
-    view_label: "Google Analytics DCM"
-    type: left_outer
-    sql_on: ${tds_dcm_640625951.dcm_join_id} = ${tds_ga_goals.ga_dcm_goals_join_id}  ;;
-    relationship: one_to_many
-  }
-}
+
+# explore: tds_dcm_640625951 {
+#   view_abel: "DoubleClick"
+#   view_label: "DoubleClick"
+#   group_label: "The Dentists Supply Company"
+
+#   join: tds_ga_onsite {
+#     view_label: "Google Analytics DCM"
+#     fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
+#     type: left_outer
+#     sql_on: ${tds_dcm_640625951.dcm_join_id} = ${tds_ga_onsite.ga_dcm_onsite_join_id}  ;;
+#     relationship: one_to_many
+#   }
+
+#   join: tds_ga_goals {
+#     fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue, tds_ga_goals.dcm_roas]
+#     view_label: "Google Analytics DCM"
+#     type: left_outer
+#     sql_on: ${tds_dcm_640625951.dcm_join_id} = ${tds_ga_goals.ga_dcm_goals_join_id}  ;;
+#     relationship: one_to_many
+#   }}
+
 
 #### Facebook ####
-explore: tds_fb_view {
-  label: "Facebook"
-  view_label: "Facebook"
-  group_label: "The Dentists Supply Company"
 
-  join: tds_ga_onsite {
-    view_label: "Google Analytics Facebook"
-    fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
-    type: left_outer
-    sql_on: ${tds_fb_view.fb_join_id} = ${tds_ga_onsite.ga_fb_onsite_join_id}  ;;
-    relationship: one_to_many
+  explore: tds_fb_ga_view{
+    label: "Facebook"
+    view_label: "Facebook"
+    group_label: "The Dentists Supply Company"
   }
 
-  join: tds_ga_goals {
-    fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue, tds_ga_goals.fb_roas]
-    view_label: "Google Analytics Facebook"
-    type: left_outer
-    sql_on: ${tds_fb_view.fb_join_id} = ${tds_ga_goals.ga_fb_goals_join_id}  ;;
-    relationship: one_to_many
-  }
-}
+# explore: tds_fb_view {
+#   label: "Facebook"
+#   view_label: "Facebook"
+#   group_label: "The Dentists Supply Company"
+
+#   join: tds_ga_onsite {
+#     view_label: "Google Analytics Facebook"
+#     fields: [tds_ga_onsite.sessions, tds_ga_onsite.newusers, tds_ga_onsite.newuserrate,tds_ga_onsite.users, tds_ga_onsite.sessionduration, tds_ga_onsite.pageviews, tds_ga_onsite.avg_time_on_site]
+#     type: left_outer
+#     sql_on: ${tds_fb_view.fb_join_id} = ${tds_ga_onsite.ga_fb_onsite_join_id}  ;;
+#     relationship: one_to_many
+#   }
+
+#   join: tds_ga_goals {
+#     fields: [tds_ga_goals.goal1completions, tds_ga_goals.goal4completions, tds_ga_goals.transactions, tds_ga_goals.transactionsrevenue, tds_ga_goals.fb_roas]
+#     view_label: "Google Analytics Facebook"
+#     type: left_outer
+#     sql_on: ${tds_fb_view.fb_join_id} = ${tds_ga_goals.ga_fb_goals_join_id}  ;;
+#     relationship: one_to_many
+#   }}
 
 #### LinkedIn ####
 explore:  tds_linkedin {
@@ -161,11 +184,11 @@ explore:  tds_linkedin {
 
 
 #### GA Overall ####
-explore: tds_ga_overall {
-  label: "Google Analytics"
-  view_label: "Google Analytics Overall"
-  group_label: "The Dentists Supply Company"
-}
+# explore: tds_ga_overall {
+#   label: "Google Analytics"
+#   view_label: "Google Analytics Overall"
+#   group_label: "The Dentists Supply Company"
+# }
 
 
 #### Facebook ####
