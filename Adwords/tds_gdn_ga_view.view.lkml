@@ -17,7 +17,7 @@ view: tds_gdn_ga_view {
     dimension: account_creates {
       hidden: yes
       type: number
-      sql: ${TABLE}.account_creates ;;
+      sql: ${TABLE}.account_creates;;
     }
 
     dimension: ad_group {
@@ -113,7 +113,7 @@ view: tds_gdn_ga_view {
     dimension: pdp_views {
       hidden: yes
       type: number
-      sql: ${TABLE}.pdp_views ;;
+      sql: ${TABLE}.pdp_views;;
     }
 
     dimension: reportname {
@@ -125,7 +125,7 @@ view: tds_gdn_ga_view {
     dimension: revenue {
       hidden: yes
       type: number
-      sql: ${TABLE}.revenue ;;
+      sql: ${TABLE}.revenue;;
     }
 
     dimension: sessionduration {
@@ -143,13 +143,13 @@ view: tds_gdn_ga_view {
     dimension: subscrpition_orders {
       hidden: yes
       type: number
-      sql: ${TABLE}.subscrpition_orders ;;
+      sql: ${TABLE}.subscrpition_orders;;
     }
 
     dimension: transactions {
       hidden: yes
       type: number
-      sql: ${TABLE}.transactions ;;
+      sql: ${TABLE}.transactions;;
     }
 
     dimension: users {
@@ -157,6 +157,12 @@ view: tds_gdn_ga_view {
       type: number
       sql: ${TABLE}.users ;;
     }
+
+
+
+
+
+
 
 #### Measures ####
   measure: total_impressions {
