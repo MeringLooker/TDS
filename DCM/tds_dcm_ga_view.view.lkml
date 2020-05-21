@@ -3,7 +3,7 @@ view: tds_dcm_ga_view {
 
 #### Join id ####
   dimension: ga_join_id {
-    hidden: yes
+#     hidden: yes
     type: string
     sql: ${TABLE}.ga_join_id ;;
   }
@@ -141,17 +141,17 @@ view: tds_dcm_ga_view {
   }
 
 
-  dimension: fiscal_year {
-    label: "Fiscal"
-    type: string
-    group_label: "Client Dimensions"
-    sql:
-      CASE
-        WHEN ${date_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 19/20'
-        ELSE 'Uncategorized'
-        END
-        ;;
-  }
+#   dimension: fiscal_year {
+#     label: "Fiscal"
+#     type: string
+#     group_label: "Client Dimensions"
+#     sql:
+#       CASE
+#         WHEN ${date_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
+#         ELSE 'Uncategorized'
+#         END
+#         ;;
+#   }
 
 
 
@@ -222,6 +222,18 @@ view: tds_dcm_ga_view {
     sql: ${TABLE}."total conversions" ;;
   }
 
+  dimension: publisher {
+    type: string
+    label: "Publisher"
+    sql:
+    CASE
+        WHEN ${site_dcm} ilike 'dentaltown%' then 'Dentaltown'
+        WHEN ${site_dcm} ilike 'digilant%' then 'Digilant'
+        ELSE ${site_dcm}
+        END
+        ;;
+  }
+
   dimension: revenue {
     hidden:  yes
     type: number
@@ -286,19 +298,26 @@ view: tds_dcm_ga_view {
 
   measure: total_impressions {
     group_label: "3rd Party Measures"
-    type: sum_distinct
+    type: sum
     label: "Impressions"
-    sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}.impressions ;;
   }
 
   measure: total_clicks {
     group_label: "3rd Party Measures"
-    type: sum_distinct
+    type: sum
     label: "Clicks"
-    sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}.clicks ;;
   }
+
+  measure: total_media_cost {
+    group_label: "3rd Party Measures"
+    type: sum
+    label: "Total Cost"
+    sql: ${TABLE}.cost ;;
+    value_format_name: usd
+  }
+
 
   measure: click_through_rate {
     group_label: "3rd Party Measures"
@@ -310,17 +329,15 @@ view: tds_dcm_ga_view {
 
   measure: total_active_view_measureable_impressions {
     group_label: "3rd Party Measures"
-    type: sum_distinct
+    type: sum
     label: "Active View Measureable Impressions"
-    sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}."active view: measurable impressions";;
   }
 
   measure: total_active_view_viewable_impressions {
     group_label: "3rd Party Measures"
-    type: sum_distinct
+    type: sum
     label: "Active View Viewable Impressions"
-    sql_distinct_key: ${TABLE}.id ;;
     sql: ${TABLE}."active view: viewable impressions" ;;
   }
 
@@ -330,15 +347,6 @@ view: tds_dcm_ga_view {
     label: "Viewability"
     sql: ${total_active_view_viewable_impressions}/nullif(${total_active_view_measureable_impressions}, 0) ;;
     value_format_name: percent_0
-  }
-
-  measure: total_media_cost {
-    group_label: "3rd Party Measures"
-    type: sum_distinct
-    label: "Total Cost"
-    sql_distinct_key: ${TABLE}.id ;;
-    sql: ${TABLE}."media cost" ;;
-    value_format_name: usd
   }
 
   measure: cost_per_click {
@@ -377,8 +385,7 @@ view: tds_dcm_ga_view {
     hidden: yes
     label: "Total Conversions"
     group_label: "3rd Party Measures"
-    type: sum_distinct
-    sql_distinct_key: ${TABLE}.id ;;
+    type: sum
     sql: ${TABLE}."total conversions" ;;
   }
 
@@ -386,8 +393,7 @@ view: tds_dcm_ga_view {
     hidden: yes
     label: "Total Revenue"
     group_label: "3rd Party Measures"
-    type: sum_distinct
-    sql_distinct_key: ${TABLE}.id ;;
+    type: sum
     sql: ${TABLE}."total revenue" ;;
     value_format_name: usd
   }
@@ -395,8 +401,7 @@ view: tds_dcm_ga_view {
   measure: view_through_conversions {
     label: "View Through Conversions"
     group_label: "3rd Party Measures"
-    type: sum_distinct
-    sql_distinct_key: ${TABLE}.id ;;
+    type: sum
     sql: ${TABLE}."view-through conversions" ;;
   }
 
@@ -404,53 +409,52 @@ view: tds_dcm_ga_view {
     hidden: yes
     label: "View Through Revenue"
     group_label: "3rd Party Measures"
-    type: sum_distinct
-    sql_distinct_key: ${TABLE}.id ;;
+    type: sum
     sql: ${TABLE}."view-through revenue" ;;
   }
 
   measure: total_page_views {
-    group_label: "GA-Onsite"
+    group_label: "Onsite"
     type: sum
     sql: ${TABLE}.pageviews ;;
   }
 
   measure: total_session_duration {
-    group_label: "GA-Onsite"
+    group_label: "Onsite"
     hidden: yes
     type: sum
     sql: ${TABLE}.sessionduration ;;
   }
 
   measure: total_sessions {
-    group_label: "GA-Onsite"
+    group_label: "Onsite"
     type: sum
     sql: ${TABLE}.sessions ;;
   }
 
   measure: avg_time_on_site {
-    group_label: "GA-Onsite"
+    group_label: "Onsite"
     label: "Avg. TOS"
     sql: ${total_session_duration}/nullif(${total_sessions},0) ;;
     value_format: "0.##"
   }
 
   measure: total_users {
-    group_label: "GA-Onsite"
+    group_label: "Onsite"
     type: sum
     sql: ${TABLE}.users ;;
   }
 
   measure: total_new_users {
     label: "New Users"
-    group_label: "GA-Onsite"
+    group_label: "Onsite"
     type: sum
     sql: ${TABLE}.newusers ;;
   }
 
   measure: new_user_rate {
     label: "New User Rate"
-    group_label:"GA-Onsite"
+    group_label:"Onsite"
     type: number
     sql: 1.0*${total_new_users}/nullif(${total_users}, 0);;
     value_format_name: percent_0
@@ -489,7 +493,7 @@ view: tds_dcm_ga_view {
   }
 
   measure: count {
-    hidden: yes
+#     hidden: yes
     type: count
     drill_fields: []
   }

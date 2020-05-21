@@ -2,7 +2,6 @@ view: tds_sem_ga_view {
   sql_table_name: public.tds_sem_ga_view ;;
 
 #### Dimensions ####
-
   dimension: account {
     type: string
     sql: ${TABLE}.account ;;
@@ -15,6 +14,7 @@ view: tds_sem_ga_view {
   }
 
   dimension: ad_group {
+    hidden:  yes
     type: string
     sql: ${TABLE}."ad group" ;;
   }
@@ -86,6 +86,18 @@ view: tds_sem_ga_view {
     sql: ${TABLE}.day ;;
   }
 
+#   dimension: fiscal_year {
+#     label: "Fiscal"
+#     type: string
+#     group_label: "Client Dimensions"
+#     sql:
+#       CASE
+#         WHEN ${day_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
+#         ELSE 'Uncategorized'
+#         END
+#         ;;
+#   }
+
   dimension: ga_join_id {
     hidden: yes
     type: string
@@ -101,31 +113,36 @@ view: tds_sem_ga_view {
   dimension: newusers {
     hidden: yes
     type: number
-    sql: ${TABLE}.newusers ;;
+    sql: ${TABLE}.newusers;;
   }
 
   dimension: pageviews {
     hidden: yes
     type: number
-    sql: ${TABLE}.pageviews ;;
+    sql: ${TABLE}.pageviews;;
   }
 
   dimension: pdp_views {
     hidden: yes
     type: number
-    sql: ${TABLE}.pdp_views ;;
+    sql: ${TABLE}.pdp_views;;
+  }
+
+  dimension: publisher {
+    type: string
+    sql: 'SEM' ;;
   }
 
   dimension: reportname {
     hidden: yes
     type: string
-    sql: ${TABLE}.reportname ;;
+    sql: ${TABLE}.reportname;;
   }
 
   dimension: revenue {
     hidden: yes
     type: number
-    sql: ${TABLE}.revenue ;;
+    sql: ${TABLE}.revenue;;
   }
 
   dimension: sessionduration {
@@ -160,10 +177,10 @@ view: tds_sem_ga_view {
 
 #### Measures ####
 
-  measure: total_checkouts {
+  measure: total_impressions {
     type: sum
-    group_label: "Transactional"
-    sql: ${checkouts} ;;
+    group_label: "Delivery"
+    sql: ${impressions} ;;
   }
 
   measure: total_clicks {
@@ -179,11 +196,10 @@ view: tds_sem_ga_view {
     sql: ${cost}/1000000.00 ;;
   }
 
-
-  measure: total_impressions {
+  measure: total_checkouts {
     type: sum
-    group_label: "Delivery"
-    sql: ${impressions} ;;
+    group_label: "Transactional"
+    sql: ${checkouts} ;;
   }
 
   measure: click_through_rate {
@@ -229,7 +245,8 @@ view: tds_sem_ga_view {
     sql: ${revenue} ;;
   }
 
-  measure: total_sessionduration {
+  measure: total_session_duration {
+    hidden:  yes
     type: sum
     group_label: "Onsite"
     sql: ${sessionduration} ;;
@@ -239,7 +256,7 @@ view: tds_sem_ga_view {
     group_label: "Onsite"
     label: "Avg. TOS"
     type: number
-    sql: ${total_sessionduration}/nullif(${total_sessions},0) ;;
+    sql: ${total_session_duration}/nullif(${total_sessions},0) ;;
     value_format: "m:ss"
   }
 

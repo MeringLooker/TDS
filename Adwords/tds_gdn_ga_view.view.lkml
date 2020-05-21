@@ -92,6 +92,17 @@ view: tds_gdn_ga_view {
       sql: ${TABLE}.day ;;
     }
 
+#   dimension: fiscal_year {
+#     label: "Fiscal"
+#     type: string
+#     group_label: "Client Dimensions"
+#     sql:
+#       CASE
+#         WHEN ${day_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
+#         ELSE 'Uncategorized'
+#         END
+#         ;;
+#   }
     dimension: impressions {
       hidden: yes
       type: number
@@ -114,6 +125,11 @@ view: tds_gdn_ga_view {
       hidden: yes
       type: number
       sql: ${TABLE}.pdp_views;;
+    }
+
+    dimension: publisher {
+      type: string
+      sql: 'GDN' ;;
     }
 
     dimension: reportname {
@@ -157,11 +173,6 @@ view: tds_gdn_ga_view {
       type: number
       sql: ${TABLE}.users ;;
     }
-
-
-
-
-
 
 
 #### Measures ####
@@ -235,7 +246,8 @@ view: tds_gdn_ga_view {
     sql: ${pageviews} ;;
   }
 
-  measure: total_sessionduration {
+  measure: total_session_duration {
+    hidden:  yes
     type: sum
     group_label: "Onsite"
     sql: ${sessionduration} ;;
@@ -251,7 +263,7 @@ view: tds_gdn_ga_view {
     group_label: "Onsite"
     label: "Avg. TOS"
     type: number
-    sql: ${total_sessionduration}/nullif(${total_sessions},0) ;;
+    sql: ${total_session_duration}/nullif(${total_sessions},0) ;;
     value_format: "m:ss"
   }
 

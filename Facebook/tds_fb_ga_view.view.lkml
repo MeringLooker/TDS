@@ -11,7 +11,6 @@ view: tds_fb_ga_view {
     }
 
 #### Dimensions ####
-
     dimension_group: __senttime {
       hidden: yes
       type: time
@@ -112,17 +111,17 @@ view: tds_fb_ga_view {
       sql: ${TABLE}.date_start ;;
     }
 
-    dimension: fiscal_year {
-      label: "Fiscal"
-      type: string
-      group_label: "Client Dimensions"
-      sql:
-      CASE
-        WHEN ${date_start_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 19/20'
-        ELSE 'Uncategorized'
-        END
-        ;;
-    }
+#     dimension: fiscal_year {
+#       label: "Fiscal"
+#       type: string
+#       group_label: "Client Dimensions"
+#       sql:
+#       CASE
+#         WHEN ${date_start_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
+#         ELSE 'Uncategorized'
+#         END
+#         ;;
+#     }
 
     dimension_group: date_stop {
       hidden: yes
@@ -175,6 +174,11 @@ view: tds_fb_ga_view {
       sql: ${TABLE}.inline_post_engagement ;;
     }
 
+    dimension: publisher {
+      type: string
+      sql: 'Facebook' ;;
+    }
+
 #     dimension: reach {
 #       type: number
 #       hidden: yes
@@ -205,10 +209,10 @@ view: tds_fb_ga_view {
     sql: ${TABLE}.users ;;
   }
 
-  dimension: newusers {
+  dimension: new_users {
     hidden:  yes
     type: number
-    sql: ${TABLE}.newusers ;;
+    sql: ${TABLE}.new_users ;;
   }
 
   dimension: pageviews {
@@ -338,35 +342,35 @@ view: tds_fb_ga_view {
 
     measure:total_p25_video_view {
       group_label: "Video Metrics"
-      label: "p25 Video Views"
+      label: "Views to 25%"
       type: sum
       sql: ${p25_video_view} ;;
     }
 
     measure:total_p50_video_view {
       group_label: "Video Metrics"
-      label: "p50 Video Views"
+      label: "Views to 50%"
       type: sum
       sql: ${p50_video_view} ;;
     }
 
     measure:total_p75_video_view {
       group_label: "Video Metrics"
-      label: "p75 Video Views"
+      label: "Views to 75%"
      type: sum
       sql: ${p75_video_view} ;;
     }
 
     measure:total_p95_video_view {
       group_label: "Video Metrics"
-      label: "p95 Video Views"
+      label: "Views to 95%"
       type: sum
       sql: ${p95_video_view} ;;
     }
 
     measure:total_p100_video_view {
       group_label: "Video Metrics"
-      label: "p100 Video Views"
+      label: "Views to 100%"
       type: sum
       sql: ${p100_video_view} ;;
     }
@@ -414,7 +418,7 @@ view: tds_fb_ga_view {
     label: "New Users"
     group_label: "GA-Onsite"
     type: sum
-    sql: ${TABLE}.newusers ;;
+    sql: ${TABLE}.new_users ;;
   }
 
   measure: new_user_rate {
