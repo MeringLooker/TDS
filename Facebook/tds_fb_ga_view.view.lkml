@@ -251,34 +251,34 @@ view: tds_fb_ga_view {
     sql: ${TABLE}.pdp_views ;;
   }
 
-  dimension:p25_video_view {
+  dimension:views_to_25 {
     hidden: yes
     type: number
-    sql: ${TABLE}.p25_video_view ;;
+    sql: ${TABLE}.views_to_25 ;;
   }
 
-  dimension:p50_video_view {
+  dimension:views_to_50 {
     hidden: yes
     type: number
-    sql: ${TABLE}.p50_video_view ;;
+    sql: ${TABLE}.views_to_50 ;;
   }
 
-  dimension:p75_video_view {
+  dimension:views_to_75 {
     hidden: yes
     type: number
-    sql: ${TABLE}.p75_video_view ;;
+    sql: ${TABLE}.views_to_75 ;;
   }
 
-  dimension:p95_video_view {
+  dimension:views_to_95 {
     hidden: yes
     type: number
-    sql: ${TABLE}.p95_video_view ;;
+    sql: ${TABLE}.views_to_95 ;;
   }
 
-  dimension:p100_video_view {
+  dimension:views_to_100 {
     hidden: yes
     type: number
-    sql: ${TABLE}.p100_video_view ;;
+    sql: ${TABLE}.views_to_100 ;;
   }
 
 #     dimension: unique_clicks {
@@ -340,39 +340,39 @@ view: tds_fb_ga_view {
       value_format_name: usd
     }
 
-    measure:total_p25_video_view {
+    measure:total_views_to_25 {
       group_label: "Video Metrics"
       label: "Views to 25%"
       type: sum
-      sql: ${p25_video_view} ;;
+      sql: ${views_to_25} ;;
     }
 
-    measure:total_p50_video_view {
+    measure:total_views_to_50 {
       group_label: "Video Metrics"
       label: "Views to 50%"
       type: sum
-      sql: ${p50_video_view} ;;
+      sql: ${views_to_50} ;;
     }
 
-    measure:total_p75_video_view {
+    measure:total_views_to_75 {
       group_label: "Video Metrics"
       label: "Views to 75%"
      type: sum
-      sql: ${p75_video_view} ;;
+      sql: ${views_to_75} ;;
     }
 
-    measure:total_p95_video_view {
+    measure:total_views_to_95 {
       group_label: "Video Metrics"
       label: "Views to 95%"
       type: sum
-      sql: ${p95_video_view} ;;
+      sql: ${views_to_95} ;;
     }
 
-    measure:total_p100_video_view {
+    measure:total_views_to_100 {
       group_label: "Video Metrics"
       label: "Views to 100%"
       type: sum
-      sql: ${p100_video_view} ;;
+      sql: ${views_to_100} ;;
     }
 
     measure: count {

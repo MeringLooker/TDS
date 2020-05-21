@@ -24,22 +24,19 @@ view: tds_dcm_ga_view {
   dimension: active_view_eligible_impressions {
     hidden: yes
     type: number
-    sql: ${TABLE}."active view: eligible impressions"
-      ;;
+    sql: ${TABLE}.active_view_eligible_impressions;;
   }
 
   dimension: active_view_measurable_impressions {
     hidden: yes
     type: number
-    sql: ${TABLE}."active view: measurable impressions"
-      ;;
+    sql: ${TABLE}.active_view_measurable_impressions;;
   }
 
   dimension: active_view_viewable_impressions {
     hidden: yes
     type: number
-    sql: ${TABLE}."active view: viewable impressions"
-      ;;
+    sql: ${TABLE}.active_view_viewable_impressions;;
   }
 
   dimension: ad {
@@ -98,13 +95,13 @@ view: tds_dcm_ga_view {
   dimension: clickthrough_conversions {
     hidden:  yes
     type: number
-    sql: ${TABLE}."click-through conversions" ;;
+    sql: ${TABLE}.click_through_conversions;;
   }
 
   dimension: clickthrough_revenue {
     hidden:  yes
     type: number
-    sql: ${TABLE}."click-through revenue" ;;
+    sql: ${TABLE}.click_through_revenue ;;
   }
 
   dimension: cost {
@@ -192,12 +189,6 @@ view: tds_dcm_ga_view {
   sql: ${TABLE}."placement strategy" ;;
 }
 
-  dimension: planned_media_cost {
-    hidden:  yes
-    type: number
-    sql: ${TABLE}."planned media cost" ;;
-  }
-
   dimension: sessionduration {
     hidden:  yes
     type: number
@@ -219,7 +210,7 @@ view: tds_dcm_ga_view {
   dimension: conversions {
     hidden:  yes
     type: number
-    sql: ${TABLE}."total conversions" ;;
+    sql: ${TABLE}.total_conversions;;
   }
 
   dimension: publisher {
@@ -249,13 +240,13 @@ view: tds_dcm_ga_view {
   dimension: viewthrough_conversions {
     hidden:  yes
     type: number
-    sql: ${TABLE}."view-through conversions" ;;
+    sql: ${TABLE}.view_through_conversions ;;
   }
 
   dimension: viewthrough_revenue {
     hidden:  yes
     type: number
-    sql: ${TABLE}."view-through revenue" ;;
+    sql: ${TABLE}.view_through_revenue ;;
   }
 
   dimension: subscrpition_orders {
@@ -288,11 +279,6 @@ view: tds_dcm_ga_view {
     sql: ${TABLE}.pdp_views ;;
   }
 
-#   sum(gg.subscription_orders) subscrpition_orders,
-#   sum(gg.checkouts) checkouts,
-#   sum(gg.pdp_view) pdp_views,
-#   sum(gg.transactions) transactions,
-#   sum(gg.revenue) revenue
 
 ######### MEASURES ########
 
