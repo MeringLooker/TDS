@@ -18,7 +18,7 @@ persist_with: tds_default_datagroup
 #### SEM ####
 
   explore:tds_sem_ga_view  {
-    label: "Adwords Search Test"
+    label: "Adwords Search"
     view_label: "AdWords Search"
     group_label: "The Dentists Supply Company"
   }
