@@ -178,89 +178,89 @@ view: tds_gdn_ga_view {
 #### Measures ####
   measure: total_impressions {
     type: sum
-    group_label: "Delivery"
+    group_label:"AdWords Reporting"
     sql: ${impressions} ;;
   }
 
   measure: total_cost {
     type: sum
-    group_label: "Delivery"
+    group_label: "AdWords Reporting"
     value_format_name: usd
     sql: ${cost}/1000000.00 ;;
   }
 
   measure: total_clicks {
     type: sum
-    group_label: "Delivery"
+    group_label: "AdWords Reporting"
     sql: ${clicks} ;;
   }
 
   measure: click_through_rate {
     label: "CTR"
     type: number
-    group_label: "Delivery"
+    group_label: "AdWords Reporting"
     value_format_name: percent_1
     sql: 1.0*${clicks}/nullif(${impressions},0) ;;
   }
 
  measure: total_checkouts {
     type: sum
-    group_label: "Transactional"
+    group_label: "Google Analytics Goals"
     sql: ${checkouts} ;;
   }
 
   measure: total_pdp_views {
     type: sum
-    group_label: "Transactional"
+    group_label: "Google Analytics Goals"
     sql: ${pdp_views} ;;
   }
 
   measure: total_revenue {
     type: sum
-    group_label: "Transactional"
+    group_label: "Google Analytics Goals"
     value_format_name: usd_0
     sql: ${revenue} ;;
   }
 
   measure: total_subscrpition_orders {
     type: sum
-    group_label: "Transactional"
+    group_label: "Google Analytics Goals"
     sql: ${subscrpition_orders} ;;
   }
 
   measure: total_transactions {
     type: sum
-    group_label: "Transactional"
+    group_label: "Google Analytics Goals"
     sql: ${transactions} ;;
   }
 
   measure: total_newusers {
     type: sum
-    group_label: "Onsite"
+    group_label:  "Google Analytics Metrics"
     sql: ${newusers} ;;
   }
 
  measure: total_pageviews {
     type: sum
-    group_label: "Onsite"
+    group_label: "Google Analytics Metrics"
     sql: ${pageviews} ;;
   }
 
   measure: total_session_duration {
     hidden:  yes
     type: sum
-    group_label: "Onsite"
+    group_label: "Google Analytics Metrics"
     sql: ${sessionduration} ;;
   }
 
   measure: total_users {
     type: sum
-    group_label: "Onsite"
+    group_label: "Google Analytics Metrics"
     sql: ${users} ;;
   }
 
   measure: avg_time_on_site {
-    group_label: "Onsite"
+    group_label: "Google Analytics Metrics"
     label: "Avg. TOS"
     type: number
     sql: ${total_session_duration}/nullif(${total_sessions},0) ;;
@@ -269,7 +269,7 @@ view: tds_gdn_ga_view {
 
   measure: newuserrate {
     label: "New User Rate"
-    group_label: "Onsite"
+    group_label: "Google Analytics Metrics"
     type: number
     sql: 1.0*${newusers}/nullif(${users}, 0);;
     value_format_name: percent_0
@@ -277,7 +277,7 @@ view: tds_gdn_ga_view {
 
   measure: total_sessions {
     type: sum
-    group_label: "Onsite"
+    group_label: "Google Analytics Metrics"
     sql: ${sessions} ;;
   }
 

@@ -1,4 +1,4 @@
-view: tds_linkedin {
+view: tds_linkedin_view {
   sql_table_name: public.tds_linkedin_ ;;
   drill_fields: [id]
 

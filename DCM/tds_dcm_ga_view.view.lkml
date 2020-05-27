@@ -399,68 +399,70 @@ view: tds_dcm_ga_view {
     sql: ${TABLE}."view-through revenue" ;;
   }
 
+### GA Measures ###
   measure: total_page_views {
-    group_label: "Onsite"
+    group_label: "Google Analytics Metrics"
     type: sum
     sql: ${TABLE}.pageviews ;;
   }
 
   measure: total_session_duration {
-    group_label: "Onsite"
+    group_label: "Google Analytics Metrics"
     hidden: yes
     type: sum
     sql: ${TABLE}.sessionduration ;;
   }
 
   measure: total_sessions {
-    group_label: "Onsite"
+    group_label: "Google Analytics Metrics"
     type: sum
     sql: ${TABLE}.sessions ;;
   }
 
   measure: avg_time_on_site {
-    group_label: "Onsite"
+    group_label: "Google Analytics Metrics"
     label: "Avg. TOS"
     sql: ${total_session_duration}/nullif(${total_sessions},0) ;;
     value_format: "0.##"
   }
 
   measure: total_users {
-    group_label: "Onsite"
+    group_label: "Google Analytics Metrics"
     type: sum
     sql: ${TABLE}.users ;;
   }
 
   measure: total_new_users {
     label: "New Users"
-    group_label: "Onsite"
+    group_label: "Google Analytics Metrics"
     type: sum
     sql: ${TABLE}.newusers ;;
   }
 
   measure: new_user_rate {
     label: "New User Rate"
-    group_label:"Onsite"
+    group_label:"Google Analytics Metrics"
     type: number
     sql: 1.0*${total_new_users}/nullif(${total_users}, 0);;
     value_format_name: percent_0
   }
 
+### GA Goals Measure ###
   measure: total_checkouts {
     type: sum
-    group_label: "Transactional"
+    group_label: "Google Analytics Goals"
     sql: ${checkouts} ;;
   }
 
   measure: total_pdp_views {
     type: sum
-    group_label: "Transactional"
+    group_label: "Google Analytics Goals"
     sql: ${pdp_views} ;;
   }
 
   measure: total_goal_revenue {
     type: sum
-    group_label: "Transactional"
+    group_label: "Google Analytics Goals"
     label: "Goal Revenue"
     value_format_name: usd_0
     sql: ${revenue} ;;
@@ -468,13 +470,13 @@ view: tds_dcm_ga_view {
 
   measure: total_subscrpition_orders {
     type: sum
-    group_label: "Transactional"
+    group_label: "Google Analytics Goals"
     sql: ${subscrpition_orders} ;;
   }
 
   measure: total_transactions {
     type: sum
-    group_label: "Transactional"
+    group_label: "Google Analytics Goals"
     sql: ${transactions} ;;
   }
 

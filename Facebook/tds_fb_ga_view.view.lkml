@@ -295,21 +295,21 @@ view: tds_fb_ga_view {
 
 #### Measures ####
     measure: total_impressions {
-      group_label: "Delivery Metrics"
+      group_label: "Facebook Delivery"
       type: sum
       label: "Impressions"
       sql: ${impressions} ;;
     }
 
     measure: total_clicks {
-      group_label: "Delivery Metrics"
+      group_label: "Facebook Delivery"
       type: sum
       label: "Link Clicks"
       sql: ${inline_link_clicks} ;;
     }
 
     measure: total_spend {
-      group_label: "Delivery Metrics"
+      group_label: "Facebook Delivery"
       type: sum
       label: "Total Cost"
       sql: ${spend};;
@@ -317,7 +317,7 @@ view: tds_fb_ga_view {
     }
 
     measure: click_through_rate {
-      group_label: "Delivery Metrics"
+      group_label: "Facebook Delivery"
       type: number
       label: "CTR"
       sql: 1.0*${total_clicks}/nullif(${total_impressions}, 0) ;;
@@ -325,7 +325,7 @@ view: tds_fb_ga_view {
     }
 
     measure: cost_per_click {
-      group_label: "Delivery Metrics"
+      group_label: "Facebook Delivery"
       type: number
       label: "CPC"
       sql: ${total_spend}/nullif(${total_clicks}, 0) ;;
@@ -333,7 +333,7 @@ view: tds_fb_ga_view {
     }
 
     measure: cost_per_thousand {
-      group_label: "Delivery Metrics"
+      group_label: "Facebook Delivery"
       type: number
       label: "CPM"
       sql: ${total_spend}/nullif(${total_impressions}/1000, 0) ;;
@@ -368,96 +368,133 @@ view: tds_fb_ga_view {
       sql: ${views_to_95} ;;
     }
 
-    measure:total_views_to_100 {
+    measure:total_video_completes {
       group_label: "Video Metrics"
       label: "Views to 100%"
       type: sum
       sql: ${views_to_100} ;;
     }
 
-    measure: count {
-      hidden: yes
-      type: count
-    }
+  measure: video_impressions {
+    type: sum
+    sql:
+        case
+        when ${views_to_25} > 0 then ${impressions}
+        else null
+        end;;
+    hidden: yes
+  }
+
+  measure: video_spend {
+    type: sum
+    sql:
+        case
+        when ${views_to_25} > 0 then ${impressions}
+        else null
+        end;;
+    hidden: yes
+  }
+
+  measure: video_completion_rate {
+    type: number
+    label: "Completion Rate"
+    group_label: "Video Metrics"
+    sql: 1.0*${total_video_completes}/nullif(${video_impressions}, 0) ;;
+    value_format_name: percent_2
+  }
+
+  measure: cost_per_complete {
+    type: number
+    label: "CPcV"
+    group_label: "Video Metrics"
+    sql: 1.0*${video_spend}/nullif(${total_video_completes}, 0) ;;
+    value_format_name: usd
+  }
 
 #### GA Measures ###
 
   measure: total_page_views {
-    group_label: "GA-Onsite"
+    group_label: "Google Analytics Metrics"
     type: sum
     sql: ${TABLE}.pageviews ;;
   }
 
   measure: total_session_duration {
-    group_label: "GA-Onsite"
+    group_label: "Google Analytics Metrics"
     hidden: yes
     type: sum
     sql: ${TABLE}.sessionduration ;;
   }
 
   measure: total_sessions {
-    group_label: "GA-Onsite"
+    group_label: "Google Analytics Metrics"
     type: sum
     sql: ${TABLE}.sessions ;;
   }
 
   measure: avg_time_on_site {
-    group_label: "GA-Onsite"
+    group_label: "Google Analytics Metrics"
     label: "Avg. TOS"
     sql: ${total_session_duration}/nullif(${total_sessions},0) ;;
     value_format: "0.##"
   }
 
   measure: total_users {
-    group_label: "GA-Onsite"
+    group_label: "Google Analytics Metrics"
     type: sum
     sql: ${TABLE}.users ;;
   }
 
   measure: total_new_users {
     label: "New Users"
-    group_label: "GA-Onsite"
+    group_label: "Google Analytics Metrics"
     type: sum
     sql: ${TABLE}.new_users ;;
   }
 
   measure: new_user_rate {
     label: "New User Rate"
-    group_label:"GA-Onsite"
+    group_label:"Google Analytics Metrics"
     type: number
     sql: 1.0*${total_new_users}/nullif(${total_users}, 0);;
     value_format_name: percent_0
   }
 
+## Google Analytics Goals ##
   measure: total_checkouts {
     type: sum
-    group_label: "Transactional"
+    group_label: "Google Analytics Goals"
     sql: ${checkouts} ;;
   }
 
   measure: total_pdp_views {
     type: sum
-    group_label: "Transactional"
+    group_label: "Google Analytics Goals"
     sql: ${pdp_views} ;;
   }
 
   measure: total_revenue {
     type: sum
-    group_label: "Transactional"
+    group_label: "Google Analytics Goals"
     value_format_name: usd_0
     sql: ${revenue} ;;
   }
 
   measure: total_subscrpition_orders {
     type: sum
-    group_label: "Transactional"
+    group_label: "Google Analytics Goals"
     sql: ${subscrpition_orders} ;;
   }
 
   measure: total_transactions {
     type: sum
-    group_label: "Transactional"
+    group_label: "Google Analytics Goals"
     sql: ${transactions} ;;
     }
+
+  measure: count {
+    hidden: yes
+    type: count
+  }
 
   }
