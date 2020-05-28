@@ -3,10 +3,68 @@ view: tds_dcm_ga_view {
 
 #### Join id ####
   dimension: ga_join_id {
-#     hidden: yes
+    hidden: yes
     type: string
     sql: ${TABLE}.ga_join_id ;;
   }
+
+  ##### Dimensions added to this table via LookML ######
+  dimension: tds_placement {
+    type: string
+    group_label: "Client Dimensions"
+    label: "Placement Name"
+    sql:
+    case
+        when ${placement} ilike '%Retargeting Cross Device Display%' then 'Retargeting Cross Device Display'
+        when ${placement} ilike '%Prospecting Cross Device Display%'  then   'Prospecting Cross Device Display '
+        when ${placement} ilike '%Added Value Display%'  then   'Added Value Display'
+        when ${placement} ilike '%Cross Device Display_Phase 4%'  then 'Cross Device Display Phase 4'
+        when ${placement} ilike '%Added Value Cross Device Display%' then  'Added Value Cross Device Display '
+        when ${placement} ilike '%Cross Device Display_Phase 4_Pre-Roll Video%' then 'Cross Device Display Phase 4 Pre-Roll Video'
+        when ${placement} ilike '%Sponsored Video_1x1%' then 'Sponsored Video 1x1 '
+        when ${placement} ilike '%ROS Super Leaderboard%' then 'ROS Super Leaderboard'
+        when ${placement} ilike '%Category Ad Banner%' then 'Category Ad Banner'
+        when ${placement} ilike '%ROS Half Page Banner_Mobile%' then 'ROS Half Page Banner Mobile'
+        when ${placement} ilike '%Inside Dentistry_Homepage Web Banner%' then 'Inside Dentistry Homepage Web Banner'
+        when ${placement} ilike '%ROS Super Leaderboard_Mobile%' then 'ROS Super Leaderboard Mobile'
+        when ${placement} ilike '%ROS Half Page Banner_Mobile%' then 'ROS Half Page Banner Mobile'
+        when ${placement} ilike '%ROS Half Page Banner%' then 'ROS Half Page Banner'
+        when ${placement} ilike '%Inside Dentistry_CE Portal Masthead%'  then 'Inside Dentistry CE Portal Masthead'
+        when ${placement} ilike '%Inside Dentistry_Edu Portal Masthead%'  then 'Inside Dentistry Edu Portal Masthead'
+      ELSE 'Uncategorized'
+        END;;
+    }
+
+  dimension: tds_creative {
+    type: string
+    group_label: "Client Dimensions"
+    label: "Creative Name"
+    sql:
+    case
+      when ${creative} ilike '%B_STATIC%' then 'Static B'
+      when ${creative} ilike '%A_STATIC%' then 'Static A'
+      when ${creative} ilike '%WorkTogether%' then 'Work Together'
+      when ${creative} ilike '%startsaving_lifestyle%' then 'Start Saving Lifestyle'
+      when ${creative} ilike '%startsaving_equipment%' then'Start Saving Equipment'
+      when ${creative} ilike '%30off_lifestyle%' then '30 Off Lifestyle'
+      when ${creative} ilike '%30off_equipment%' then '30 Off Equipment'
+     ELSE 'Uncategorized'
+        END;;
+  }
+
+  dimension: tds_layer {
+    type: string
+    label: "Campaign Layer"
+    group_label: "Client Dimensions"
+    sql:
+      case
+        when ${ad} ilike '%Retargeting%' then 'Retargeting'
+        when ${ad} ilike '%Prospecting%' then 'Prospecting'
+        ELSE 'Uncategorized'
+        end
+        ;;
+  }
+
 
 #### Dimensions ####
   dimension: __report {
@@ -215,6 +273,7 @@ view: tds_dcm_ga_view {
 
   dimension: publisher {
     type: string
+    group_label: "Client Dimensions"
     label: "Publisher"
     sql:
     CASE

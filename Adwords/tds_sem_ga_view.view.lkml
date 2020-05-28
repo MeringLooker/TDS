@@ -1,8 +1,16 @@
 view: tds_sem_ga_view {
   sql_table_name: public.tds_sem_ga_view ;;
 
+#### Join id ####
+  dimension: ga_join_id {
+    hidden: yes
+    type: string
+    sql: ${TABLE}.ga_join_id ;;
+  }
+
 #### Dimensions ####
   dimension: account {
+    group_label: "AdWords Dimensions"
     type: string
     sql: ${TABLE}.account ;;
   }
@@ -14,7 +22,7 @@ view: tds_sem_ga_view {
   }
 
   dimension: ad_group {
-    hidden:  yes
+    group_label: "AdWords Dimensions"
     type: string
     sql: ${TABLE}."ad group" ;;
   }
@@ -38,9 +46,26 @@ view: tds_sem_ga_view {
   }
 
   dimension: campaign {
+    group_label: "AdWords Dimensions"
     type: string
     sql: ${TABLE}.campaign ;;
   }
+
+  dimension: tds_campaign {
+    type: string
+    label: "Campaign Name "
+    group_label: "Client Dimensions"
+    sql:
+      case
+        when ${campaign} = 'MC_TDSC SEM Brands' then 'Brand Search'
+        when ${campaign} = 'MC_TDSC SEM Dynamic Ads'  then 'Dynamic Ads Search'
+        when ${campaign} = 'MC_TDSC SEM Product Categories'  then 'Product Categories Search'
+        when ${campaign} = 'MC_TDSC SEM Trademark'  then 'Trademark Search'
+      else  'Uncategorized'
+      end;;
+  }
+
+
 
   dimension: campaign_id {
     hidden: yes
@@ -97,12 +122,6 @@ view: tds_sem_ga_view {
 #         END
 #         ;;
 #   }
-
-  dimension: ga_join_id {
-    hidden: yes
-    type: string
-    sql: ${TABLE}.ga_join_id ;;
-  }
 
   dimension: impressions {
     hidden: yes

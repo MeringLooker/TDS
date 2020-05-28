@@ -10,6 +10,82 @@ view: tds_fb_ga_view {
       type:  string
     }
 
+###### Dimensions added to this table via LookML #######
+
+  dimension: tds_layer {
+    type: string
+    label: "Campaign Layer"
+    group_label: "Client Dimensions"
+    sql:
+      case
+        when ${campaign_name} ilike '%Conversion' then 'Conversion'
+        when ${campaign_name} ilike '%Views' then 'Views'
+        when ${campaign_name} ilike '%BrandAwareness' then 'Brand Awareness'
+        ELSE 'Uncategorized'
+        end
+        ;;
+  }
+
+  dimension: tds_placement {
+    type: string
+    label: "Campaign Placement"
+    group_label: "Client Dimensions"
+    sql:
+      case
+        when ${ad_name} ilike '%Brand_15' then ':15 Video - Brand'
+        when ${ad_name} ilike '%SaveTogether_30' then ':30 Video - Save Together'
+        when ${ad_name} ilike '%Social_15' then ':15 Video - Social'
+        ELSE 'Uncategorized'
+        end
+        ;;
+  }
+
+  dimension: tds_audience {
+    type: string
+    label: "Audience"
+    group_label: "Client Dimensions"
+    sql:
+      case
+        when ${ad_name} ilike '%CRMList%' then 'CRM List'
+        when ${ad_name} ilike '%Lookalike%' then 'Lookalike'
+        when ${ad_name} ilike '%DentalProfessionals%' then 'Dental Professionals'
+        when ${ad_name} ilike '%AVideoViewers%' then 'AVideo Viewers'
+        ELSE 'Uncategorized'
+        end
+        ;;
+  }
+
+  dimension: tds_ad_tyoe {
+    type: string
+    label: "Ad Type"
+    group_label: "Client Dimensions"
+    sql:
+      case
+        when ${ad_name} ilike '%BigSmilesImage' then 'Big Smiles Image'
+        when ${ad_name} ilike '%SalesImage' then 'Sales Image'
+        when ${ad_name} ilike '%SaveTogetherImage' then 'Save Together Image'
+        when ${ad_name} ilike '%BigSavingsImage' then ' Big Savings Image'
+
+        ELSE 'Uncategorized'
+        end
+        ;;
+  }
+
+
+  dimension: tds_campaign {
+    type: string
+    label: "Campaign Name"
+    group_label: "Client Dimensions"
+    sql:
+      case
+        when ${campaign_name} = 'FY19_TDSC_Content_BrandAwareness' then 'Brand Awarenss Content'
+        when ${campaign_name} = 'FY19_TDSC_Content_Views' then 'Views Content'
+        when ${campaign_name} = 'FY19_TDSC_Sales_Conversion' then 'Sales Conversions'
+        ELSE 'Uncategorized'
+        end
+        ;;
+  }
+
 #### Dimensions ####
     dimension_group: __senttime {
       hidden: yes

@@ -2,7 +2,7 @@ view: pdt_sem {
   derived_table: {
     explore_source: tds_sem {
       column: publisher {field: tds_sem_ga_view.publisher}
-      column: campaign {field: tds_sem_ga_view.campaign}
+      column: campaign {field: tds_sem_ga_view.tds_campaign}
       column: date {field: tds_sem_ga_view.day_date}
       column: week {field: tds_sem_ga_view.day_week}
       column: month {field: tds_sem_ga_view.day_month}

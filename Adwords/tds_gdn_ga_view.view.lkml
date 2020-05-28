@@ -7,10 +7,67 @@ view: tds_gdn_ga_view {
     type: string
     sql: ${TABLE}.ga_join_id ;;
   }
+###### Dimensions added to this table via LookML #######
+  dimension: tds_campaign {
+    type: string
+    label: "Campaign"
+    group_label: "Client Dimensions"
+    sql:${account} ;;
+  }
+
+  dimension: tds_placement {
+    type: string
+    label: "Campaign Placement"
+    group_label: "Client Dimensions"
+    sql:
+      case
+        when ${ad_group} ilike '%Responsive_Clicks%' then 'Responsive Clicks'
+        when ${ad_group} ilike '%Responsive A%' then 'Responsive A'
+        when ${ad_group} ilike '%Responsive B%' then 'Responsive B'
+        when ${ad_group} ilike '%GDN Carousel%' then 'GDN Carousel'
+        ELSE 'Uncategorized'
+        end
+        ;;
+  }
+
+  dimension: tds_audience {
+    type: string
+    label: "Audience"
+    group_label: "Client Dimensions"
+    sql:
+      case
+        when ${campaign} ilike '%CustomIntent%' then 'Custom Intent'
+        when ${campaign} ilike '%Lookalike%' then 'Lookalike'
+        when ${campaign} ilike '%CartAbandoners%' then 'Cart Abandoners'
+        when ${campaign} ilike '%Abandon Cart%' then 'Cart Abandoners'
+        when ${campaign} ilike '%LoggedIn%' then 'Logged In'
+        when ${campaign} ilike '%Logged In%' then 'Logged In'
+        when ${campaign} ilike '%Visitor%'   then 'Visitor'
+        when ${campaign} ilike '%Visitors%'  then 'Visitor'
+        when ${campaign} ilike '%Categories%' then 'Categories'
+        when ${campaign} ilike '%Products%' then 'Products'
+        ELSE 'Uncategorized'
+        end
+        ;;
+  }
+
+  dimension: tds_layer {
+    type: string
+    label: "Campaign Layer"
+    group_label: "Client Dimensions"
+    sql:
+      case
+        when ${campaign} ilike '%ConversionLayer%' then 'Conversion Layer'
+        when ${campaign} ilike '%Prospecting%' then 'Prospecting'
+        ELSE 'Uncategorized'
+        end
+        ;;
+  }
 
 #### Dimensions ####
     dimension: account {
       type: string
+      group_label: "AdWords Dimensions"
       sql: ${TABLE}.account ;;
     }
 
@@ -22,6 +79,7 @@ view: tds_gdn_ga_view {
 
     dimension: ad_group {
       type: string
+      group_label: "AdWords Dimensions"
       sql: ${TABLE}."ad group" ;;
     }
 
@@ -45,6 +103,7 @@ view: tds_gdn_ga_view {
 
     dimension: campaign {
       type: string
+      group_label: "AdWords Dimensions"
       sql: ${TABLE}.campaign ;;
     }
 
@@ -79,6 +138,7 @@ view: tds_gdn_ga_view {
     }
 
     dimension_group: day {
+      label: ""
       type: time
       timeframes: [
         raw,
@@ -129,6 +189,7 @@ view: tds_gdn_ga_view {
 
     dimension: publisher {
       type: string
+      group_label: "AdWords Dimensions"
       sql: 'GDN' ;;
     }
 

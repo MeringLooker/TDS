@@ -2,7 +2,7 @@ view: pdt_fb {
     derived_table: {
       explore_source: tds_fb{
         column: publisher {field: tds_fb_ga_view.publisher}
-        column: campaign {field: tds_fb_ga_view.campaign_name}
+        column: campaign {field: tds_fb_ga_view.tds_campaign}
         column: date {field: tds_fb_ga_view.date_start_date}
         column: week {field: tds_fb_ga_view.date_start_week}
         column: month {field: tds_fb_ga_view.date_start_month}
