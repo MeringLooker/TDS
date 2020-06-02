@@ -11,6 +11,18 @@ view: tds_fb_ga_view {
     }
 
 ###### Dimensions added to this table via LookML #######
+  dimension: fiscal_year {
+    label: "Fiscal"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${date_start_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
+        ELSE 'Uncategorized'
+        END
+        ;;
+  }
+
 
   dimension: tds_layer {
     type: string

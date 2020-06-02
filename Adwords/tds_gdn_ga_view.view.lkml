@@ -8,6 +8,19 @@ view: tds_gdn_ga_view {
     sql: ${TABLE}.ga_join_id ;;
   }
 ###### Dimensions added to this table via LookML #######
+
+   dimension: fiscal_year {
+    label: "Fiscal"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${day_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
+        ELSE 'Uncategorized'
+        END
+        ;;
+  }
+
   dimension: tds_campaign {
     type: string
     label: "Campaign"

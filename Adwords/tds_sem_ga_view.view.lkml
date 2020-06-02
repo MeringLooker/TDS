@@ -8,6 +8,22 @@ view: tds_sem_ga_view {
     sql: ${TABLE}.ga_join_id ;;
   }
 
+###### Dimensions added to this table via LookML #######
+
+  dimension: tds_campaign {
+    type: string
+    label: "Campaign Name "
+    group_label: "Client Dimensions"
+    sql:
+      case
+        when ${campaign} = 'MC_TDSC SEM Brands' then 'Brand Search'
+        when ${campaign} = 'MC_TDSC SEM Dynamic Ads'  then 'Dynamic Ads Search'
+        when ${campaign} = 'MC_TDSC SEM Product Categories'  then 'Product Categories Search'
+        when ${campaign} = 'MC_TDSC SEM Trademark'  then 'Trademark Search'
+      else  'Uncategorized'
+      end;;
+  }
+
 #### Dimensions ####
   dimension: account {
     group_label: "AdWords Dimensions"
@@ -50,22 +66,6 @@ view: tds_sem_ga_view {
     type: string
     sql: ${TABLE}.campaign ;;
   }
-
-  dimension: tds_campaign {
-    type: string
-    label: "Campaign Name "
-    group_label: "Client Dimensions"
-    sql:
-      case
-        when ${campaign} = 'MC_TDSC SEM Brands' then 'Brand Search'
-        when ${campaign} = 'MC_TDSC SEM Dynamic Ads'  then 'Dynamic Ads Search'
-        when ${campaign} = 'MC_TDSC SEM Product Categories'  then 'Product Categories Search'
-        when ${campaign} = 'MC_TDSC SEM Trademark'  then 'Trademark Search'
-      else  'Uncategorized'
-      end;;
-  }
-
-
 
   dimension: campaign_id {
     hidden: yes
@@ -111,17 +111,17 @@ view: tds_sem_ga_view {
     sql: ${TABLE}.day ;;
   }
 
-#   dimension: fiscal_year {
-#     label: "Fiscal"
-#     type: string
-#     group_label: "Client Dimensions"
-#     sql:
-#       CASE
-#         WHEN ${day_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
-#         ELSE 'Uncategorized'
-#         END
-#         ;;
-#   }
+  dimension: fiscal_year {
+    label: "Fiscal"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${day_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
+        ELSE 'Uncategorized'
+        END
+        ;;
+   }
 
   dimension: impressions {
     hidden: yes
