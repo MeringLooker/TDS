@@ -1,14 +1,14 @@
 view: tds_fb_ga_view {
-    sql_table_name: public.tds_fb_ga_view ;;
+  sql_table_name: public.tds_fb_ga_view ;;
 
 
 #### Join ID ####
 
-    dimension: ga_join_id {
-      primary_key: yes
-      hidden: yes
-      type:  string
-    }
+  dimension: ga_join_id {
+    primary_key: yes
+    hidden: yes
+    type:  string
+  }
 
 ###### Dimensions added to this table via LookML #######
   dimension: fiscal_year {
@@ -111,105 +111,104 @@ view: tds_fb_ga_view {
   }
 
 #### Dimensions ####
-    dimension_group: __senttime {
-      hidden: yes
-      type: time
-      timeframes: [
-        raw,
-        time,
-        date,
-        week,
-        month,
-        quarter,
-        year
-      ]
-      sql: ${TABLE}.__senttime ;;
-    }
+  dimension_group: __senttime {
+    hidden: yes
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.__senttime ;;
+  }
 
-    dimension_group: __updatetime {
-      hidden: yes
-      type: time
-      timeframes: [
-        raw,
-        time,
-        date,
-        week,
-        month,
-        quarter,
-        year
-      ]
-      sql: ${TABLE}.__updatetime ;;
-    }
+  dimension_group: __updatetime {
+    hidden: yes
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.__updatetime ;;
+  }
 
-    dimension: account_id {
-      hidden: yes
-      type: number
-      sql: ${TABLE}.account_id ;;
-    }
+  dimension: account_id {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.account_id ;;
+  }
 
-    dimension: account_name {
-      hidden: yes
-      type: string
-      sql: ${TABLE}.account_name ;;
-    }
+  dimension: account_name {
+    hidden: yes
+    type: string
+    sql: ${TABLE}.account_name ;;
+  }
 
-    dimension: ad_id {
-      hidden: yes
-      type: number
-      sql: ${TABLE}.ad_id ;;
-    }
+  dimension: ad_id {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.ad_id ;;
+  }
 
-    dimension: ad_name {
-      group_label: "Facebook Dimensions"
-      type: string
-      sql: ${TABLE}.ad_name ;;
-    }
+  dimension: ad_name {
+    group_label: "Facebook Dimensions"
+    type: string
+    sql: ${TABLE}.ad_name ;;
+  }
 
-    dimension: adset_id {
-      hidden: yes
-      type: number
-      sql: ${TABLE}.adset_id ;;
-    }
+  dimension: adset_id {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.adset_id ;;
+  }
 
-    dimension: adset_name {
-      group_label: "Facebook Dimensions"
-      type: string
-      sql: ${TABLE}.adset_name ;;
-    }
+  dimension: adset_name {
+    group_label: "Facebook Dimensions"
+    type: string
+    sql: ${TABLE}.adset_name ;;
+  }
 
-    dimension: buying_type {
-      group_label: "Facebook Dimensions"
-      type: string
-      sql: ${TABLE}.buying_type ;;
-    }
+  dimension: buying_type {
+    group_label: "Facebook Dimensions"
+    type: string
+    sql: ${TABLE}.buying_type ;;
+  }
 
-    dimension: campaign_id {
-      hidden: yes
-      type: number
-      sql: ${TABLE}.campaign_id ;;
-    }
+  dimension: campaign_id {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.campaign_id ;;
+  }
 
-    dimension: campaign_name {
-      group_label: "Facebook Dimensions"
-      type: string
-      sql: ${TABLE}.campaign_name ;;
-    }
+  dimension: campaign_name {
+    group_label: "Facebook Dimensions"
+    type: string
+    sql: ${TABLE}.campaign_name ;;
+  }
 
-
-    dimension_group: date_start {
-      label: ""
-      type: time
-      timeframes: [
-        raw,
-        time,
-        date,
-        week,
-        month,
-        quarter,
-        year
-      ]
-      sql: ${TABLE}.date_start ;;
-    }
+  dimension_group: date_start {
+    label: ""
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.date_start ;;
+  }
 
 #     dimension: fiscal_year {
 #       label: "Fiscal"
@@ -223,32 +222,33 @@ view: tds_fb_ga_view {
 #         ;;
 #     }
 
-    dimension_group: date_stop {
-      hidden: yes
-      type: time
-      timeframes: [
-        raw,
-        time,
-        date,
-        week,
-        month,
-        quarter,
-        year
-      ]
-      sql: ${TABLE}.date_stop ;;
-    }
+  dimension_group: date_stop {
+    hidden: yes
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.date_stop ;;
+  }
 
-    dimension: country {
-      group_label: "Facebook Dimensions"
-      type: string
-      map_layer_name: countries
-      sql: ${TABLE}.country ;;
-    }
-    dimension: objective {
-      hidden: yes
-      type: string
-      sql: ${TABLE}.objective ;;
-    }
+  dimension: country {
+    group_label: "Facebook Dimensions"
+    type: string
+    map_layer_name: countries
+    sql: ${TABLE}.country ;;
+  }
+
+  dimension: objective {
+    hidden: yes
+    type: string
+    sql: ${TABLE}.objective ;;
+  }
 
 #     dimension: frequency {
 #       type: number
@@ -256,29 +256,29 @@ view: tds_fb_ga_view {
 #       sql: ${TABLE}.frequency ;;
 #     }
 
-    dimension: impressions {
-      type: number
-      hidden: yes
-      sql: ${TABLE}.impressions ;;
-    }
+  dimension: impressions {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.impressions ;;
+  }
 
-    dimension: inline_link_clicks {
-      type: number
-      hidden: yes
-      sql: ${TABLE}.inline_link_clicks ;;
-    }
+  dimension: inline_link_clicks {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.inline_link_clicks ;;
+  }
 
-    dimension: inline_post_engagement {
-      type: number
-      hidden: yes
-      sql: ${TABLE}.inline_post_engagement ;;
-    }
+  dimension: inline_post_engagement {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.inline_post_engagement ;;
+  }
 
-    dimension: publisher {
-      type: string
-      group_label: "Facebook Dimensions"
-      sql: 'Facebook' ;;
-    }
+  dimension: publisher {
+    type: string
+    group_label: "Facebook Dimensions"
+    sql: 'Facebook' ;;
+  }
 
 #     dimension: reach {
 #       type: number
@@ -286,11 +286,11 @@ view: tds_fb_ga_view {
 #       sql: ${TABLE}.reach ;;
 #     }
 
-    dimension: spend {
-      type: number
-      hidden: yes
-      sql: ${TABLE}.spend ;;
-    }
+  dimension: spend {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.spend ;;
+  }
 
   dimension: sessionduration {
     hidden:  yes
@@ -338,6 +338,12 @@ view: tds_fb_ga_view {
     hidden: yes
     type: number
     sql: ${TABLE}.revenue ;;
+  }
+
+  dimension: account_creates {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.account_creates ;;
   }
 
   dimension: checkouts {
@@ -395,86 +401,86 @@ view: tds_fb_ga_view {
 #     }
 
 #### Measures ####
-    measure: total_impressions {
-      group_label: "Facebook Delivery"
-      type: sum
-      label: "Impressions"
-      sql: ${impressions} ;;
-    }
+  measure: total_impressions {
+    group_label: "Facebook Delivery"
+    type: sum
+    label: "Impressions"
+    sql: ${impressions} ;;
+  }
 
-    measure: total_clicks {
-      group_label: "Facebook Delivery"
-      type: sum
-      label: "Link Clicks"
-      sql: ${inline_link_clicks} ;;
-    }
+  measure: total_clicks {
+    group_label: "Facebook Delivery"
+    type: sum
+    label: "Link Clicks"
+    sql: ${inline_link_clicks} ;;
+  }
 
-    measure: total_spend {
-      group_label: "Facebook Delivery"
-      type: sum
-      label: "Total Cost"
-      sql: ${spend};;
-      value_format_name: usd
-    }
+  measure: total_spend {
+    group_label: "Facebook Delivery"
+    type: sum
+    label: "Total Cost"
+    sql: ${spend};;
+    value_format_name: usd
+  }
 
-    measure: click_through_rate {
-      group_label: "Facebook Delivery"
-      type: number
-      label: "CTR"
-      sql: 1.0*${total_clicks}/nullif(${total_impressions}, 0) ;;
-      value_format_name: percent_2
-    }
+  measure: click_through_rate {
+    group_label: "Facebook Delivery"
+    type: number
+    label: "CTR"
+    sql: 1.0*${total_clicks}/nullif(${total_impressions}, 0) ;;
+    value_format_name: percent_2
+  }
 
-    measure: cost_per_click {
-      group_label: "Facebook Delivery"
-      type: number
-      label: "CPC"
-      sql: ${total_spend}/nullif(${total_clicks}, 0) ;;
-      value_format_name: usd
-    }
+  measure: cost_per_click {
+    group_label: "Facebook Delivery"
+    type: number
+    label: "CPC"
+    sql: ${total_spend}/nullif(${total_clicks}, 0) ;;
+    value_format_name: usd
+  }
 
-    measure: cost_per_thousand {
-      group_label: "Facebook Delivery"
-      type: number
-      label: "CPM"
-      sql: ${total_spend}/nullif(${total_impressions}/1000, 0) ;;
-      value_format_name: usd
-    }
+  measure: cost_per_thousand {
+    group_label: "Facebook Delivery"
+    type: number
+    label: "CPM"
+    sql: ${total_spend}/nullif(${total_impressions}/1000, 0) ;;
+    value_format_name: usd
+  }
 
-    measure:total_views_to_25 {
-      group_label: "Video Metrics"
-      label: "Views to 25%"
-      type: sum
-      sql: ${views_to_25} ;;
-    }
+  measure:total_views_to_25 {
+    group_label: "Facebook Video Metrics"
+    label: "Views to 25%"
+    type: sum
+    sql: ${views_to_25} ;;
+  }
 
-    measure:total_views_to_50 {
-      group_label: "Video Metrics"
-      label: "Views to 50%"
-      type: sum
-      sql: ${views_to_50} ;;
-    }
+  measure:total_views_to_50 {
+    group_label: "Facebook Video Metrics"
+    label: "Views to 50%"
+    type: sum
+    sql: ${views_to_50} ;;
+  }
 
-    measure:total_views_to_75 {
-      group_label: "Video Metrics"
-      label: "Views to 75%"
-     type: sum
-      sql: ${views_to_75} ;;
-    }
+  measure:total_views_to_75 {
+    group_label: "Facebook Video Metrics"
+    label: "Views to 75%"
+    type: sum
+    sql: ${views_to_75} ;;
+  }
 
-    measure:total_views_to_95 {
-      group_label: "Video Metrics"
-      label: "Views to 95%"
-      type: sum
-      sql: ${views_to_95} ;;
-    }
+  measure:total_views_to_95 {
+    group_label: "Facebook Video Metrics"
+    label: "Views to 95%"
+    type: sum
+    sql: ${views_to_95} ;;
+  }
 
-    measure:total_video_completes {
-      group_label: "Video Metrics"
-      label: "Views to 100%"
-      type: sum
-      sql: ${views_to_100} ;;
-    }
+  measure:total_video_completes {
+    group_label: "Facebook Video Metrics"
+    label: "Views to 100%"
+    type: sum
+    sql: ${views_to_100} ;;
+  }
 
   measure: video_impressions {
     type: sum
@@ -499,7 +505,7 @@ view: tds_fb_ga_view {
   measure: video_completion_rate {
     type: number
     label: "Completion Rate"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Metrics"
     sql: 1.0*${total_video_completes}/nullif(${video_impressions}, 0) ;;
     value_format_name: percent_2
   }
@@ -507,17 +513,47 @@ view: tds_fb_ga_view {
   measure: cost_per_complete {
     type: number
     label: "CPcV"
-    group_label: "Video Metrics"
+    group_label: "Facebook Video Metrics"
     sql: 1.0*${video_spend}/nullif(${total_video_completes}, 0) ;;
     value_format_name: usd
   }
 
 #### GA Measures ###
 
+  measure: total_users {
+    group_label: "Google Analytics Metrics"
+    label: "Users"
+    type: sum
+    sql: ${TABLE}.users ;;
+  }
+
+  measure: total_new_users {
+    group_label: "Google Analytics Metrics"
+    label: "New Users"
+    type: sum
+    sql: ${TABLE}.new_users ;;
+  }
+
+  measure: new_user_rate {
+    group_label:"Google Analytics Metrics"
+    label: "New User Rate"
+    type: number
+    sql: 1.0*${total_new_users}/nullif(${total_users}, 0);;
+    value_format_name: percent_0
+  }
+
   measure: total_page_views {
     group_label: "Google Analytics Metrics"
+    label: "Pageviews"
     type: sum
     sql: ${TABLE}.pageviews ;;
+  }
+
+  measure: total_sessions {
+    group_label: "Google Analytics Metrics"
+    label: "Sessions"
+    type: sum
+    sql: ${TABLE}.sessions ;;
   }
 
   measure: total_session_duration {
@@ -527,12 +563,6 @@ view: tds_fb_ga_view {
     sql: ${TABLE}.sessionduration ;;
   }
 
-  measure: total_sessions {
-    group_label: "Google Analytics Metrics"
-    type: sum
-    sql: ${TABLE}.sessions ;;
-  }
-
   measure: avg_time_on_site {
     group_label: "Google Analytics Metrics"
     label: "Avg. TOS"
@@ -540,62 +570,67 @@ view: tds_fb_ga_view {
     value_format: "0.##"
   }
 
-  measure: total_users {
-    group_label: "Google Analytics Metrics"
-    type: sum
-    sql: ${TABLE}.users ;;
-  }
-
-  measure: total_new_users {
-    label: "New Users"
-    group_label: "Google Analytics Metrics"
-    type: sum
-    sql: ${TABLE}.new_users ;;
-  }
-
-  measure: new_user_rate {
-    label: "New User Rate"
-    group_label:"Google Analytics Metrics"
-    type: number
-    sql: 1.0*${total_new_users}/nullif(${total_users}, 0);;
-    value_format_name: percent_0
-  }
-
 ## Google Analytics Goals ##
-  measure: total_checkouts {
-    type: sum
-    group_label: "Google Analytics Goals"
-    sql: ${checkouts} ;;
-  }
-
   measure: total_pdp_views {
     type: sum
+    label: "PDP Views"
     group_label: "Google Analytics Goals"
     sql: ${pdp_views} ;;
+  }
+
+  measure: total_account_creates {
+    group_label: "Google Analytics Goals"
+    label: "Account Creates"
+    type: sum
+    sql: ${account_creates} ;;
+  }
+
+  measure: total_checkouts {
+    type: sum
+    label: "Checkouts"
+    group_label: "Google Analytics Goals"
+    sql: ${checkouts} ;;
   }
 
   measure: total_revenue {
     type: sum
     group_label: "Google Analytics Goals"
-    value_format_name: usd_0
+    label: "Revenue"
+    value_format_name: usd
     sql: ${revenue} ;;
-  }
-
-  measure: total_subscrpition_orders {
-    type: sum
-    group_label: "Google Analytics Goals"
-    sql: ${subscrpition_orders} ;;
   }
 
   measure: total_transactions {
     type: sum
     group_label: "Google Analytics Goals"
+    label: "Transactions"
     sql: ${transactions} ;;
-    }
+  }
+
+  measure: total_subscrpition_orders {
+    type: sum
+    group_label: "Google Analytics Goals"
+    label: "Subscription Orders"
+    sql: ${subscrpition_orders} ;;
+  }
+
+  measure: aov {
+    group_label: "Google Analytics Goals"
+    label: "Average Order Value"
+    sql: ${total_revenue}/${total_transactions} ;;
+    value_format_name: usd
+  }
+
+  measure: cost_per_account_create {
+    group_label: "Google Analytics Goals"
+    label: "Cost per Account Create"
+    sql: ${total_spend}/nullif(${total_account_creates}, 0) ;;
+    value_format_name: usd
+  }
 
   measure: count {
     hidden: yes
     type: count
   }
 
-  }
+}
