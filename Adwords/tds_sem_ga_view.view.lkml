@@ -319,6 +319,7 @@ view: tds_sem_ga_view {
   }
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: [reportname]
   }

@@ -289,6 +289,7 @@ view: tds_linkedin_ga_view {
   }
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: [pivot_value_name]
   }
