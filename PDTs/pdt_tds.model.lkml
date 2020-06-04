@@ -4,6 +4,7 @@ include: "*.view.lkml"
 include: "/Adwords/*.view"
 include: "/Facebook/**/*.view"
 include: "/DCM/**/*.view"
+include: "/LinkedIn/*.view"
 
 datagroup: tds_datagroup {
   sql_trigger: SELECT current_date;;

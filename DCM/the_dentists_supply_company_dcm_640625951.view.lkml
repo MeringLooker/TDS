@@ -16,6 +16,32 @@ view: tds_dcm_640625951 {
     sql: ${date_date}||'|'|| ${placement_id}||';'||${creative_id}||';'|| ${ad_id} ;;
   }
 
+
+#### Dimensions Added via LookML ####
+
+  dimension: fiscal_year {
+    label: "Fiscal"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${date_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 19/20'
+        ELSE 'Uncategorized'
+        END
+        ;;
+  }
+
+  dimension: tds_campaign {
+    type: string
+    group_label: "DCM Dimensions"
+    sql: ${campaign} ;;
+  }
+  dimension: tds_placement {
+    type: string
+    group_label: "DCM Dimensions"
+    sql: ${placement} ;;
+  }
+
 ######## Dimensions go below ########
 
   dimension: __id {
@@ -169,17 +195,7 @@ view: tds_dcm_640625951 {
     sql: ${TABLE}.date ;;
   }
 
-  dimension: fiscal_year {
-    label: "Fiscal"
-    type: string
-    group_label: "Client Dimensions"
-    sql:
-      CASE
-        WHEN ${date_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 19/20'
-        ELSE 'Uncategorized'
-        END
-        ;;
-  }
+
 
 
   dimension: placement {

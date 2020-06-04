@@ -9,6 +9,8 @@ view: pdt_overall {
     select * from ${pdt_fb.SQL_TABLE_NAME}
     union
     select * from ${pdt_dcm.SQL_TABLE_NAME}
+    union
+    select * from ${pdt_linkedin.SQL_TABLE_NAME}
       ;;
     sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*1)/(60*60*24)) ;;
     distribution_style: all

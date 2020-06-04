@@ -25,6 +25,7 @@ view: tds_fb_ga_view {
 
 
   dimension: tds_layer {
+    hidden: yes
     type: string
     label: "Campaign Layer"
     group_label: "Client Dimensions"
@@ -38,21 +39,30 @@ view: tds_fb_ga_view {
         ;;
   }
 
+#   dimension: tds_placement {
+#     type: string
+#     label: "Campaign Placement"
+#     group_label: "Client Dimensions"
+#     sql:
+#       case
+#         when ${ad_name} ilike '%Brand_15' then ':15 Video - Brand'
+#         when ${ad_name} ilike '%SaveTogether_30' then ':30 Video - Save Together'
+#         when ${ad_name} ilike '%Social_15' then ':15 Video - Social'
+#         ELSE 'Uncategorized'
+#         end
+#         ;;
+#   }
+
   dimension: tds_placement {
+    hidden: yes
     type: string
     label: "Campaign Placement"
     group_label: "Client Dimensions"
-    sql:
-      case
-        when ${ad_name} ilike '%Brand_15' then ':15 Video - Brand'
-        when ${ad_name} ilike '%SaveTogether_30' then ':30 Video - Save Together'
-        when ${ad_name} ilike '%Social_15' then ':15 Video - Social'
-        ELSE 'Uncategorized'
-        end
-        ;;
+    sql: ${adset_name} ;;
   }
 
   dimension: tds_audience {
+    hidden: yes
     type: string
     label: "Audience"
     group_label: "Client Dimensions"
@@ -67,7 +77,8 @@ view: tds_fb_ga_view {
         ;;
   }
 
-  dimension: tds_ad_tyoe {
+  dimension: tds_ad_type {
+    hidden: yes
     type: string
     label: "Ad Type"
     group_label: "Client Dimensions"
@@ -85,6 +96,7 @@ view: tds_fb_ga_view {
 
 
   dimension: tds_campaign {
+    hidden: yes
     type: string
     label: "Campaign Name"
     group_label: "Client Dimensions"
@@ -264,6 +276,7 @@ view: tds_fb_ga_view {
 
     dimension: publisher {
       type: string
+      group_label: "Facebook Dimensions"
       sql: 'Facebook' ;;
     }
 

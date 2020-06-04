@@ -1,21 +1,21 @@
 view: pdt_linkedin {
     derived_table: {
-      explore_source: tds_linkedin{
-        column: publisher {field: tds_linkedin_view.publisher}
-        column: campaign {field: tds_linkedin_view.campaign}
-        column: date {field: tds_linkedin_view.date_day}
-        column: week {field: tds_linkedin_view.date_week}
-        column: month {field: tds_linkedin_view.date_month}
-        column: total_impressions {field: tds_linkedin_view.total_impressions}
-        column: total_clicks {field: tds_linkedin_view.total_clicks}
-        column: total_cost {field: tds_linkedin_view.total_spend}
-        column: total_sessions {field: tds_ga_onsite.sessions}
-        column: total_session_duration {field: tds_ga_onsite.sessionduration}
-        column: total_checkouts {field: tds_ga_goals.goal1completions}
-        column: total_pdp_views {field: tds_ga_goals.goal3completions}
-        column: total_revenue {field: tds_ga_goals.transactionsrevenue}
-        column:total_subscrpition_orders {field: tds_ga_goals.goal2completions}
-        column:total_transactions {field:tds_ga_goals.transactions}
+      explore_source:tds_linkedin {
+        column: publisher {field: tds_linkedin_ga_view.publisher}
+        column: campaign {field: tds_linkedin_ga_view.campaign}
+        column: date {field: tds_linkedin_ga_view.date_date}
+        column: week {field: tds_linkedin_ga_view.date_week}
+        column: month {field: tds_linkedin_ga_view.date_month}
+        column: total_impressions {field: tds_linkedin_ga_view.total_impressions}
+        column: total_clicks {field: tds_linkedin_ga_view.total_clicks}
+        column: total_cost {field: tds_linkedin_ga_view.total_cost}
+        column: total_sessions {field: tds_linkedin_ga_view.total_sessions}
+        column: total_session_duration {field: tds_linkedin_ga_view.total_sessionduration}
+        column: total_checkouts {field: tds_linkedin_ga_view.total_checkouts}
+        column: total_pdp_views {field: tds_linkedin_ga_view.total_pdp_views}
+        column: total_revenue {field: tds_linkedin_ga_view.total_revenue}
+        column: total_subscrpition_orders {field: tds_linkedin_ga_view.total_subscrpition_orders}
+        column: total_transactions {field: tds_linkedin_ga_view.total_transactions}
       }
       datagroup_trigger: tds_datagroup
       distribution_style: all

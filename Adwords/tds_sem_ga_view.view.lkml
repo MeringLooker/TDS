@@ -10,9 +10,37 @@ view: tds_sem_ga_view {
 
 ###### Dimensions added to this table via LookML #######
 
+  dimension: fiscal_year {
+    label: "Fiscal"
+    type: string
+    group_label: "Client Dimensions"
+    sql:
+      CASE
+        WHEN ${day_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
+        ELSE 'Uncategorized'
+        END
+        ;;
+  }
+
+  dimension: publisher {
+    group_label: "AdWords Dimensions"
+    type: string
+    sql: 'SEM' ;;
+  }
+
+
+  dimension: tds_placement {
+    type: string
+    label: "Campaign Placement"
+    hidden: yes
+    group_label: "Client Dimensions"
+    sql: ${ad_group};;
+  }
+
   dimension: tds_campaign {
     type: string
     label: "Campaign Name "
+    hidden: yes
     group_label: "Client Dimensions"
     sql:
       case
@@ -98,6 +126,7 @@ view: tds_sem_ga_view {
   }
 
   dimension_group: day {
+    label: ""
     type: time
     timeframes: [
       raw,
@@ -110,18 +139,6 @@ view: tds_sem_ga_view {
     ]
     sql: ${TABLE}.day ;;
   }
-
-  dimension: fiscal_year {
-    label: "Fiscal"
-    type: string
-    group_label: "Client Dimensions"
-    sql:
-      CASE
-        WHEN ${day_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
-        ELSE 'Uncategorized'
-        END
-        ;;
-   }
 
   dimension: impressions {
     hidden: yes
@@ -145,11 +162,6 @@ view: tds_sem_ga_view {
     hidden: yes
     type: number
     sql: ${TABLE}.pdp_views;;
-  }
-
-  dimension: publisher {
-    type: string
-    sql: 'SEM' ;;
   }
 
   dimension: reportname {
@@ -274,7 +286,7 @@ view: tds_sem_ga_view {
     sql: ${pageviews} ;;
   }
 
-    ## SDT Google Analytics Goals ##
+  ## SDT Google Analytics Goals ##
   measure: total_checkouts {
     type: sum
     group_label: "Google Analytics Goals"

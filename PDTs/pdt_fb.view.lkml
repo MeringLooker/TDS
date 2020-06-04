@@ -14,8 +14,8 @@ view: pdt_fb {
         column: total_checkouts {field: tds_fb_ga_view.total_checkouts}
         column: total_pdp_views {field: tds_fb_ga_view.total_pdp_views}
         column: total_revenue {field: tds_fb_ga_view.total_revenue}
-        column:total_subscrpition_orders {field: tds_fb_ga_view.total_subscrpition_orders}
-        column:total_transactions {field: tds_fb_ga_view.total_transactions}
+        column: total_subscrpition_orders {field: tds_fb_ga_view.total_subscrpition_orders}
+        column: total_transactions {field: tds_fb_ga_view.total_transactions}
       }
       datagroup_trigger: tds_datagroup
       distribution_style: all

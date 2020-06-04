@@ -1,5 +1,5 @@
 view: tds_gdn_ga_view {
-    sql_table_name: public.tds_gdn_ga_view ;;
+  sql_table_name: public.tds_gdn_ga_view ;;
 
   #### Join id ####
   dimension: ga_join_id {
@@ -9,7 +9,7 @@ view: tds_gdn_ga_view {
   }
 ###### Dimensions added to this table via LookML #######
 
-   dimension: fiscal_year {
+  dimension: fiscal_year {
     label: "Fiscal"
     type: string
     group_label: "Client Dimensions"
@@ -22,32 +22,65 @@ view: tds_gdn_ga_view {
   }
 
   dimension: tds_campaign {
+    hidden: yes
     type: string
     label: "Campaign"
     group_label: "Client Dimensions"
-    sql:${account} ;;
-  }
+    sql:
+      CASE
+        WHEN ${campaign} = 'GDN_TDSC_FY20_ConversionLayer_Prospecting_CustomIntent_Responsive_Clicks' THEN 'GDN TDSC FY20 ConversionLayer Prospecting CustomIntent Responsive Clicks'
+        WHEN ${campaign} = 'GDN_TDSC_FY20_ConversionLayer_Prospecting_Lookalike_Responsive_Clicks' THEN 'GDN TDSC FY20 ConversionLayer Prospecting Lookalike Responsive Clicks'
+        WHEN ${campaign} = 'GDN_TDSC_FY20_ConversionLayer_Retargeting_CartAbandoners_Responsive_Clicks' THEN 'GDN TDSC FY20 ConversionLayer Retargeting CartAbandoners Responsive Clicks'
+        WHEN ${campaign} = 'GDN_TDSC_FY20_ConversionLayer_Retargeting_LoggedIn_Responsive_Clicks' THEN 'GDN TDSC FY20 ConversionLayer Retargeting LoggedIn_Responsive Clicks'
+        WHEN ${campaign} = 'GDN_TDSC_FY20_ConversionLayer_Retargeting_Visitors_Responsive_Clicks' THEN 'GDN TDSC FY20 ConversionLayer Retargeting Visitors Responsive Clicks'
+        WHEN ${campaign} = 'TDSC - Abandon Cart - GDN Responsive - CA - FY19' THEN 'TDSC - Abandon Cart - GDN Responsive - CA - FY19'
+        WHEN ${campaign} = 'TDSC - Abandon Cart - GDN Responsive - FY19' THEN 'TDSC - Abandon Cart - GDN Responsive - FY19'
+        WHEN ${campaign} = 'TDSC - Categories - GDN Carousel - FY19' THEN 'TDSC - Categories - GDN Carousel - FY19'
+        WHEN ${campaign} = 'TDSC - Logged In - GDN Responsive -  CA - FY19' THEN 'TDSC - Logged In - GDN Responsive -  CA - FY19'
+        WHEN ${campaign} = 'TDSC - Logged In - GDN Responsive - FY19' THEN 'TDSC - Logged In - GDN Responsive - FY19'
+        WHEN ${campaign} = 'TDSC - Products - GDN Carousel - FY19' THEN 'TDSC - Products - GDN Carousel - FY19'
+        WHEN ${campaign} = 'TDSC - Prospecting - GDN Responsive - CA - FY19' THEN 'TDSC - Prospecting - GDN Responsive - CA - FY19'
+        WHEN ${campaign} = 'TDSC - Prospecting - GDN Responsive - FY19' THEN 'TDSC - Prospecting - GDN Responsive - FY19'
+        WHEN ${campaign} = 'TDSC - Visitors - GDN Responsive - CA - FY19' THEN 'TDSC - Visitors - GDN Responsive - CA - FY19'
+        WHEN ${campaign} = 'TDSC - Visitors - GDN Responsive - FY19' THEN 'TDSC - Visitors - GDN Responsive - FY19'
+        WHEN ${campaign} = 'zzz - TDSC - Abandon Cart - GDN Responsive - FY19' THEN 'zzz - TDSC - Abandon Cart - GDN Responsive - FY19'
+        WHEN ${campaign} = 'zzz - TDSC - Logged In - GDN Responsive - FY19' THEN 'zzz - TDSC - Logged In - GDN Responsive - FY19'
+        WHEN ${campaign} = 'zzz - TDSC - Visitors - GDN Responsive - FY19' THEN 'zzz - TDSC - Visitors - GDN Responsive - FY19'
+        END
+;;
+    }
+
+#     dimension: tds_placement {
+#       type: string
+#       label: "Campaign Placement"
+#       group_label: "Client Dimensions"
+#       sql:
+#       case
+#         when ${ad_group} ilike '%Responsive_Clicks%' then 'Responsive Clicks'
+#         when ${ad_group} ilike '%Responsive A%' then 'Responsive A'
+#         when ${ad_group} ilike '%Responsive B%' then 'Responsive B'
+#         when ${ad_group} ilike '%GDN Carousel%' then 'GDN Carousel'
+#         ELSE 'Uncategorized'
+#         end
+#         ;;
+#     }
 
   dimension: tds_placement {
-    type: string
-    label: "Campaign Placement"
-    group_label: "Client Dimensions"
-    sql:
-      case
-        when ${ad_group} ilike '%Responsive_Clicks%' then 'Responsive Clicks'
-        when ${ad_group} ilike '%Responsive A%' then 'Responsive A'
-        when ${ad_group} ilike '%Responsive B%' then 'Responsive B'
-        when ${ad_group} ilike '%GDN Carousel%' then 'GDN Carousel'
-        ELSE 'Uncategorized'
-        end
+    hidden: yes
+      type: string
+      label: "Campaign Placement"
+      group_label: "Client Dimensions"
+      sql: ${ad_group}
         ;;
-  }
+    }
 
-  dimension: tds_audience {
-    type: string
-    label: "Audience"
-    group_label: "Client Dimensions"
-    sql:
+
+    dimension: tds_audience {
+      hidden: yes
+      type: string
+      label: "Audience"
+      group_label: "Client Dimensions"
+      sql:
       case
         when ${campaign} ilike '%CustomIntent%' then 'Custom Intent'
         when ${campaign} ilike '%Lookalike%' then 'Lookalike'
@@ -62,20 +95,21 @@ view: tds_gdn_ga_view {
         ELSE 'Uncategorized'
         end
         ;;
-  }
+    }
 
-  dimension: tds_layer {
-    type: string
-    label: "Campaign Layer"
-    group_label: "Client Dimensions"
-    sql:
+    dimension: tds_layer {
+      hidden: yes
+      type: string
+      label: "Campaign Layer"
+      group_label: "Client Dimensions"
+      sql:
       case
         when ${campaign} ilike '%ConversionLayer%' then 'Conversion Layer'
         when ${campaign} ilike '%Prospecting%' then 'Prospecting'
         ELSE 'Uncategorized'
         end
         ;;
-  }
+    }
 
 #### Dimensions ####
     dimension: account {
@@ -250,113 +284,113 @@ view: tds_gdn_ga_view {
 
 
 #### Measures ####
-  measure: total_impressions {
-    type: sum
-    group_label:"AdWords Reporting"
-    sql: ${impressions} ;;
-  }
+    measure: total_impressions {
+      type: sum
+      group_label:"AdWords Reporting"
+      sql: ${impressions} ;;
+    }
 
-  measure: total_cost {
-    type: sum
-    group_label: "AdWords Reporting"
-    value_format_name: usd
-    sql: ${cost}/1000000.00 ;;
-  }
+    measure: total_cost {
+      type: sum
+      group_label: "AdWords Reporting"
+      value_format_name: usd
+      sql: ${cost}/1000000.00 ;;
+    }
 
-  measure: total_clicks {
-    type: sum
-    group_label: "AdWords Reporting"
-    sql: ${clicks} ;;
-  }
+    measure: total_clicks {
+      type: sum
+      group_label: "AdWords Reporting"
+      sql: ${clicks} ;;
+    }
 
-  measure: click_through_rate {
-    label: "CTR"
-    type: number
-    group_label: "AdWords Reporting"
-    value_format_name: percent_1
-    sql: 1.0*${clicks}/nullif(${impressions},0) ;;
-  }
+    measure: click_through_rate {
+      label: "CTR"
+      type: number
+      group_label: "AdWords Reporting"
+      value_format_name: percent_1
+      sql: 1.0*${clicks}/nullif(${impressions},0) ;;
+    }
 
- measure: total_checkouts {
-    type: sum
-    group_label: "Google Analytics Goals"
-    sql: ${checkouts} ;;
-  }
+    measure: total_checkouts {
+      type: sum
+      group_label: "Google Analytics Goals"
+      sql: ${checkouts} ;;
+    }
 
-  measure: total_pdp_views {
-    type: sum
-    group_label: "Google Analytics Goals"
-    sql: ${pdp_views} ;;
-  }
+    measure: total_pdp_views {
+      type: sum
+      group_label: "Google Analytics Goals"
+      sql: ${pdp_views} ;;
+    }
 
-  measure: total_revenue {
-    type: sum
-    group_label: "Google Analytics Goals"
-    value_format_name: usd_0
-    sql: ${revenue} ;;
-  }
+    measure: total_revenue {
+      type: sum
+      group_label: "Google Analytics Goals"
+      value_format_name: usd_0
+      sql: ${revenue} ;;
+    }
 
-  measure: total_subscrpition_orders {
-    type: sum
-    group_label: "Google Analytics Goals"
-    sql: ${subscrpition_orders} ;;
-  }
+    measure: total_subscrpition_orders {
+      type: sum
+      group_label: "Google Analytics Goals"
+      sql: ${subscrpition_orders} ;;
+    }
 
-  measure: total_transactions {
-    type: sum
-    group_label: "Google Analytics Goals"
-    sql: ${transactions} ;;
-  }
+    measure: total_transactions {
+      type: sum
+      group_label: "Google Analytics Goals"
+      sql: ${transactions} ;;
+    }
 
-  measure: total_newusers {
-    type: sum
-    group_label:  "Google Analytics Metrics"
-    sql: ${newusers} ;;
-  }
+    measure: total_newusers {
+      type: sum
+      group_label:  "Google Analytics Metrics"
+      sql: ${newusers} ;;
+    }
 
- measure: total_pageviews {
-    type: sum
-    group_label: "Google Analytics Metrics"
-    sql: ${pageviews} ;;
-  }
+    measure: total_pageviews {
+      type: sum
+      group_label: "Google Analytics Metrics"
+      sql: ${pageviews} ;;
+    }
 
-  measure: total_session_duration {
-    hidden:  yes
-    type: sum
-    group_label: "Google Analytics Metrics"
-    sql: ${sessionduration} ;;
-  }
+    measure: total_session_duration {
+      hidden:  yes
+      type: sum
+      group_label: "Google Analytics Metrics"
+      sql: ${sessionduration} ;;
+    }
 
-  measure: total_users {
-    type: sum
-    group_label: "Google Analytics Metrics"
-    sql: ${users} ;;
-  }
+    measure: total_users {
+      type: sum
+      group_label: "Google Analytics Metrics"
+      sql: ${users} ;;
+    }
 
-  measure: avg_time_on_site {
-    group_label: "Google Analytics Metrics"
-    label: "Avg. TOS"
-    type: number
-    sql: ${total_session_duration}/nullif(${total_sessions},0) ;;
-    value_format: "m:ss"
-  }
+    measure: avg_time_on_site {
+      group_label: "Google Analytics Metrics"
+      label: "Avg. TOS"
+      type: number
+      sql: ${total_session_duration}/nullif(${total_sessions},0) ;;
+      value_format: "m:ss"
+    }
 
-  measure: newuserrate {
-    label: "New User Rate"
-    group_label: "Google Analytics Metrics"
-    type: number
-    sql: 1.0*${newusers}/nullif(${users}, 0);;
-    value_format_name: percent_0
-  }
+    measure: newuserrate {
+      label: "New User Rate"
+      group_label: "Google Analytics Metrics"
+      type: number
+      sql: 1.0*${newusers}/nullif(${users}, 0);;
+      value_format_name: percent_0
+    }
 
-  measure: total_sessions {
-    type: sum
-    group_label: "Google Analytics Metrics"
-    sql: ${sessions} ;;
-  }
+    measure: total_sessions {
+      type: sum
+      group_label: "Google Analytics Metrics"
+      sql: ${sessions} ;;
+    }
 
-  measure: count {
-    type: count
-    drill_fields: [reportname]
+    measure: count {
+      type: count
+      drill_fields: [reportname]
     }
   }
