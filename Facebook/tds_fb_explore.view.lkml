@@ -4,8 +4,6 @@ include: "/Facebook/*.view"
     hidden: yes
     view_name: tds_fb_ga_view
     label: "Facebook"
-    view_label: "AdWords Facebook"
+    view_label: "Facebook"
     group_label: "The Dentists Supply Company"
   }
-
-

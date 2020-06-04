@@ -12,7 +12,7 @@ datagroup: tds_datagroup {
 }
 
 explore: pdt_overall{
-  label: "TDS"
+  label: "Digital Campaign"
   view_label: "TDS"
   hidden: no
   group_label: "The Dentists Supply Company"
