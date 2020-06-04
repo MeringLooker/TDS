@@ -22,7 +22,7 @@ view: pdt_overall {
     type: string
     hidden: yes
     primary_key: yes
-    sql: ${publisher}||'_'||${campaign}||'_'||${date} ;;
+    sql: ${publisher}||'_'||${campaign}||'_'||${placement}||'_'||${date} ;;
   }
 
 #### Dimensions below ####
@@ -39,35 +39,39 @@ view: pdt_overall {
     sql: ${TABLE}.campaign ;;
   }
 
+  dimension: placement {
+    type: string
+#     hidden: yes
+    sql: ${TABLE}.placement ;;
+  }
+
   dimension: date {
     type:  date
-    group_label: "Date Periods"
+    group_label: "Date"
     sql:  ${TABLE}.date ;;
   }
 
-#   dimension: fiscal_year {
-#     type:  string
+  dimension: fiscal_year {
+    type:  string
 #     hidden: yes
-#     sql:
-#       CASE
-#       WHEN ${date} BETWEEN '2017-07-01' AND '2018-06-30' THEN 'FY 17/18'
-#       WHEN ${date} BETWEEN '2018-07-01' AND '2019-06-30' THEN 'FY 18/19'
-#       WHEN ${date} BETWEEN '2019-07-01' AND '2020-06-30' THEN 'FY 19/20'
-#       ELSE 'Uncategorized'
-#       END
-#     ;;
-#   }
+    sql:
+      CASE
+      WHEN ${date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
+      ELSE 'Uncategorized'
+      END
+    ;;
+  }
 
   dimension: week {
     type:  date_week
-    group_label: "Date Periods"
+    group_label: "Date"
 #     drill_fields: [publisher,campaign]
     sql:  ${TABLE}.week ;;
   }
 
   dimension: month {
     type:  date_month
-    group_label: "Date Periods"
+    group_label: "Date"
     sql:  ${TABLE}.month ;;
   }
 

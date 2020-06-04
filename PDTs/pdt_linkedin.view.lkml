@@ -3,6 +3,7 @@ view: pdt_linkedin {
       explore_source:tds_linkedin {
         column: publisher {field: tds_linkedin_ga_view.publisher}
         column: campaign {field: tds_linkedin_ga_view.campaign}
+        column: placement {field: tds_linkedin_ga_view.placement}
         column: date {field: tds_linkedin_ga_view.date_date}
         column: week {field: tds_linkedin_ga_view.date_week}
         column: month {field: tds_linkedin_ga_view.date_month}

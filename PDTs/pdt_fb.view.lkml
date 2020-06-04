@@ -3,6 +3,7 @@ view: pdt_fb {
       explore_source: tds_fb{
         column: publisher {field: tds_fb_ga_view.publisher}
         column: campaign {field: tds_fb_ga_view.tds_campaign}
+        column: placement {field: tds_fb_ga_view.adset_name}
         column: date {field: tds_fb_ga_view.date_start_date}
         column: week {field: tds_fb_ga_view.date_start_week}
         column: month {field: tds_fb_ga_view.date_start_month}

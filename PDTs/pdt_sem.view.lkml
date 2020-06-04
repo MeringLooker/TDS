@@ -3,6 +3,7 @@ view: pdt_sem {
     explore_source: tds_sem {
       column: publisher {field: tds_sem_ga_view.publisher}
       column: campaign {field: tds_sem_ga_view.tds_campaign}
+      column: placement {field: tds_sem_ga_view.ad_group}
       column: date {field: tds_sem_ga_view.day_date}
       column: week {field: tds_sem_ga_view.day_week}
       column: month {field: tds_sem_ga_view.day_month}

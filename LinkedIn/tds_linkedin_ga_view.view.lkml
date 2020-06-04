@@ -34,8 +34,22 @@ view: tds_linkedin_ga_view {
         ;;
   }
 
+  dimension: placement {
+    group_label: "LinkedIn Dimensions"
+    type: string
+    sql:
+      CASE
+        WHEN ${pivot_value_name} = 'MC_TDSC_Sales_Skills' then 'Sales Skills'
+        WHEN ${pivot_value_name} = 'FY19_TDSC_Sales_JobTitles' then 'Sales Job Titles'
+        WHEN ${pivot_value_name} = 'FY19_TDSC_Sales_Groups' then 'Sales Groups'
+        ELSE 'Uncategorized'
+        END
+        ;;
+  }
+
   dimension: publisher {
     type: string
+    group_label: "LinkedIn Dimensions"
     sql: 'LinkedIn' ;;
   }
 
