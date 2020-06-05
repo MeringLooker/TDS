@@ -275,13 +275,14 @@ view: tds_gdn_ga_view {
   measure: total_impressions {
     type: sum
     group_label:"AdWords Reporting"
+    label: " Impressions"
     sql: ${impressions} ;;
   }
 
   measure: total_cost {
     type: sum
     group_label: "AdWords Reporting"
-    label: "Total Cost"
+    label: "Media Spend"
     value_format_name: usd
     sql: ${cost}/1000000.00 ;;
   }
@@ -289,6 +290,7 @@ view: tds_gdn_ga_view {
   measure: total_clicks {
     type: sum
     group_label: "AdWords Reporting"
+    label: "Clicks"
     sql: ${clicks} ;;
   }
 

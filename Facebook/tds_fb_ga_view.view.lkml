@@ -402,7 +402,7 @@ view: tds_fb_ga_view {
   measure: total_spend {
     group_label: "Facebook Delivery"
     type: sum
-    label: "Total Cost"
+    label: "Media Spend"
     sql: ${spend};;
     value_format_name: usd
   }
