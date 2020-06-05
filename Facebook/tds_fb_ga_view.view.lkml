@@ -626,7 +626,7 @@ view: tds_fb_ga_view {
     group_label: "Google Analytics Goals"
     label: "Average Order Value"
     type: number
-    sql: ${total_revenue}/${total_transactions} ;;
+    sql: ${total_revenue}/nullif(${total_transactions}, 0) ;;
     value_format_name: usd
   }
 

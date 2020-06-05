@@ -357,21 +357,21 @@ view: tds_dcm_ga_view {
     group_label: "3rd Party Measures"
     type: sum
     label: "Impressions"
-    sql: ${TABLE}.impressions ;;
+    sql: ${impressions} ;;
   }
 
   measure: total_clicks {
     group_label: "3rd Party Measures"
     type: sum
     label: "Clicks"
-    sql: ${TABLE}.clicks ;;
+    sql: ${clicks} ;;
   }
 
   measure: total_media_cost {
     group_label: "3rd Party Measures"
     type: sum
     label: "Media Spend"
-    sql: ${TABLE}.cost ;;
+    sql: ${cost} ;;
     value_format_name: usd
   }
 
@@ -387,14 +387,14 @@ view: tds_dcm_ga_view {
     group_label: "3rd Party Measures"
     type: sum
     label: "Active View Measureable Impressions"
-    sql: ${TABLE}."active view: measurable impressions";;
+    sql: ${active_view_measurable_impressions};;
   }
 
   measure: total_active_view_viewable_impressions {
     group_label: "3rd Party Measures"
     type: sum
     label: "Active View Viewable Impressions"
-    sql: ${TABLE}."active view: viewable impressions" ;;
+    sql: ${active_view_viewable_impressions} ;;
   }
 
   measure: total_viewability {
@@ -442,7 +442,7 @@ view: tds_dcm_ga_view {
     label: "Total Conversions"
     group_label: "3rd Party Measures"
     type: sum
-    sql: ${TABLE}."total conversions" ;;
+    sql: ${conversions} ;;
   }
 
   measure: dcm_total_revenue {
@@ -450,7 +450,7 @@ view: tds_dcm_ga_view {
     label: "Total Revenue"
     group_label: "3rd Party Measures"
     type: sum
-    sql: ${TABLE}."total revenue" ;;
+    sql: ${goal_revenue} ;;
     value_format_name: usd
   }
 
@@ -458,7 +458,7 @@ view: tds_dcm_ga_view {
     label: "View Through Conversions"
     group_label: "3rd Party Measures"
     type: sum
-    sql: ${TABLE}."view-through conversions" ;;
+    sql: ${viewthrough_conversions} ;;
   }
 
   measure: view_through_revenue {
@@ -510,7 +510,7 @@ view: tds_dcm_ga_view {
     label: "New User Rate"
     group_label: "Google Analytics Metrics"
     type: number
-    sql: 1.0*${newusers}/nullif(${users}, 0);;
+    sql: 1.0*${total_newusers}/nullif(${total_users}, 0);;
     value_format_name: percent_0
   }
 
@@ -548,7 +548,7 @@ view: tds_dcm_ga_view {
     group_label: "Google Analytics Goals"
     label: "Revenue"
     value_format_name: usd
-    sql: ${revenue} ;;
+    sql: ${goal_revenue} ;;
   }
 
   measure: total_transactions {
@@ -569,7 +569,7 @@ view: tds_dcm_ga_view {
     group_label: "Google Analytics Goals"
     label: "Average Order Value"
     type:  number
-    sql: ${total_revenue}/${total_transactions} ;;
+    sql: ${total_revenue}/nullif(${total_transactions}, 0) ;;
     value_format_name: usd
   }
 

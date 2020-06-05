@@ -299,7 +299,7 @@ view: tds_gdn_ga_view {
     type: number
     group_label: "AdWords Reporting"
     value_format_name: percent_1
-    sql: 1.0*${clicks}/nullif(${impressions},0) ;;
+    sql: 1.0*${total_clicks}/nullif(${total_impressions},0) ;;
   }
 
 #### GA Measures ####
@@ -343,7 +343,7 @@ view: tds_gdn_ga_view {
     label: "New User Rate"
     group_label: "Google Analytics Metrics"
     type: number
-    sql: 1.0*${newusers}/nullif(${users}, 0);;
+    sql: 1.0*${total_newusers}/nullif(${total_users}, 0);;
     value_format_name: percent_0
   }
 
@@ -402,7 +402,7 @@ view: tds_gdn_ga_view {
     group_label: "Google Analytics Goals"
     label: "Average Order Value"
     type:  number
-    sql: ${total_revenue}/${total_transactions} ;;
+    sql: ${total_revenue}/nullif(${total_transactions}, 0) ;;
     value_format_name: usd
   }
 

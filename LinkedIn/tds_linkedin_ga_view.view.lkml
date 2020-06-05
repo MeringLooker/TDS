@@ -247,7 +247,7 @@ view: tds_linkedin_ga_view {
     label: "New User Rate"
     group_label: "Google Analytics Metrics"
     type: number
-    sql: 1.0*${newusers}/nullif(${users}, 0);;
+    sql: 1.0*${total_newusers}/nullif(${total_users}, 0);;
     value_format_name: percent_0
   }
 
@@ -306,7 +306,7 @@ view: tds_linkedin_ga_view {
     group_label: "Google Analytics Goals"
     label: "Average Order Value"
     type:  number
-    sql: ${total_revenue}/${total_transactions} ;;
+    sql: ${total_revenue}/nullif(${total_transactions}, 0) ;;
     value_format_name: usd
   }
 
