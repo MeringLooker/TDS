@@ -14,7 +14,7 @@ view: pdt_dcm {
         column: total_session_duration {field: tds_dcm_ga_view.total_session_duration}
         column: total_checkouts {field: tds_dcm_ga_view.total_checkouts}
         column: total_pdp_views {field: tds_dcm_ga_view.total_pdp_views}
-        column: total_revenue {field: tds_dcm_ga_view.total_goal_revenue}
+        column: total_revenue {field: tds_dcm_ga_view.total_revenue}
         column: total_subscrpition_orders {field: tds_dcm_ga_view.total_subscrpition_orders}
         column: total_transactions {field: tds_dcm_ga_view.total_transactions}
       }

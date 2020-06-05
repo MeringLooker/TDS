@@ -111,51 +111,25 @@ view: tds_fb_ga_view {
   }
 
 #### Dimensions ####
-  dimension_group: __senttime {
-    hidden: yes
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.__senttime ;;
-  }
-
-  dimension_group: __updatetime {
-    hidden: yes
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.__updatetime ;;
-  }
 
   dimension: account_id {
-    hidden: yes
+#     hidden: yes
     type: number
+    group_label: "Facebook IDs"
     sql: ${TABLE}.account_id ;;
   }
 
   dimension: account_name {
     hidden: yes
     type: string
+    group_label: "Account Name"
     sql: ${TABLE}.account_name ;;
   }
 
   dimension: ad_id {
-    hidden: yes
+#     hidden: yes
     type: number
+    group_label: "Facebook IDs"
     sql: ${TABLE}.ad_id ;;
   }
 
@@ -166,14 +140,17 @@ view: tds_fb_ga_view {
   }
 
   dimension: adset_id {
-    hidden: yes
+#     hidden: yes
     type: number
+    group_label: "Facebook IDs"
+    label: "Ad Set ID"
     sql: ${TABLE}.adset_id ;;
   }
 
   dimension: adset_name {
-    group_label: "Facebook Dimensions"
     type: string
+    group_label: "Facebook Dimensions"
+    label: "Ad Set Name"
     sql: ${TABLE}.adset_name ;;
   }
 
@@ -184,8 +161,9 @@ view: tds_fb_ga_view {
   }
 
   dimension: campaign_id {
-    hidden: yes
+#     hidden: yes
     type: number
+    group_label: "Facebook IDs"
     sql: ${TABLE}.campaign_id ;;
   }
 
@@ -361,31 +339,37 @@ view: tds_fb_ga_view {
   dimension:views_to_25 {
     hidden: yes
     type: number
-    sql: ${TABLE}.views_to_25 ;;
+    sql: ${TABLE}.p25_video_view ;;
   }
 
   dimension:views_to_50 {
     hidden: yes
     type: number
-    sql: ${TABLE}.views_to_50 ;;
+    sql: ${TABLE}.p50_video_view ;;
   }
 
   dimension:views_to_75 {
     hidden: yes
     type: number
-    sql: ${TABLE}.views_to_75 ;;
+    sql: ${TABLE}.p75_video_view ;;
   }
 
   dimension:views_to_95 {
     hidden: yes
     type: number
-    sql: ${TABLE}.views_to_95 ;;
+    sql: ${TABLE}.p95_video_view ;;
   }
 
   dimension:views_to_100 {
     hidden: yes
     type: number
-    sql: ${TABLE}.views_to_100 ;;
+    sql: ${TABLE}.p100_video_view ;;
+  }
+
+  dimension: thruplays {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.thruplays ;;
   }
 
 #     dimension: unique_clicks {
@@ -400,7 +384,7 @@ view: tds_fb_ga_view {
 #       sql: ${TABLE}.unique_ctr ;;
 #     }
 
-#### Measures ####
+#### FB Measures ####
   measure: total_impressions {
     group_label: "Facebook Delivery"
     type: sum
@@ -517,6 +501,30 @@ view: tds_fb_ga_view {
     sql: 1.0*${video_spend}/nullif(${total_video_completes}, 0) ;;
     value_format_name: usd
   }
+
+#   measure: total_thruplays {
+#     type: sum_distinct
+#     label: "ThruPlays"
+#     group_label: "Facebook Video Metrics"
+#     sql: ${thruplays};;
+#   }
+#
+#   measure: thruplay_rate {
+#     type: number
+#     label: "ThruPlay Rate"
+#     group_label: "Facebook Video Metrics"
+#     sql: 1.0*${total_thruplays}/nullif(${video_impressions}, 0) ;;
+#     value_format_name: percent_2
+#   }
+#
+#   measure: cost_per_thruplay {
+#     type: number
+#     label: "Cost/ThruPlay"
+#     group_label: "Facebook Video Metrics"
+#     sql: 1.0*${video_spend}/nullif(${total_thruplays}, 0) ;;
+#     value_format_name: usd
+#   }
+
 
 #### GA Measures ###
 

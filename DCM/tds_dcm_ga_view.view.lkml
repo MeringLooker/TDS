@@ -22,6 +22,7 @@ view: tds_dcm_ga_view {
   }
 
   dimension: tds_placement {
+    hidden: yes
     type: string
     group_label: "Client Dimensions"
     label: "Placement Name"
@@ -48,6 +49,7 @@ view: tds_dcm_ga_view {
     }
 
   dimension: tds_creative {
+    hidden: yes
     type: string
     group_label: "Client Dimensions"
     label: "Creative Name"
@@ -65,6 +67,7 @@ view: tds_dcm_ga_view {
   }
 
   dimension: tds_layer {
+    hidden: yes
     type: string
     label: "Campaign Layer"
     group_label: "Client Dimensions"
@@ -79,16 +82,11 @@ view: tds_dcm_ga_view {
 
 
 #### Dimensions ####
-  dimension: __report {
+
+  dimension: account_creates {
     hidden: yes
     type: number
-    sql: ${TABLE}.__report ;;
-  }
-
-  dimension: __state {
-    hidden: yes
-    type: string
-    sql: ${TABLE}.__state ;;
+    sql: ${TABLE}.account_creates;;
   }
 
   dimension: active_view_eligible_impressions {
@@ -118,6 +116,7 @@ view: tds_dcm_ga_view {
   dimension: ad_id {
     hidden: yes
     type: string
+    group_label: "DCM IDs"
     sql: ${TABLE}."ad id" ;;
   }
 
@@ -153,6 +152,7 @@ view: tds_dcm_ga_view {
   dimension: campaign_id {
     hidden: yes
     type: number
+    group_label: "DCM IDs"
     sql: ${TABLE}."campaign id" ;;
   }
 
@@ -189,6 +189,7 @@ view: tds_dcm_ga_view {
   dimension: creative_id {
     hidden:  yes
     type: string
+    group_label: "DCM IDs"
     sql: ${TABLE}."creative id" ;;
   }
 
@@ -207,7 +208,6 @@ view: tds_dcm_ga_view {
     sql: ${TABLE}.date ;;
   }
 
-
 #   dimension: fiscal_year {
 #     label: "Fiscal"
 #     type: string
@@ -219,8 +219,6 @@ view: tds_dcm_ga_view {
 #         END
 #         ;;
 #   }
-
-
 
   dimension: impressions {
     hidden:  yes
@@ -249,6 +247,7 @@ view: tds_dcm_ga_view {
   dimension: placement_id {
     hidden: yes
     type: number
+    group_label: "DCM IDs"
     sql: ${TABLE}."placement id" ;;
   }
 
@@ -273,6 +272,7 @@ view: tds_dcm_ga_view {
 
   dimension: site_dcm {
     group_label: "DCM Dimensions"
+    label: "Site (DCM)"
     type: string
     sql: ${TABLE}."site (dcm)" ;;
   }
@@ -370,11 +370,10 @@ view: tds_dcm_ga_view {
   measure: total_media_cost {
     group_label: "3rd Party Measures"
     type: sum
-    label: "Total Cost"
+    label: "Media Spend"
     sql: ${TABLE}.cost ;;
     value_format_name: usd
   }
-
 
   measure: click_through_rate {
     group_label: "3rd Party Measures"
@@ -446,7 +445,7 @@ view: tds_dcm_ga_view {
     sql: ${TABLE}."total conversions" ;;
   }
 
-  measure: total_revenue {
+  measure: dcm_total_revenue {
     hidden: yes
     label: "Total Revenue"
     group_label: "3rd Party Measures"
@@ -470,89 +469,120 @@ view: tds_dcm_ga_view {
     sql: ${TABLE}."view-through revenue" ;;
   }
 
-### GA Measures ###
-  measure: total_page_views {
-    group_label: "Google Analytics Metrics"
+#### GA Measures ####
+  measure: total_newusers {
     type: sum
-    sql: ${TABLE}.pageviews ;;
+    label: "New Users"
+    group_label:  "Google Analytics Metrics"
+    sql: ${newusers} ;;
+  }
+
+  measure: total_pageviews {
+    type: sum
+    label: "Pageviews"
+    group_label: "Google Analytics Metrics"
+    sql: ${pageviews} ;;
   }
 
   measure: total_session_duration {
-    group_label: "Google Analytics Metrics"
-    hidden: yes
+    hidden:  yes
     type: sum
-    sql: ${TABLE}.sessionduration ;;
+    group_label: "Google Analytics Metrics"
+    sql: ${sessionduration} ;;
   }
 
-  measure: total_sessions {
-    group_label: "Google Analytics Metrics"
+  measure: total_users {
     type: sum
-    sql: ${TABLE}.sessions ;;
+    label: "Users"
+    group_label: "Google Analytics Metrics"
+    sql: ${users} ;;
   }
 
   measure: avg_time_on_site {
     group_label: "Google Analytics Metrics"
     label: "Avg. TOS"
-    sql: ${total_session_duration}/nullif(${total_sessions},0) ;;
-    value_format: "0.##"
-  }
-
-  measure: total_users {
-    group_label: "Google Analytics Metrics"
-    type: sum
-    sql: ${TABLE}.users ;;
-  }
-
-  measure: total_new_users {
-    label: "New Users"
-    group_label: "Google Analytics Metrics"
-    type: sum
-    sql: ${TABLE}.newusers ;;
-  }
-
-  measure: new_user_rate {
-    label: "New User Rate"
-    group_label:"Google Analytics Metrics"
     type: number
-    sql: 1.0*${total_new_users}/nullif(${total_users}, 0);;
+    sql: ${total_session_duration}/nullif(${total_sessions},0) ;;
+    value_format: "m:ss"
+  }
+
+  measure: newuserrate {
+    label: "New User Rate"
+    group_label: "Google Analytics Metrics"
+    type: number
+    sql: 1.0*${newusers}/nullif(${users}, 0);;
     value_format_name: percent_0
   }
 
-### GA Goals Measure ###
-  measure: total_checkouts {
+  measure: total_sessions {
     type: sum
-    group_label: "Google Analytics Goals"
-    sql: ${checkouts} ;;
+    label: "Sessions"
+    group_label: "Google Analytics Metrics"
+    sql: ${sessions} ;;
   }
 
+#### Google Analytics Goals ####
   measure: total_pdp_views {
     type: sum
+    label: "PDP Views"
     group_label: "Google Analytics Goals"
     sql: ${pdp_views} ;;
   }
 
-  measure: total_goal_revenue {
-    type: sum
+  measure: total_account_creates {
     group_label: "Google Analytics Goals"
-    label: "Goal Revenue"
-    value_format_name: usd_0
-    sql: ${revenue} ;;
+    label: "Account Creates"
+    type: sum
+    sql: ${account_creates} ;;
   }
 
-  measure: total_subscrpition_orders {
+  measure: total_checkouts {
+    type: sum
+    label: "Checkouts"
+    group_label: "Google Analytics Goals"
+    sql: ${checkouts} ;;
+  }
+
+  measure: total_revenue {
     type: sum
     group_label: "Google Analytics Goals"
-    sql: ${subscrpition_orders} ;;
+    label: "Revenue"
+    value_format_name: usd
+    sql: ${revenue} ;;
   }
 
   measure: total_transactions {
     type: sum
     group_label: "Google Analytics Goals"
+    label: "Transactions"
     sql: ${transactions} ;;
   }
 
+  measure: total_subscrpition_orders {
+    type: sum
+    group_label: "Google Analytics Goals"
+    label: "Subscription Orders"
+    sql: ${subscrpition_orders} ;;
+  }
+
+  measure: aov {
+    group_label: "Google Analytics Goals"
+    label: "Average Order Value"
+    type:  number
+    sql: ${total_revenue}/${total_transactions} ;;
+    value_format_name: usd
+  }
+
+  measure: cost_per_account_create {
+    group_label: "Google Analytics Goals"
+    label: "Cost per Account Create"
+    type: number
+    sql: ${total_media_cost}/nullif(${total_account_creates}, 0) ;;
+    value_format_name: usd
+  }
+
   measure: count {
-#     hidden: yes
+    hidden: yes
     type: count
     drill_fields: []
   }
