@@ -206,7 +206,7 @@ view: tds_sem_ga_view {
     sql: ${TABLE}.users ;;
   }
 
-#### Measures ####
+#### SEM Measures ####
 
   measure: total_impressions {
     type: sum
@@ -235,12 +235,17 @@ view: tds_sem_ga_view {
     sql: 1.0*${clicks}/nullif(${impressions},0) ;;
   }
 
-  ###### All Measures go Below ######
-  measure: total_sessions {
+ #### GA Measures ####
+  measure: total_newusers {
+    type: sum
+    group_label:  "Google Analytics Metrics"
+    sql: ${newusers} ;;
+  }
+
+  measure: total_pageviews {
     type: sum
     group_label: "Google Analytics Metrics"
-
-    sql: ${sessions} ;;
+    sql: ${pageviews} ;;
   }
 
   measure: total_session_duration {
@@ -253,23 +258,7 @@ view: tds_sem_ga_view {
   measure: total_users {
     type: sum
     group_label: "Google Analytics Metrics"
-
     sql: ${users} ;;
-  }
-
-  measure: newuserrate {
-    label: "New User Rate"
-    group_label: "Google Analytics Metrics"
-    type: number
-    sql: 1.0*${newusers}/nullif(${users}, 0);;
-    value_format_name: percent_0
-  }
-
-  measure: total_newusers {
-    type: sum
-    group_label: "Google Analytics Metrics"
-
-    sql: ${newusers} ;;
   }
 
   measure: avg_time_on_site {
@@ -280,42 +269,78 @@ view: tds_sem_ga_view {
     value_format: "m:ss"
   }
 
-  measure: total_pageviews {
+  measure: newuserrate {
+    label: "New User Rate"
+    group_label: "Google Analytics Metrics"
+    type: number
+    sql: 1.0*${newusers}/nullif(${users}, 0);;
+    value_format_name: percent_0
+  }
+
+  measure: total_sessions {
     type: sum
     group_label: "Google Analytics Metrics"
-    sql: ${pageviews} ;;
+    sql: ${sessions} ;;
   }
 
-  ## SDT Google Analytics Goals ##
-  measure: total_checkouts {
-    type: sum
-    group_label: "Google Analytics Goals"
-    sql: ${checkouts} ;;
-  }
-
+#### Google Analytics Goals ####
   measure: total_pdp_views {
     type: sum
+    label: "PDP Views"
     group_label: "Google Analytics Goals"
     sql: ${pdp_views} ;;
+  }
+
+  measure: total_account_creates {
+    group_label: "Google Analytics Goals"
+    label: "Account Creates"
+    type: sum
+    sql: ${account_creates} ;;
+  }
+
+  measure: total_checkouts {
+    type: sum
+    label: "Checkouts"
+    group_label: "Google Analytics Goals"
+    sql: ${checkouts} ;;
   }
 
   measure: total_revenue {
     type: sum
     group_label: "Google Analytics Goals"
-    value_format_name: usd_0
+    label: "Revenue"
+    value_format_name: usd
     sql: ${revenue} ;;
-  }
-
-  measure: total_subscrpition_orders {
-    type: sum
-    group_label: "Google Analytics Goals"
-    sql: ${subscrpition_orders} ;;
   }
 
   measure: total_transactions {
     type: sum
     group_label: "Google Analytics Goals"
+    label: "Transactions"
     sql: ${transactions} ;;
+  }
+
+  measure: total_subscrpition_orders {
+    type: sum
+    group_label: "Google Analytics Goals"
+    label: "Subscription Orders"
+    sql: ${subscrpition_orders} ;;
+  }
+
+  measure: aov {
+    group_label: "Google Analytics Goals"
+    label: "Average Order Value"
+    type:  number
+    sql: ${total_revenue}/${total_transactions} ;;
+    value_format_name: usd
+  }
+
+  measure: cost_per_account_create {
+    group_label: "Google Analytics Goals"
+    label: "Cost per Account Create"
+    type: number
+    sql: ${total_cost}/nullif(${total_account_creates}, 0) ;;
+    value_format_name: usd
   }
 
   measure: count {

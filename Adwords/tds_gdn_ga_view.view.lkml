@@ -395,6 +395,7 @@ view: tds_gdn_ga_view {
   measure: aov {
     group_label: "Google Analytics Goals"
     label: "Average Order Value"
+    type:  number
     sql: ${total_revenue}/${total_transactions} ;;
     value_format_name: usd
   }
@@ -402,8 +403,9 @@ view: tds_gdn_ga_view {
   measure: cost_per_account_create {
     group_label: "Google Analytics Goals"
     label: "Cost per Account Create"
+    type: number
     sql: ${total_cost}/nullif(${total_account_creates}, 0) ;;
-    value_format_name: usd_0
+    value_format_name: usd
   }
 
   measure: count {
