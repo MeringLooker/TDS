@@ -238,12 +238,14 @@ view: tds_sem_ga_view {
  #### GA Measures ####
   measure: total_newusers {
     type: sum
+    label: "New Users"
     group_label:  "Google Analytics Metrics"
     sql: ${newusers} ;;
   }
 
   measure: total_pageviews {
     type: sum
+    label: "Pageviews"
     group_label: "Google Analytics Metrics"
     sql: ${pageviews} ;;
   }
@@ -257,6 +259,7 @@ view: tds_sem_ga_view {
 
   measure: total_users {
     type: sum
+    label: "Users"
     group_label: "Google Analytics Metrics"
     sql: ${users} ;;
   }
@@ -279,6 +282,7 @@ view: tds_sem_ga_view {
 
   measure: total_sessions {
     type: sum
+    label: "Sessions"
     group_label: "Google Analytics Metrics"
     sql: ${sessions} ;;
   }
