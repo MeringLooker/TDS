@@ -154,7 +154,13 @@ view: pdt_overall {
     sql: ${TABLE}.total_users ;;
   }
 
-  #### Measures below ####
+  dimension: account_creates {
+    hidden:  yes
+    type:  number
+    sql: ${TABLE}.total_account_creates ;;
+  }
+
+  #### Delivery Measures ####
 
   measure: total_impressions {
     type: sum_distinct
@@ -205,12 +211,43 @@ view: pdt_overall {
     value_format_name: usd
   }
 
+#### Google Analytics Measures ####
+
   measure: total_sessions {
     type: sum_distinct
     label: "Sessions"
     group_label: "Google Analytics Metrics"
     sql_distinct_key: ${primary_key} ;;
     sql: ${sessions} ;;
+  }
+
+  measure: total_newusers {
+    type: sum
+    label: "New Users"
+    group_label:  "Google Analytics Metrics"
+    sql: ${newusers} ;;
+  }
+
+  measure: total_pageviews {
+    type: sum
+    label: "Pageviews"
+    group_label: "Google Analytics Metrics"
+    sql: ${pageviews} ;;
+  }
+
+  measure: total_users {
+    type: sum
+    label: "Users"
+    group_label: "Google Analytics Metrics"
+    sql: ${users} ;;
+  }
+
+  measure: newuserrate {
+    label: "New User Rate"
+    group_label: "Google Analytics Metrics"
+    type: number
+    sql: 1.0*${total_newusers}/nullif(${total_users}, 0);;
+    value_format_name: percent_0
   }
 
   measure: total_session_duration {
@@ -234,6 +271,16 @@ view: pdt_overall {
     group_label: "Google Analytics Metrics"
     sql: ${total_spend}/nullif(${total_sessions}, 0) ;;
     value_format_name: usd
+  }
+
+#### Google Analytics Goals ####
+
+  measure: total_account_creates {
+    type: sum_distinct
+    label: "Checkouts"
+    group_label: "Google Analytics Goals"
+    sql_distinct_key: ${primary_key} ;;
+    sql: ${account_creates} ;;
   }
 
   measure: total_checkouts {
@@ -277,33 +324,19 @@ view: pdt_overall {
     sql: ${transactions} ;;
   }
 
-  measure: total_newusers {
-    type: sum
-    label: "New Users"
-    group_label:  "Google Analytics Metrics"
-    sql: ${newusers} ;;
+  measure: aov {
+    group_label: "Google Analytics Goals"
+    label: "Average Order Value"
+    type:  number
+    sql: ${total_revenue}/nullif(${total_transactions}, 0) ;;
+    value_format_name: usd
   }
 
-  measure: total_pageviews {
-    type: sum
-    label: "Pageviews"
-    group_label: "Google Analytics Metrics"
-    sql: ${pageviews} ;;
-  }
-
-  measure: total_users {
-    type: sum
-    label: "Users"
-    group_label: "Google Analytics Metrics"
-    sql: ${users} ;;
-  }
-
-  measure: newuserrate {
-    label: "New User Rate"
-    group_label: "Google Analytics Metrics"
+  measure: cost_per_account_create {
+    group_label: "Google Analytics Goals"
+    label: "Cost per Account Create"
     type: number
-    sql: 1.0*${total_newusers}/nullif(${total_users}, 0);;
-    value_format_name: percent_0
+    sql: ${total_spend}/nullif(${total_account_creates}, 0) ;;
+    value_format_name: usd
   }
-
 }

@@ -15,6 +15,7 @@ view: pdt_fb {
         column: total_newusers {field: tds_fb_ga_view.total_new_users}
         column: total_pageviews {field: tds_fb_ga_view.total_page_views}
         column: total_users {field: tds_fb_ga_view.total_users}
+        column: total_account_creates {field:tds_fb_ga_view.total_account_creates}
         column: total_checkouts {field: tds_fb_ga_view.total_checkouts}
         column: total_pdp_views {field: tds_fb_ga_view.total_pdp_views}
         column: total_revenue {field: tds_fb_ga_view.total_revenue}

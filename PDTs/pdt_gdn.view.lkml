@@ -15,6 +15,7 @@ view: pdt_gdn {
         column: total_newusers {field: tds_gdn_ga_view.total_newusers}
         column: total_pageviews {field: tds_gdn_ga_view.total_pageviews}
         column: total_users {field: tds_gdn_ga_view.total_users}
+        column: total_account_creates {field:tds_gdn_ga_view.total_account_creates}
         column: total_checkouts {field: tds_gdn_ga_view.total_checkouts}
         column: total_pdp_views {field: tds_gdn_ga_view.total_pdp_views}
         column: total_revenue {field: tds_gdn_ga_view.total_revenue}
