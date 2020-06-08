@@ -16,7 +16,8 @@ view: tds_linkedin_ga_view {
     type: string
     sql:
       CASE
-         WHEN ${date_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
+        WHEN ${date_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY19'
+        WHEN ${date_date} BETWEEN '2020-01-01' AND '2020-12-31' THEN 'FY20'
         ELSE 'Uncategorized'
         END;;
   }

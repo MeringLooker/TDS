@@ -56,7 +56,8 @@ view: pdt_overall {
 #     hidden: yes
     sql:
       CASE
-      WHEN ${date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
+        WHEN ${date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY19'
+        WHEN ${date} BETWEEN '2020-01-01' AND '2020-12-31' THEN 'FY20'
       ELSE 'Uncategorized'
       END
     ;;
@@ -135,16 +136,38 @@ view: pdt_overall {
     sql: ${TABLE}.total_transactions ;;
   }
 
+  dimension: newusers {
+    hidden:  yes
+    type:  number
+    sql: ${TABLE}.total_newusers ;;
+  }
+
+  dimension: pageviews {
+    hidden:  yes
+    type:  number
+    sql: ${TABLE}.total_pageviews ;;
+  }
+
+  dimension: users {
+    hidden:  yes
+    type:  number
+    sql: ${TABLE}.total_users ;;
+  }
+
   #### Measures below ####
 
   measure: total_impressions {
     type: sum_distinct
+    label: "Impressions"
+    group_label: "Campaign Reporting"
     sql_distinct_key: ${primary_key} ;;
     sql: ${impressions} ;;
   }
 
   measure: total_clicks  {
     type: sum_distinct
+    label: "Clicks"
+    group_label: "Campaign Reporting"
     sql_distinct_key: ${primary_key} ;;
     sql: ${clicks} ;;
   }
@@ -152,12 +175,15 @@ view: pdt_overall {
   measure: click_through_rate {
     type: number
     label: "CTR"
+    group_label: "Campaign Reporting"
     sql: 1.0*(${total_clicks})/nullif(${total_impressions},0) ;;
     value_format_name: percent_2
   }
 
   measure: total_spend  {
     type: sum_distinct
+    label: "Media Spend"
+    group_label: "Campaign Reporting"
     sql_distinct_key: ${primary_key} ;;
     sql: ${cost};;
     value_format_name: usd
@@ -166,6 +192,7 @@ view: pdt_overall {
   measure: cost_per_thousand {
     type:  number
     label: "CPM"
+    group_label: "Campaign Reporting"
     sql: ${total_spend}/nullif(${total_impressions}/1000,0);;
     value_format_name: usd
   }
@@ -173,12 +200,15 @@ view: pdt_overall {
   measure: cost_per_click {
     type: number
     label: "CPC"
+    group_label: "Campaign Reporting"
     sql: ${total_spend}/nullif(${total_clicks}, 0) ;;
     value_format_name: usd
   }
 
   measure: total_sessions {
     type: sum_distinct
+    label: "Sessions"
+    group_label: "Google Analytics Metrics"
     sql_distinct_key: ${primary_key} ;;
     sql: ${sessions} ;;
   }
@@ -193,6 +223,7 @@ view: pdt_overall {
   measure: avg_session_duration {
     type: number
     label: "Avg. TOS"
+    group_label: "Google Analytics Metrics"
     sql: (${total_session_duration}/nullif(${total_sessions}, 0))::float/86400 ;;
     value_format: "m:ss"
   }
@@ -200,24 +231,31 @@ view: pdt_overall {
   measure: cost_per_session {
     type: number
     label: "CPS"
+    group_label: "Google Analytics Metrics"
     sql: ${total_spend}/nullif(${total_sessions}, 0) ;;
     value_format_name: usd
   }
 
   measure: total_checkouts {
     type: sum_distinct
+    label: "Checkouts"
+    group_label: "Google Analytics Goals"
     sql_distinct_key: ${primary_key} ;;
     sql: ${checkouts} ;;
   }
 
   measure: total_pdp_views {
     type: sum_distinct
+    label: "PDP Views"
+    group_label: "Google Analytics Goals"
     sql_distinct_key: ${primary_key} ;;
     sql: ${pdp_views} ;;
   }
 
   measure: total_revenue {
     type: sum_distinct
+    label: "Revenue"
+    group_label: "Google Analytics Goals"
     sql_distinct_key: ${primary_key} ;;
     sql: ${revenue} ;;
     value_format_name: usd_0
@@ -225,14 +263,47 @@ view: pdt_overall {
 
   measure: total_subscrpition_orders {
     type: sum_distinct
+    label: "Subscription Orders"
+    group_label: "Google Analytics Goals"
     sql_distinct_key: ${primary_key} ;;
     sql: ${subscrpition_orders} ;;
   }
 
   measure: total_transactions {
     type: sum_distinct
+    label: "Transactions"
+    group_label: "Google Analytics Goals"
     sql_distinct_key: ${primary_key} ;;
     sql: ${transactions} ;;
+  }
+
+  measure: total_newusers {
+    type: sum
+    label: "New Users"
+    group_label:  "Google Analytics Metrics"
+    sql: ${newusers} ;;
+  }
+
+  measure: total_pageviews {
+    type: sum
+    label: "Pageviews"
+    group_label: "Google Analytics Metrics"
+    sql: ${pageviews} ;;
+  }
+
+  measure: total_users {
+    type: sum
+    label: "Users"
+    group_label: "Google Analytics Metrics"
+    sql: ${users} ;;
+  }
+
+  measure: newuserrate {
+    label: "New User Rate"
+    group_label: "Google Analytics Metrics"
+    type: number
+    sql: 1.0*${total_newusers}/nullif(${total_users}, 0);;
+    value_format_name: percent_0
   }
 
 }

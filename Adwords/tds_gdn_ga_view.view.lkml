@@ -15,7 +15,8 @@ view: tds_gdn_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${day_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
+        WHEN ${day_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY19'
+        WHEN ${day_date} BETWEEN '2020-01-01' AND '2020-12-31' THEN 'FY20'
         ELSE 'Uncategorized'
         END
         ;;
@@ -74,9 +75,8 @@ view: tds_gdn_ga_view {
       ;;
   }
 
-
   dimension: tds_audience {
-    hidden: yes
+#     hidden: yes
     type: string
     label: "Audience"
     group_label: "Client Dimensions"
@@ -98,14 +98,14 @@ view: tds_gdn_ga_view {
   }
 
   dimension: tds_layer {
-    hidden: yes
+#     hidden: yes
     type: string
     label: "Campaign Layer"
     group_label: "Client Dimensions"
     sql:
       case
-        when ${campaign} ilike '%ConversionLayer%' then 'Conversion Layer'
-        when ${campaign} ilike '%Prospecting%' then 'Prospecting'
+        when ${campaign} ilike '%ConversionLayer%' then 'Prosecting/Conversion'
+        when ${campaign} ilike '%Prospecting%' then 'Prospecting/Conversion'
         ELSE 'Uncategorized'
         end
         ;;

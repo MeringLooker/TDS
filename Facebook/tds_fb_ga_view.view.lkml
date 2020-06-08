@@ -17,7 +17,8 @@ view: tds_fb_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${date_start_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
+        WHEN ${date_start_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY19'
+        WHEN ${date_start_date} BETWEEN '2020-01-01' AND '2020-12-31' THEN 'FY20'
         ELSE 'Uncategorized'
         END
         ;;

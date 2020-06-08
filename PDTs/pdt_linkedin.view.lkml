@@ -12,6 +12,9 @@ view: pdt_linkedin {
         column: total_cost {field: tds_linkedin_ga_view.total_cost}
         column: total_sessions {field: tds_linkedin_ga_view.total_sessions}
         column: total_session_duration {field: tds_linkedin_ga_view.total_session_duration}
+        column: total_newusers {field: tds_linkedin_ga_view.total_newusers}
+        column: total_pageviews {field: tds_linkedin_ga_view.total_pageviews}
+        column: total_users {field: tds_linkedin_ga_view.total_users}
         column: total_checkouts {field: tds_linkedin_ga_view.total_checkouts}
         column: total_pdp_views {field: tds_linkedin_ga_view.total_pdp_views}
         column: total_revenue {field: tds_linkedin_ga_view.total_revenue}

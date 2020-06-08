@@ -16,7 +16,8 @@ view: tds_sem_ga_view {
     group_label: "Client Dimensions"
     sql:
       CASE
-        WHEN ${day_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY 18/19'
+        WHEN ${day_date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY19'
+        WHEN ${day_date} BETWEEN '2020-01-01' AND '2020-12-31' THEN 'FY20'
         ELSE 'Uncategorized'
         END
         ;;
@@ -25,7 +26,7 @@ view: tds_sem_ga_view {
   dimension: publisher {
     group_label: "AdWords Dimensions"
     type: string
-    sql: 'SEM' ;;
+    sql: 'Google Search' ;;
   }
 
 
@@ -50,6 +51,28 @@ view: tds_sem_ga_view {
         when ${campaign} = 'MC_TDSC SEM Trademark'  then 'Trademark Search'
       else  'Uncategorized'
       end;;
+  }
+
+  dimension: tds_audience {
+#     hidden: yes
+    type: string
+    label: "Audience"
+    group_label: "Client Dimensions"
+    sql:'N/A'
+        ;;
+  }
+
+  dimension: tds_layer {
+#     hidden: yes
+    type: string
+    label: "Campaign Layer"
+    group_label: "Client Dimensions"
+    sql:
+      case
+        when ${campaign} ilike '%%' then 'Conversion'
+        ELSE 'Uncategorized'
+        end
+        ;;
   }
 
 #### Dimensions ####
