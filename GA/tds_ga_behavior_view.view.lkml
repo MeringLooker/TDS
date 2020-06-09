@@ -10,6 +10,51 @@ view: tds_ga_behavior_view {
     sql: ${TABLE}.behavior_join_id ;;
   }
 
+  ## Dimensions joined from Ads Lookup File ##
+
+  dimension: ad_name {
+    type: string
+    group_label: "Paid Traffic Info"
+    sql: ${tds_ga_ads_lookup.ad_name};;
+  }
+
+  dimension: creative_name {
+    type: string
+    group_label: "Paid Traffic Info"
+    sql: ${tds_ga_ads_lookup.creative_name};;
+  }
+
+  dimension: publisher {
+    type: string
+    group_label: "Paid Traffic Info"
+    sql: ${tds_ga_ads_lookup.publisher};;
+  }
+
+  ## Dimensions Native to this Table ##
+
+  dimension: traffic_type {
+    type: string
+    hidden: no
+    group_label: "Google Analytics Dimensions"
+    description: "This is determined by the medium of traffic. Includes campaign, cpc, ppc, and email traffic."
+    sql:
+      case
+        when ${sourcemedium} ilike '%campaign%' then 'Paid'
+        when ${sourcemedium} ilike '%cpc%' then 'Paid'
+        when ${sourcemedium} ilike '%ppc%' then 'Paid'
+        when ${sourcemedium} ilike '%email%' then 'Paid'
+        else 'Not Paid'
+        end
+        ;;
+  }
+
+  dimension: is_paid_traffic {
+    type: yesno
+    group_label: "Paid Traffic Info"
+    description: "This is determined by the medium of traffic. Includes campaign, cpc, ppc, and email traffic."
+    sql: ${traffic_type} = 'Paid' ;;
+  }
+
   ## Dimensions Native to this Table ##
 
   dimension: acq_join_id {
@@ -20,15 +65,10 @@ view: tds_ga_behavior_view {
 
   dimension: adwordsadgroupid {
     type: string
+    hidden: yes
     label: "AdWords Ad Group ID"
     group_label: "zz - Data Join IDs"
     sql: ${TABLE}.adwordsadgroupid ;;
-  }
-
-  dimension: bounces {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.bounces ;;
   }
 
   dimension_group: date {
@@ -66,10 +106,23 @@ view: tds_ga_behavior_view {
     sql: ${TABLE}.exits ;;
   }
 
+  dimension: ga_ads_lookup_id {
+    type: string
+    hidden: yes
+    group_label: "zz - Data Join IDs"
+    sql: ${TABLE}.ga_ads_lookup_id ;;
+  }
+
   dimension: keyword {
     type: string
-    group_label: "zz - Data Join IDs"
+    group_label: "Google Analytics Dimensions"
     sql: ${TABLE}.keyword ;;
+  }
+
+  dimension: medium {
+    type: string
+    group_label: "Google Analytics Dimensions"
+    sql: ${TABLE}.medium ;;
   }
 
   dimension: pagetitle {
@@ -91,6 +144,12 @@ view: tds_ga_behavior_view {
     map_layer_name: us_states
     group_label: "Google Analytics Dimensions"
     sql: ${TABLE}.region ;;
+  }
+
+  dimension: source {
+    type: string
+    group_label: "Google Analytics Dimensions"
+    sql: ${TABLE}.source ;;
   }
 
   dimension: sourcemedium {
@@ -144,13 +203,6 @@ view: tds_ga_behavior_view {
     type: number
     sql: 1.0*${total_exits}/nullif(${total_pageviews}, 0);;
     value_format_name: percent_0
-  }
-
-  measure: total_bounces {
-    type: sum
-    group_label: "Page Metrics"
-    sql: ${bounces} ;;
-    label: "Bounces"
   }
 
   measure: total_entrances {

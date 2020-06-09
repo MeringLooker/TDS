@@ -8,7 +8,21 @@ view: tds_gdn_ga_view {
     sql: ${TABLE}.ga_join_id ;;
   }
 
+  ## Field Sets ##
+
+  set: ga_gdn_info {
+    fields: [
+      publisher,
+      tds_placement,
+      tds_campaign,
+      tds_layer,
+      ad_group,
+      campaign,
+    ]
+  }
+
 ###### Dimensions added to this table via LookML #######
+
   dimension: fiscal_year {
     label: "Fiscal"
     type: string

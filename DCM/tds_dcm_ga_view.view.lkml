@@ -8,6 +8,20 @@ view: tds_dcm_ga_view {
     sql: ${TABLE}.ga_join_id ;;
   }
 
+  ## Field Sets ##
+
+  set: ga_dcm_info {
+    fields: [
+      placement,
+      creative,
+      ad,
+      site_dcm,
+      tds_placement,
+      tds_creative,
+      tds_layer
+    ]
+  }
+
   ##### Dimensions added to this table via LookML ######
   dimension: fiscal_year {
     label: "Fiscal"
@@ -23,7 +37,7 @@ view: tds_dcm_ga_view {
   }
 
   dimension: tds_placement {
-    hidden: yes
+    hidden: no
     type: string
     group_label: "Client Dimensions"
     label: "Placement Name"
@@ -50,7 +64,7 @@ view: tds_dcm_ga_view {
     }
 
   dimension: tds_creative {
-    hidden: yes
+    hidden: no
     type: string
     group_label: "Client Dimensions"
     label: "Creative Name"
@@ -68,7 +82,7 @@ view: tds_dcm_ga_view {
   }
 
   dimension: tds_layer {
-    hidden: yes
+    hidden: no
     type: string
     label: "Campaign Layer"
     group_label: "Client Dimensions"

@@ -10,7 +10,50 @@ view: tds_ga_transactions_view {
     sql: ${TABLE}.transaction_join_id ;;
   }
 
+  ## Dimensions joined from Ads Lookup File ##
+
+  dimension: ad_name {
+    type: string
+    group_label: "Paid Traffic Info"
+    sql: ${tds_ga_ads_lookup.ad_name};;
+  }
+
+  dimension: creative_name {
+    type: string
+    group_label: "Paid Traffic Info"
+    sql: ${tds_ga_ads_lookup.creative_name};;
+  }
+
+  dimension: publisher {
+    type: string
+    group_label: "Paid Traffic Info"
+    sql: ${tds_ga_ads_lookup.publisher};;
+  }
+
   ## Dimensions Native to this Table ##
+
+  dimension: traffic_type {
+    type: string
+    hidden: no
+    group_label: "Google Analytics Dimensions"
+    description: "This is determined by the medium of traffic. Includes campaign, cpc, ppc, and email traffic."
+    sql:
+      case
+        when ${sourcemedium} ilike '%campaign%' then 'Paid'
+        when ${sourcemedium} ilike '%cpc%' then 'Paid'
+        when ${sourcemedium} ilike '%ppc%' then 'Paid'
+        when ${sourcemedium} ilike '%email%' then 'Paid'
+        else 'Not Paid'
+        end
+        ;;
+  }
+
+  dimension: is_paid_traffic {
+    type: yesno
+    group_label: "Paid Traffic Info"
+    description: "This is determined by the medium of traffic. Includes campaign, cpc, ppc, and email traffic."
+    sql: ${traffic_type} = 'Paid' ;;
+  }
 
   dimension: acq_join_id {
     type: string
@@ -20,6 +63,7 @@ view: tds_ga_transactions_view {
 
   dimension: adwordsadgroupid {
     type: string
+    hidden: yes
     label: "AdWords Ad Group ID"
     group_label: "zz - Data Join IDs"
     sql: ${TABLE}.adwordsadgroupid ;;
@@ -54,16 +98,29 @@ view: tds_ga_transactions_view {
     sql: ${TABLE}.ecommerce_join_id ;;
   }
 
-  dimension: itemquantity {
+  dimension: item_quantity {
     type: number
     hidden: yes
-    sql: ${TABLE}.itemquantity ;;
+    sql: ${TABLE}.item_quantity ;;
+  }
+
+  dimension: ga_ads_lookup_id {
+    type: string
+    hidden: yes
+    group_label: "zz - Data Join IDs"
+    sql: ${TABLE}.ga_ads_lookup_id ;;
   }
 
   dimension: keyword {
     type: string
-    group_label: "zz - Data Join IDs"
+    group_label: "Google Analytics Dimensions"
     sql: ${TABLE}.keyword ;;
+  }
+
+  dimension: medium {
+    type: string
+    group_label: "Google Analytics Dimensions"
+    sql: ${TABLE}.medium ;;
   }
 
   dimension: region {
@@ -78,6 +135,12 @@ view: tds_ga_transactions_view {
     type: number
     hidden: yes
     sql: ${TABLE}.shipping_cost ;;
+  }
+
+  dimension: source {
+    type: string
+    group_label: "Google Analytics Dimensions"
+    sql: ${TABLE}.source ;;
   }
 
   dimension: sourcemedium {
@@ -116,7 +179,7 @@ view: tds_ga_transactions_view {
   measure: total_item_quantity {
     type: sum
     group_label: "Transaction Metrics"
-    sql: ${itemquantity} ;;
+    sql: ${item_quantity} ;;
     label: "Quantity"
   }
 

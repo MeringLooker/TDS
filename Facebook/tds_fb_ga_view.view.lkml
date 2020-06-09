@@ -10,6 +10,19 @@ view: tds_fb_ga_view {
     type:  string
   }
 
+  ## Field Sets ##
+
+  set: ga_fb_info {
+    fields: [
+      ad_name,
+      adset_name,
+      campaign_name,
+      tds_layer,
+      tds_audience,
+      tds_ad_type
+    ]
+  }
+
 ###### Dimensions added to this table via LookML #######
   dimension: fiscal_year {
     label: "Fiscal"
@@ -26,7 +39,7 @@ view: tds_fb_ga_view {
 
 
   dimension: tds_layer {
-    hidden: yes
+    hidden: no
     type: string
     label: "Campaign Layer"
     group_label: "Client Dimensions"
@@ -63,7 +76,7 @@ view: tds_fb_ga_view {
   }
 
   dimension: tds_audience {
-    hidden: yes
+    hidden: no
     type: string
     label: "Audience"
     group_label: "Client Dimensions"
@@ -79,7 +92,7 @@ view: tds_fb_ga_view {
   }
 
   dimension: tds_ad_type {
-    hidden: yes
+    hidden: no
     type: string
     label: "Ad Type"
     group_label: "Client Dimensions"

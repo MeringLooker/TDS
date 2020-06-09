@@ -28,10 +28,16 @@ view: tds_ga_ecommerce_view {
     sql: ${TABLE}.date ;;
   }
 
-  dimension: itemquantity {
+  dimension: item_quantity {
     type: number
     hidden: yes
-    sql: ${TABLE}.itemquantity ;;
+    sql: ${TABLE}.item_quantity ;;
+  }
+
+  dimension: item_revenue {
+    type: number
+    hidden: yes
+    sql: ${TABLE}item_revenue ;;
   }
 
   dimension: ecommerce_join_id {
@@ -45,12 +51,6 @@ view: tds_ga_ecommerce_view {
     label: "Product Name"
     group_label: "Google Analytics Dimensions"
     sql: ${TABLE}.productname ;;
-  }
-
-  dimension: item_revenue {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.transaction_revenue ;;
   }
 
   dimension: transactionid {
@@ -76,7 +76,7 @@ view: tds_ga_ecommerce_view {
   measure: total_item_quantity {
     type: sum
     group_label: "Product Metrics"
-    sql: ${itemquantity} ;;
+    sql: ${item_quantity} ;;
     label: "Quantity"
   }
 
