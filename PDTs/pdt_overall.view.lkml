@@ -192,7 +192,7 @@ view: pdt_overall {
     group_label: "Campaign Reporting"
     sql_distinct_key: ${primary_key} ;;
     sql: ${cost};;
-    value_format_name: usd
+    value_format_name: usd_0
   }
 
   measure: cost_per_thousand {
@@ -329,7 +329,7 @@ view: pdt_overall {
     label: "Average Order Value"
     type:  number
     sql: ${total_revenue}/nullif(${total_transactions}, 0) ;;
-    value_format_name: usd
+    value_format_name: usd_0
   }
 
   measure: cost_per_account_create {
@@ -337,6 +337,6 @@ view: pdt_overall {
     label: "Cost per Account Create"
     type: number
     sql: ${total_spend}/nullif(${total_account_creates}, 0) ;;
-    value_format_name: usd
+    value_format_name: usd_0
   }
 }
