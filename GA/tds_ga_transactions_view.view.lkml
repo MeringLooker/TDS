@@ -222,6 +222,4 @@ view: tds_ga_transactions_view {
     group_label: "Transaction Metrics"
     label: "Shipping Cost"
   }
-
-
 }

@@ -90,7 +90,7 @@ view: tds_ga_ecommerce_view {
 
   measure: avg_selling_price {
     type: number
-    value_format_name: decimal_2
+    value_format_name: usd
     sql: ${total_item_revenue}/nullif(${total_item_quantity}, 0) ;;
     group_label: "Product Metrics"
     label: "Avg. Price"
