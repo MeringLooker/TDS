@@ -58,7 +58,6 @@ view: pdt_overall {
       CASE
         WHEN ${date} BETWEEN '2018-11-01' AND '2019-12-31' THEN 'FY19'
         WHEN ${date} BETWEEN '2020-01-01' AND '2020-12-31' THEN 'FY20'
-      ELSE 'Uncategorized'
       END
     ;;
   }
@@ -277,7 +276,7 @@ view: pdt_overall {
 
   measure: total_account_creates {
     type: sum_distinct
-    label: "Checkouts"
+    label: "Account Creates"
     group_label: "Google Analytics Goals"
     sql_distinct_key: ${primary_key} ;;
     sql: ${account_creates} ;;
