@@ -199,6 +199,14 @@ view: tds_ga_transactions_view {
     label: "Avg. Order Value"
   }
 
+  measure: avg_order_quantity {
+    type: number
+    value_format_name: decimal_1
+    sql: ${total_item_quantity}/nullif(${count}, 0) ;;
+    group_label: "Transaction Metrics"
+    label: "Avg. Order Quantity"
+  }
+
   measure: total_transaction_tax {
     type: sum
     value_format_name: usd

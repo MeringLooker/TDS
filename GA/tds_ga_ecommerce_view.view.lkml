@@ -37,7 +37,7 @@ view: tds_ga_ecommerce_view {
   dimension: item_revenue {
     type: number
     hidden: yes
-    sql: ${TABLE}item_revenue ;;
+    sql: ${TABLE}.item_revenue ;;
   }
 
   dimension: ecommerce_join_id {
