@@ -74,13 +74,20 @@ view: tds_ga_transactions_view {
     group_label: "Date Periods"
     type: time
     timeframes: [
-      raw,
-      time,
       date,
       week,
       month,
       quarter,
-      year
+      year,
+      day_of_week,
+      day_of_month,
+      month_name,
+      month_num,
+      week_of_year,
+      day_of_year,
+      fiscal_year,
+      fiscal_quarter,
+      fiscal_quarter_of_year
     ]
     sql: ${TABLE}.date ;;
   }
@@ -177,14 +184,16 @@ view: tds_ga_transactions_view {
   }
 
   measure: total_item_quantity {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${transaction_join_id} ;;
     group_label: "Transaction Metrics"
     sql: ${item_quantity} ;;
     label: "Quantity"
   }
 
   measure: total_transaction_revenue {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${transaction_join_id} ;;
     sql: ${transaction_revenue} ;;
     group_label: "Transaction Metrics"
     label: "Transaction Revenue"
@@ -208,7 +217,8 @@ view: tds_ga_transactions_view {
   }
 
   measure: total_transaction_tax {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${transaction_join_id} ;;
     value_format_name: usd
     sql: ${transaction_tax} ;;
     group_label: "Transaction Metrics"
@@ -216,7 +226,8 @@ view: tds_ga_transactions_view {
   }
 
   measure: total_shipping_cost {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${transaction_join_id} ;;
     value_format_name: usd
     sql: ${shipping_cost} ;;
     group_label: "Transaction Metrics"

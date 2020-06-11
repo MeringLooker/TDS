@@ -76,13 +76,19 @@ view: tds_ga_behavior_view {
     group_label: "Date Periods"
     type: time
     timeframes: [
-      raw,
-      time,
       date,
       week,
       month,
       quarter,
-      year
+      year,
+      day_of_week,
+      day_of_month,
+      month_name,
+      month_num,
+      week_of_year,
+      day_of_year,
+      fiscal_year,
+      fiscal_quarter
     ]
     sql: ${TABLE}.date ;;
   }
@@ -169,14 +175,16 @@ view: tds_ga_behavior_view {
 
 
   measure: total_pageviews {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${behavior_join_id} ;;
     group_label: "Page Metrics"
     sql: ${pageviews} ;;
     label: "Pageviews"
   }
 
   measure: total_time_on_page {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${behavior_join_id} ;;
     hidden: yes
     sql: ${timeonpage} ;;
     group_label: "Page Metrics"
@@ -191,7 +199,8 @@ view: tds_ga_behavior_view {
   }
 
   measure: total_exits {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${behavior_join_id} ;;
     group_label: "Page Metrics"
     sql: ${exits} ;;
     label: "Exits"
@@ -206,7 +215,8 @@ view: tds_ga_behavior_view {
   }
 
   measure: total_entrances {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${behavior_join_id} ;;
     group_label: "Page Metrics"
     sql: ${entrances} ;;
     label: "Entrances"

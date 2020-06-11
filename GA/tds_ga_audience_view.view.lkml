@@ -92,13 +92,19 @@ view: tds_ga_audience_view {
     group_label: "Date Periods"
     type: time
     timeframes: [
-      raw,
-      time,
       date,
       week,
       month,
       quarter,
-      year
+      year,
+      day_of_week,
+      day_of_month,
+      month_name,
+      month_num,
+      week_of_year,
+      day_of_year,
+      fiscal_year,
+      fiscal_quarter
     ]
     sql: ${TABLE}.date ;;
   }
@@ -202,14 +208,16 @@ view: tds_ga_audience_view {
   ### All Measures go Below ###
 
   measure: total_sessions {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${audience_join_id} ;;
     sql: ${sessions} ;;
     label: "Sessions"
     group_label: "Traffic Metrics"
   }
 
   measure: total_session_duration {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${audience_join_id} ;;
     hidden: yes
     sql: ${sessionduration} ;;
     group_label: "Traffic Metrics"
@@ -224,14 +232,16 @@ view: tds_ga_audience_view {
   }
 
   measure: total_users {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${audience_join_id} ;;
     sql: ${users} ;;
     label: "Users"
     group_label: "Traffic Metrics"
   }
 
   measure: total_new_users {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${audience_join_id} ;;
     sql: ${newusers} ;;
     label: "New Users"
     group_label: "Traffic Metrics"
@@ -246,7 +256,8 @@ view: tds_ga_audience_view {
   }
 
   measure: total_pageviews {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${audience_join_id} ;;
     group_label: "Traffic Metrics"
     sql: ${pageviews} ;;
     label: "Pageviews"
@@ -261,7 +272,8 @@ view: tds_ga_audience_view {
   }
 
   measure: total_bounces {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${audience_join_id} ;;
     group_label: "Traffic Metrics"
     sql: ${bounces} ;;
     label: "Bounces"
@@ -278,28 +290,32 @@ view: tds_ga_audience_view {
   ### Google Analytics  Goals ###
 
   measure: total_subscription_confirmations {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${audience_join_id} ;;
     sql: ${subscription_confirmation} ;;
     label: "Subscription Confirmations"
     group_label: "Website Goals"
   }
 
   measure: total_pdp_views {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${audience_join_id} ;;
     sql: ${pdp_view} ;;
     label: "PDP Views"
     group_label: "Website Goals"
   }
 
   measure: total_checkout_completes {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${audience_join_id} ;;
     sql: ${checkout_complete} ;;
     label: "Checkout Completes"
     group_label: "Website Goals"
   }
 
   measure: total_account_creates {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: ${audience_join_id} ;;
     sql: ${account_create} ;;
     label: "Account Creates"
     group_label: "Website Goals"

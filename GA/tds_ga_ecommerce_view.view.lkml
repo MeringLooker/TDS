@@ -17,13 +17,19 @@ view: tds_ga_ecommerce_view {
     group_label: "Date Periods"
     type: time
     timeframes: [
-      raw,
-      time,
       date,
       week,
       month,
       quarter,
-      year
+      year,
+      day_of_week,
+      day_of_month,
+      month_name,
+      month_num,
+      week_of_year,
+      day_of_year,
+      fiscal_year,
+      fiscal_quarter
     ]
     sql: ${TABLE}.date ;;
   }
@@ -74,7 +80,8 @@ view: tds_ga_ecommerce_view {
   }
 
   measure: total_item_quantity {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: product_join_id ;;
     group_label: "Product Metrics"
     sql: ${item_quantity} ;;
     label: "Quantity"
@@ -97,7 +104,8 @@ view: tds_ga_ecommerce_view {
   }
 
   measure: total_item_revenue {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: product_join_id ;;
     sql: ${item_revenue} ;;
     group_label: "Product Metrics"
     label: "Product Revenue"
@@ -105,7 +113,8 @@ view: tds_ga_ecommerce_view {
   }
 
   measure: total_unique_purchases {
-    type: sum
+    type: sum_distinct
+    sql_distinct_key: product_join_id ;;
     sql: ${uniquepurchases} ;;
     group_label: "Product Metrics"
     label: "Unique Purchases"
