@@ -4,5 +4,5 @@ include: "/Facebook/**/*.view"
 
 explore: tds_fb_extended {
   extends: [tds_fb]
-  hidden: no
+ hidden: yes
 }

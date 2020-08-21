@@ -4,6 +4,6 @@ include: "/GA/*.view"
 
 
 explore: tds_ga_extended {
-  hidden: no
+  hidden: yes
   extends: [tds_ga]
 }
